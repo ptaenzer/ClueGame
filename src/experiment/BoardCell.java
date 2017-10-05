@@ -11,4 +11,14 @@ public class BoardCell {
 		this.column = column;
 	}
 
+	public int getRow() {
+		// TODO Auto-generated method stub
+		return row;
+	}
+
+	public int getColumn() {
+		// TODO Auto-generated method stub
+		return column;
+	}
+
 }
