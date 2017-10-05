@@ -14,7 +14,7 @@ public class IntBoard {
 	}
 
 	public void calcAdjacencies() {
-
+		
 	}
 
 	public void calcTargets(BoardCell startCell, int pathLength) {
@@ -36,8 +36,8 @@ public class IntBoard {
 	}
 
 	public BoardCell getCell(int i, int j) {
-		// TODO Auto-generated method stub
-		return null;
+		BoardCell b = new BoardCell(i, j);
+		return b;
 	}
 
 }
