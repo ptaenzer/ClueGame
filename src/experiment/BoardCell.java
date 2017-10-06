@@ -4,7 +4,7 @@ public class BoardCell {
 	
 	private int row;
 	private int column;
-	
+
 	public BoardCell(int row, int column) {
 		super();
 		this.row = row;
@@ -19,6 +19,14 @@ public class BoardCell {
 	public int getColumn() {
 		// TODO Auto-generated method stub
 		return column;
+	}
+	
+	public void setRow(int row) {
+		this.row = row;
+	}
+
+	public void setColumn(int column) {
+		this.column = column;
 	}
 
 }

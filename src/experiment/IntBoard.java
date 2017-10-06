@@ -2,6 +2,7 @@ package experiment;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,13 +17,15 @@ public class IntBoard {
 
 	public IntBoard(Map<BoardCell, Set<BoardCell>> board) {
 		super();
+		createBoard();
 		this.board = board;
 	}
 
-	public void CreateBoard() {
+	public void createBoard() {
 		grid = new BoardCell[4][4];
 		for(int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
+				grid[i][j] = new BoardCell(i, j);
 				board.put(grid[i][j], b);
 			}
 		}
@@ -47,8 +50,8 @@ public class IntBoard {
 			BoardCell left = grid[row][column - 1];
 			adj.add(left);
 		}
-		if(row > 0) {
-			BoardCell right = grid[row - 1][column];
+		if(column < 3) {
+			BoardCell right = grid[row][column + 1];
 			adj.add(right);
 		}
 		
@@ -60,26 +63,33 @@ public class IntBoard {
 	}
 
 	private void findAllTargets(BoardCell thisCell, int numSteps) {
-		calcAdjacencies(thisCell);
-		for(int i = 0; i < adj.size(); i++) {
-			if(visited.contains(adj)){
-				
+		if(numSteps == 0) {
+			targets.add(thisCell);
+		}
+		else {
+			calcAdjacencies(thisCell);
+			Iterator<BoardCell> a = adj.iterator();
+			while(a.hasNext()) {
+				BoardCell n = a.next();
+				if(!visited.contains(n)){
+					visited.add(n);
+					findAllTargets(n, numSteps-1);
+				}
 			}
 		}
 	}
 
 	public Set<BoardCell> getTargets(){
-
 		return targets;
 	}
 
 	public Set<BoardCell> getAdjList(BoardCell cell){
-
+		calcAdjacencies(cell);
 		return adj;
 	}
 
 	public BoardCell getCell(int i, int j) {
-		BoardCell b = new BoardCell(i, j);
+		BoardCell b = grid[i][j];
 		return b;
 	}
 
