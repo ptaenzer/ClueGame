@@ -58,21 +58,21 @@ public class IntBoard {
 	}
 
 	public void calcTargets(BoardCell startCell, int pathLength) {
-		visited.add(startCell);
 		findAllTargets(startCell, pathLength);
 	}
 
 	private void findAllTargets(BoardCell thisCell, int numSteps) {
+		visited.add(thisCell);
 		if(numSteps == 0) {
 			targets.add(thisCell);
+			visited.clear();
 		}
 		else {
-			calcAdjacencies(thisCell);
-			Iterator<BoardCell> a = adj.iterator();
+			Set<BoardCell> currentSet = getAdjList(thisCell); 
+			Iterator<BoardCell> a = currentSet.iterator();
 			while(a.hasNext()) {
 				BoardCell n = a.next();
 				if(!visited.contains(n)){
-					visited.add(n);
 					findAllTargets(n, numSteps-1);
 				}
 			}
