@@ -1,3 +1,7 @@
+/*
+ * Authors: Peter Taenzer and Jacob Gay
+ * This is the test class that contains test methods for our current methods in the board class.
+ */
 package tests;
 
 import static org.junit.Assert.*;

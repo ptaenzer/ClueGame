@@ -1,3 +1,7 @@
+/*
+ * Authors: Peter Taenzer and Jacob Gay
+ * This is the board class that contains most of the actual code and methods for the game.
+ */
 package experiment;
 
 import java.util.HashMap;

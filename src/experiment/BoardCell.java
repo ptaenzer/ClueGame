@@ -1,3 +1,7 @@
+/*
+ * Authors: Peter Taenzer and Jacob Gay
+ * This is the cell class that contains the code and methods for the cells on the board.
+ */
 package experiment;
 
 public class BoardCell {
