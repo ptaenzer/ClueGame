@@ -1,0 +1,35 @@
+commit ba3435ec583b05ee6b0025657afd71f191cebfb1
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Fri Oct 6 23:11:08 2017 -0600
+
+    Final Commit for week of October 6th. Could not figure out how to work around ConcurrentModificationException for get target calculations for testing 2-6 moves.
+
+commit b4a4f2eab2169d6be7d81b7be6c854b1d4f65b1d
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Fri Oct 6 17:35:59 2017 -0600
+
+    Got all adj tests working, and 1 step target testing
+
+commit e0644827784fa514e5921bbab00dbf54dbca5c02
+Author: Jacob Gay <jacobbgay@mymail.mines.edu>
+Date:   Thu Oct 5 15:26:46 2017 -0600
+
+    Started work on Part 2, Still working on calcTargets.
+
+commit a8d06bfe39d2a498a0a765516721ee0fc8e09520
+Author: Jacob Gay <jacobbgay@mymail.mines.edu>
+Date:   Thu Oct 5 14:46:51 2017 -0600
+
+    Part 1 done, all tests fail
+
+commit 150cdabf877c35aaf4ba9d3d4f927d243b41c52f
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Wed Oct 4 23:53:46 2017 -0600
+
+    Created classes and methods
+
+commit 63fa8f769da6b8bc6e21aba3238f1e66e9aa9500
+Author: ptaenzer <ptaenzer@mymail.mines.edu>
+Date:   Wed Oct 4 22:57:34 2017 -0600
+
+    Initial commit
