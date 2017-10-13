@@ -1,0 +1,12 @@
+First Letter
+W, Walkway, other
+C, Closet, other
+G, Gazibo, Card
+E, Entertainment, Card
+F, Family, Card
+O, Obervitory, Card
+M, Movie, Card
+K, Kitchen, Card
+B, Billiard, Card
+L, Library, Card
+D, Dungeon, Card

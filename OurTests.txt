@@ -1,0 +1,6 @@
+We tested our rooms by randomly choosing the closet, the gazibo, the billiards, the dungeon, and the walkway.
+We made constants equal to 26 to measure our board.
+We chose the dungeon's right door, the kitchen's down door, the billiards' left door, the gazibo's corner door,
+the family's up door, and a random office space to ensure that all the doors have their directions.
+We tested the amount of doors we have.
+Then we tested 8 of the rooms in different spots to ensure they all had the correct initials.
