@@ -1,4 +1,3 @@
-First Letter
 W, Walkway, other
 C, Closet, other
 G, Gazibo, Card

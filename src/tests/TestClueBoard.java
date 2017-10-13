@@ -26,7 +26,7 @@ public class TestClueBoard {
 			
 			board = Board.getInstance();
 			// set up file names
-			board.setConfigFiles("Clue Layout.xlsx", "ClueLayoutLegend.txt");		
+			board.setConfigFiles("ClueLayout.csv", "ClueLayoutLegend.txt");		
 			board.initialize();
 		}
 		@Test
