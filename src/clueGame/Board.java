@@ -105,7 +105,8 @@ public class Board {
 		in.close();
 		for (int i = 0; i < MAX_BOARD_SIZE; i++) {
 			for (int k = 0; k < MAX_BOARD_SIZE; k++) {
-				adjMtx.put(board[i][k], getAdjList(i,k));
+				adj = getAdjList(i,k);
+				adjMtx.put(board[i][k], adj);
 			}
 		}
 	}
@@ -168,15 +169,17 @@ public class Board {
 	}
 
 	private void findAllTargets(BoardCell thisCell, int numSteps) {
-		for(BoardCell n : adjMtx.get(thisCell)) {
-			if(!visited.contains(n)){
-				visited.add(n);
-				if(numSteps == 1) {
-					targets.add(n);
-				}
-				else {
-					findAllTargets(n, numSteps-1);
-				}
+		visited.add(thisCell);
+		for(BoardCell n : thisCell.getAdj()) {
+			if(visited.contains(n)){
+				continue;
+			}
+			visited.add(n);
+			if(numSteps == 1 || n.isDoorway()) {
+				targets.add(n);
+			}
+			else {
+				findAllTargets(n, numSteps-1);
 			}
 			visited.remove(n);
 		}
@@ -212,7 +215,6 @@ public class Board {
 		BoardCell cell = board[i][j];
 		visited.clear();
 		targets.clear();
-		visited.add(cell);
 		findAllTargets(cell, k);
 	}
 

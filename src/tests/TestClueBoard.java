@@ -175,6 +175,9 @@ public class TestClueBoard {
 		assertTrue(testList.contains(board.getCellAt(0, 16)));
 		assertEquals(2, testList.size());
 
+		testList = board.getAdjList(14, 12);
+		assertEquals(3, testList.size());
+		
 		// Test on left edge of board
 		testList = board.getAdjList(17, 0);
 		assertTrue(testList.contains(board.getCellAt(16, 0)));
