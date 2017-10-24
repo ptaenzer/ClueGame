@@ -56,23 +56,23 @@ public class TestClueBoard {
 		BoardCell room = board.getCellAt(23, 23);
 		assertTrue(room.isDoorway());
 		assertEquals(DoorDirection.RIGHT, room.getDoorDirection());
-		room = board.getCellAt(4, 24);
+		room = board.getCellAt(24, 4);
 		assertTrue(room.isDoorway());
 		assertEquals(DoorDirection.DOWN, room.getDoorDirection());
-		room = board.getCellAt(18, 20);
+		room = board.getCellAt(20, 18);
 		assertTrue(room.isDoorway());
 		assertEquals(DoorDirection.LEFT, room.getDoorDirection());
-		room = board.getCellAt(12, 15);
+		room = board.getCellAt(15, 12);
 		assertTrue(room.isDoorway());
 		assertEquals(DoorDirection.UP, room.getDoorDirection());
-		room = board.getCellAt(5, 4);
+		room = board.getCellAt(4, 5);
 		assertTrue(room.isDoorway());
 		assertEquals(DoorDirection.CORNER, room.getDoorDirection());
 		// Test that room pieces that aren't doors know it
-		room = board.getCellAt(11, 3);
+		room = board.getCellAt(3, 11);
 		assertFalse(room.isDoorway());	
 		// Test that walkways are not doors
-		BoardCell cell = board.getCellAt(0, 6);
+		BoardCell cell = board.getCellAt(6, 0);
 		assertFalse(cell.isDoorway());		
 	}
 
@@ -95,17 +95,17 @@ public class TestClueBoard {
 	public void testRoomInitials() {
 		// Test first cell in room
 		assertEquals('G', board.getCellAt(0, 0).getInitial());
-		assertEquals('E', board.getCellAt(19, 0).getInitial());
-		assertEquals('B', board.getCellAt(19, 13).getInitial());
+		assertEquals('E', board.getCellAt(0, 19).getInitial());
+		assertEquals('B', board.getCellAt(13, 19).getInitial());
 		// Test last cell in room
-		assertEquals('O', board.getCellAt(15, 6).getInitial());
-		assertEquals('K', board.getCellAt(3, 25).getInitial());
+		assertEquals('O', board.getCellAt(6, 15).getInitial());
+		assertEquals('K', board.getCellAt(25, 3).getInitial());
 		// Test a walkway
 		assertEquals('W', board.getCellAt(8, 8).getInitial());
 		// Test a room space
-		assertEquals('F', board.getCellAt(10, 16).getInitial());
+		assertEquals('F', board.getCellAt(16, 10).getInitial());
 		// Test the closet
-		assertEquals('C', board.getCellAt(12,11).getInitial());
+		assertEquals('C', board.getCellAt(11,12).getInitial());
 	}
 
 	// Ensure that player does not move around within room
@@ -113,7 +113,7 @@ public class TestClueBoard {
 	@Test
 	public void testAdjacenciesInsideRooms()
 	{
-		Set<BoardCell> testList = board.getAdjList(21, 17);
+		Set<BoardCell> testList = board.getAdjList(17, 21);
 		assertEquals(0, testList.size());
 	}
 

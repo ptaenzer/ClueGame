@@ -4,6 +4,9 @@
  */
 package clueGame;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class BoardCell {
 	
 	private int row;
@@ -11,6 +14,7 @@ public class BoardCell {
 	private char initial;
 	private DoorDirection direction;
 	boolean isDoor;
+	private Set<BoardCell> adj = new HashSet<BoardCell>();
 
 	public BoardCell(int row, int column, char initial) {
 		super();
@@ -18,6 +22,14 @@ public class BoardCell {
 		this.column = column;
 		this.initial = initial;
 		this.isDoor = false;
+	}
+	
+	public void setAdj(Set<BoardCell> cells) {
+		adj = cells;
+	}
+	
+	public Set<BoardCell> getAdj(){
+		return adj;
 	}
 
 	public int getRow() {

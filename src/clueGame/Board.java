@@ -18,7 +18,7 @@ public class Board {
 	private int numColumns;
 	public static final int MAX_BOARD_SIZE = 26;
 	private Map<Character, String> legend = new HashMap<Character, String>();
-	private Map<BoardCell, Set<BoardCell>> adjMtx;
+	private Map<BoardCell, Set<BoardCell>> adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
 	private String boardConfigFile;
 	private String roomConfigFile;
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
@@ -99,27 +99,87 @@ public class Board {
 				else {
 					board[j][i].setDoorDirection(DoorDirection.NONE);
 				}
-
 			}
 			j++;
 		}
 		in.close();
+		for (int i = 0; i < MAX_BOARD_SIZE; i++) {
+			for (int k = 0; k < MAX_BOARD_SIZE; k++) {
+				adjMtx.put(board[i][k], getAdjList(i,k));
+			}
+		}
 	}
 
 	public void calcAdjacencies(BoardCell currentCell) {
+		int row = currentCell.getRow();
+		int column = currentCell.getColumn();
 
+		adj.clear();
+
+		if(row > 0) {
+			if (currentCell.isDoorway()) {
+				if(currentCell.getDoorDirection() == DoorDirection.UP) {
+					BoardCell up = board[row - 1][column];
+					adj.add(up);
+				}
+			}
+			else if (board[row - 1][column].getInitial() == 'W' || board[row - 1][column].getDoorDirection() == DoorDirection.DOWN) {
+				BoardCell up = board[row - 1][column];
+				adj.add(up);
+			}
+		}
+		if(row < MAX_BOARD_SIZE -1 ) {
+			if (currentCell.isDoorway()) {
+				if(currentCell.getDoorDirection() == DoorDirection.DOWN) {
+					BoardCell down = board[row + 1][column];
+					adj.add(down);
+				}
+			}
+			else if (board[row + 1][column].getInitial() == 'W' || board[row + 1][column].getDoorDirection() == DoorDirection.UP) {
+				BoardCell down = board[row + 1][column];
+				adj.add(down);
+			}
+		}
+		if(column > 0) {
+			if (currentCell.isDoorway()) {
+				if(currentCell.getDoorDirection() == DoorDirection.LEFT) {
+					BoardCell left = board[row][column - 1];
+					adj.add(left);
+				}
+			}
+			else if (board[row][column - 1].getInitial() == 'W' || board[row][column - 1].getDoorDirection() == DoorDirection.RIGHT) {
+				BoardCell left = board[row][column - 1];
+				adj.add(left);
+			}
+		}
+		if(column < MAX_BOARD_SIZE-1) {
+			if (currentCell.isDoorway()) {
+				if(currentCell.getDoorDirection() == DoorDirection.RIGHT) {
+					BoardCell right = board[row][column + 1];
+					adj.add(right);
+				}
+			}
+			else if (board[row][column + 1].getInitial() == 'W' || board[row][column + 1].getDoorDirection() == DoorDirection.LEFT) {
+				BoardCell right = board[row][column + 1];
+				adj.add(right);
+			}
+		}
+		board[row][column].setAdj(adj);
 	}
 
 	private void findAllTargets(BoardCell thisCell, int numSteps) {
-
-	}
-
-	public Set<BoardCell> getTargets(){
-		return targets;
-	}
-
-	public Set<BoardCell> getAdjList(BoardCell cell){
-		return adj;
+		for(BoardCell n : adjMtx.get(thisCell)) {
+			if(!visited.contains(n)){
+				visited.add(n);
+				if(numSteps == 1) {
+					targets.add(n);
+				}
+				else {
+					findAllTargets(n, numSteps-1);
+				}
+			}
+			visited.remove(n);
+		}
 	}
 
 	public BoardCell getCellAt(int i, int j) {
@@ -144,14 +204,21 @@ public class Board {
 	}
 
 	public Set<BoardCell> getAdjList(int i, int j) {
-		// TODO Auto-generated method stub
-		BoardCell cell = board[i][j];
-		return getAdjList(cell);
+		calcAdjacencies(board[i][j]);
+		return board[i][j].getAdj();
 	}
 
 	public void calcTargets(int i, int j, int k) {
+		BoardCell cell = board[i][j];
+		visited.clear();
+		targets.clear();
+		visited.add(cell);
+		findAllTargets(cell, k);
+	}
+
+	public Set<BoardCell> getTargets() {
 		// TODO Auto-generated method stub
-		
+		return targets;
 	}
 
 }
