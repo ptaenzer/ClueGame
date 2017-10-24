@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.Spliterator;
 
 public class IntBoard {
 
@@ -34,14 +35,14 @@ public class IntBoard {
 			}
 		}
 	}
-	
+
 	public void calcAdjacencies(BoardCell currentCell) {
-		
+
 		int row = currentCell.getRow();
 		int column = currentCell.getColumn();
-		
+
 		adj.clear();
-		
+
 		if(row > 0) {
 			BoardCell up = grid[row - 1][column];
 			adj.add(up);
@@ -58,28 +59,29 @@ public class IntBoard {
 			BoardCell right = grid[row][column + 1];
 			adj.add(right);
 		}
-		
+
 	}
 
 	public void calcTargets(BoardCell startCell, int pathLength) {
+		visited.clear();
+		targets.clear();
+		visited.add(startCell);
 		findAllTargets(startCell, pathLength);
 	}
 
 	private void findAllTargets(BoardCell thisCell, int numSteps) {
-		visited.add(thisCell);
-		if(numSteps == 0) {
-			targets.add(thisCell);
-			visited.clear();
-		}
-		else {
-			Set<BoardCell> currentSet = getAdjList(thisCell); 
-			Iterator<BoardCell> a = currentSet.iterator();
-			while(a.hasNext()) {
-				BoardCell n = a.next();
-				if(!visited.contains(n)){
+		adj = getAdjList(thisCell);
+		for(BoardCell n : adj) {
+			if(!visited.contains(n)){
+				visited.add(n);
+				if(numSteps == 1) {
+					targets.add(n);
+				}
+				else {
 					findAllTargets(n, numSteps-1);
 				}
 			}
+			visited.remove(n);
 		}
 	}
 
