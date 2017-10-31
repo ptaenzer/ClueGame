@@ -189,7 +189,6 @@ public class Board {
 				adj.add(right);
 			}
 		}
-		board[row][column].setAdj(adj);
 	}
 
 	//recursive function to find all targets available numSteps away called by calcTargets
