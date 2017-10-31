@@ -121,30 +121,30 @@ public class Board {
 		//calculates adjacencies for all cells
 		for (int i = 0; i < MAX_BOARD_SIZE; i++) {
 			for (int k = 0; k < MAX_BOARD_SIZE; k++) {
-				adj = getAdjList(i,k);
-				adjMtx.put(board[i][k], adj);
+				adjMtx.put(board[i][k], calcAdjacencies(board[i][k]));
 			}
 		}
 	}
+	
+	//calcAdjacencies now returns a set, which is used to populate the map
+	//No longer clear adj, rather create new adjs every time for every board cell.
 
 	//calculates the adjacent cells that a piece can move to, based on the cell passed
-	public void calcAdjacencies(BoardCell currentCell) {
+	public Set<BoardCell> calcAdjacencies(BoardCell currentCell) {
 		int row = currentCell.getRow();
 		int column = currentCell.getColumn();
-
-		adj.clear();
-
+		Set<BoardCell> adjs = new HashSet<BoardCell>();
 		//checks cell above
 		if(row > 0) {
 			if (currentCell.isDoorway()) {
 				if(currentCell.getDoorDirection() == DoorDirection.UP) {
 					BoardCell up = board[row - 1][column];
-					adj.add(up);
+					adjs.add(up);
 				}
 			}
 			else if (board[row - 1][column].getInitial() == 'W' || board[row - 1][column].getDoorDirection() == DoorDirection.DOWN) {
 				BoardCell up = board[row - 1][column];
-				adj.add(up);
+				adjs.add(up);
 			}
 		}
 		
@@ -153,12 +153,12 @@ public class Board {
 			if (currentCell.isDoorway()) {
 				if(currentCell.getDoorDirection() == DoorDirection.DOWN) {
 					BoardCell down = board[row + 1][column];
-					adj.add(down);
+					adjs.add(down);
 				}
 			}
 			else if (board[row + 1][column].getInitial() == 'W' || board[row + 1][column].getDoorDirection() == DoorDirection.UP) {
 				BoardCell down = board[row + 1][column];
-				adj.add(down);
+				adjs.add(down);
 			}
 		}
 		
@@ -167,12 +167,12 @@ public class Board {
 			if (currentCell.isDoorway()) {
 				if(currentCell.getDoorDirection() == DoorDirection.LEFT) {
 					BoardCell left = board[row][column - 1];
-					adj.add(left);
+					adjs.add(left);
 				}
 			}
 			else if (board[row][column - 1].getInitial() == 'W' || board[row][column - 1].getDoorDirection() == DoorDirection.RIGHT) {
 				BoardCell left = board[row][column - 1];
-				adj.add(left);
+				adjs.add(left);
 			}
 		}
 		
@@ -181,14 +181,15 @@ public class Board {
 			if (currentCell.isDoorway()) {
 				if(currentCell.getDoorDirection() == DoorDirection.RIGHT) {
 					BoardCell right = board[row][column + 1];
-					adj.add(right);
+					adjs.add(right);
 				}
 			}
 			else if (board[row][column + 1].getInitial() == 'W' || board[row][column + 1].getDoorDirection() == DoorDirection.LEFT) {
 				BoardCell right = board[row][column + 1];
-				adj.add(right);
+				adjs.add(right);
 			}
 		}
+		return adjs;
 	}
 
 	//recursive function to find all targets available numSteps away called by calcTargets
