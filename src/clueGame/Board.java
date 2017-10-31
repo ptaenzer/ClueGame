@@ -2,10 +2,8 @@ package clueGame;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
@@ -14,8 +12,6 @@ import clueGame.BoardCell;
 
 public class Board {
 
-	private int numRows;
-	private int numColumns;
 	public static final int MAX_BOARD_SIZE = 26;
 	private Map<Character, String> legend = new HashMap<Character, String>();
 	private Map<BoardCell, Set<BoardCell>> adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
