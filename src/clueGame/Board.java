@@ -29,7 +29,6 @@ public class Board {
 	private String roomConfigFile;
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
-	private Set<BoardCell> adj = new HashSet<BoardCell>();
 	private BoardCell[][] board;
 	private static Board theInstance = new Board();
 
@@ -142,7 +141,7 @@ public class Board {
 					adjs.add(up);
 				}
 			}
-			else if (board[row - 1][column].getInitial() == 'W' || board[row - 1][column].getDoorDirection() == DoorDirection.DOWN) {
+			else if ((board[row - 1][column].getInitial() == 'W' && board[row - 1][column].getInitial() == board[row][column].getInitial()) || board[row - 1][column].getDoorDirection() == DoorDirection.DOWN) {
 				BoardCell up = board[row - 1][column];
 				adjs.add(up);
 			}
@@ -156,7 +155,7 @@ public class Board {
 					adjs.add(down);
 				}
 			}
-			else if (board[row + 1][column].getInitial() == 'W' || board[row + 1][column].getDoorDirection() == DoorDirection.UP) {
+			else if ((board[row + 1][column].getInitial() == 'W' && board[row + 1][column].getInitial() == board[row][column].getInitial())|| board[row + 1][column].getDoorDirection() == DoorDirection.UP) {
 				BoardCell down = board[row + 1][column];
 				adjs.add(down);
 			}
@@ -170,7 +169,7 @@ public class Board {
 					adjs.add(left);
 				}
 			}
-			else if (board[row][column - 1].getInitial() == 'W' || board[row][column - 1].getDoorDirection() == DoorDirection.RIGHT) {
+			else if ((board[row][column - 1].getInitial() == 'W' && board[row][column - 1].getInitial() == board[row][column].getInitial()) || board[row][column - 1].getDoorDirection() == DoorDirection.RIGHT) {
 				BoardCell left = board[row][column - 1];
 				adjs.add(left);
 			}
@@ -184,7 +183,7 @@ public class Board {
 					adjs.add(right);
 				}
 			}
-			else if (board[row][column + 1].getInitial() == 'W' || board[row][column + 1].getDoorDirection() == DoorDirection.LEFT) {
+			else if ((board[row][column + 1].getInitial() == 'W' && board[row][column + 1].getInitial() == board[row][column].getInitial()) || board[row][column + 1].getDoorDirection() == DoorDirection.LEFT) {
 				BoardCell right = board[row][column + 1];
 				adjs.add(right);
 			}
