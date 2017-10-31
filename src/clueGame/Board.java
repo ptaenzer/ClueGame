@@ -1,5 +1,12 @@
+/*
+ * Authors: Peter Taenzer and Jacob Gay
+ * This is the board class. It contains all instance variables needed to make the
+ * Board as well as methods to create the board and calculate adjacencies and targets.
+ */
+
 package clueGame;
 
+//All imports needed for data types and files
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.HashMap;
@@ -8,10 +15,13 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+//Import BoardCell to use in this class
 import clueGame.BoardCell;
 
 public class Board {
 
+	
+	//all instance variables and constants that are needed for Board
 	public static final int MAX_BOARD_SIZE = 26;
 	private Map<Character, String> legend = new HashMap<Character, String>();
 	private Map<BoardCell, Set<BoardCell>> adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
@@ -19,17 +29,19 @@ public class Board {
 	private String roomConfigFile;
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
-	private Set<BoardCell> b = new HashSet<BoardCell>();
 	private Set<BoardCell> adj = new HashSet<BoardCell>();
 	private BoardCell[][] board;
 	private static Board theInstance = new Board();
 
 	private Board() {}
 
+	//returns instance of the Board for use in tests
 	public static Board getInstance() {
 		return theInstance;
 	}
 
+	//initializes the board to the correct size, creates board cell in every location
+	//loads in files and catches errors
 	public void initialize() {
 		board = new BoardCell[MAX_BOARD_SIZE][MAX_BOARD_SIZE];
 		for(int i = 0; i < MAX_BOARD_SIZE; i++) {
@@ -41,12 +53,14 @@ public class Board {
 			loadRoomConfig();
 			loadBoardConfig();
 		} catch (FileNotFoundException | BadConfigException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
 
+	//loads the room configuration
+	//throws FileNotFoundException if file name isn't correct
+	//throws BadConfigurationException if the configuration isn't correct
 	public void loadRoomConfig() throws BadConfigException, FileNotFoundException{
 		FileReader input = new FileReader(roomConfigFile);
 		Scanner in = new Scanner(input);
@@ -61,6 +75,9 @@ public class Board {
 		in.close();
 	}
 
+	//loads the board configuration
+	//throws FileNotFoundException if file name isn't correct
+	//throws BadConfigurationException if the configuration isn't correct
 	public void loadBoardConfig() throws BadConfigException, FileNotFoundException{
 		FileReader input = new FileReader(boardConfigFile);
 		Scanner in = new Scanner(input);
@@ -70,6 +87,8 @@ public class Board {
 			String[] line = hold.split(",");
 			for(int i = 0; i < line.length; i++) {
 				board[j][i].setInitial(line[i].charAt(0));
+				
+				//if room has 2 letters, sets door direction
 				if(line[i].length() == 2) {
 					if(line[i].charAt(1) == 'U') {
 						board[j][i].setDoorDirection(DoorDirection.UP);
@@ -99,6 +118,7 @@ public class Board {
 			j++;
 		}
 		in.close();
+		//calculates adjacencies for all cells
 		for (int i = 0; i < MAX_BOARD_SIZE; i++) {
 			for (int k = 0; k < MAX_BOARD_SIZE; k++) {
 				adj = getAdjList(i,k);
@@ -107,12 +127,14 @@ public class Board {
 		}
 	}
 
+	//calculates the adjacent cells that a piece can move to, based on the cell passed
 	public void calcAdjacencies(BoardCell currentCell) {
 		int row = currentCell.getRow();
 		int column = currentCell.getColumn();
 
 		adj.clear();
 
+		//checks cell above
 		if(row > 0) {
 			if (currentCell.isDoorway()) {
 				if(currentCell.getDoorDirection() == DoorDirection.UP) {
@@ -125,6 +147,8 @@ public class Board {
 				adj.add(up);
 			}
 		}
+		
+		//checks cell below
 		if(row < MAX_BOARD_SIZE -1 ) {
 			if (currentCell.isDoorway()) {
 				if(currentCell.getDoorDirection() == DoorDirection.DOWN) {
@@ -137,6 +161,8 @@ public class Board {
 				adj.add(down);
 			}
 		}
+		
+		//checks cell to left
 		if(column > 0) {
 			if (currentCell.isDoorway()) {
 				if(currentCell.getDoorDirection() == DoorDirection.LEFT) {
@@ -149,6 +175,8 @@ public class Board {
 				adj.add(left);
 			}
 		}
+		
+		//checks cell to right
 		if(column < MAX_BOARD_SIZE-1) {
 			if (currentCell.isDoorway()) {
 				if(currentCell.getDoorDirection() == DoorDirection.RIGHT) {
@@ -164,6 +192,7 @@ public class Board {
 		board[row][column].setAdj(adj);
 	}
 
+	//recursive function to find all targets available numSteps away called by calcTargets
 	private void findAllTargets(BoardCell thisCell, int numSteps) {
 		visited.add(thisCell);
 		for(BoardCell n : thisCell.getAdj()) {
@@ -181,32 +210,39 @@ public class Board {
 		}
 	}
 
+	//returns specific cell
 	public BoardCell getCellAt(int i, int j) {
 		return board[i][j];
 	}
 
+	//returns number of rows
 	public int getNumRows() {
 		return board[0].length;
 	}
 
+	//returns number of columns
 	public int getNumColumns() {
 		return board.length;
 	}
 
+	//returns the legend
 	public Map<Character, String> getLegend() {
 		return legend;
 	}
 
+	//sets the configuration files to user specified files
 	public void setConfigFiles(String string, String string2) {
 		boardConfigFile = string;
 		roomConfigFile = string2;
 	}
 
+	//gets the adjacency list for current cell
 	public Set<BoardCell> getAdjList(int i, int j) {
 		calcAdjacencies(board[i][j]);
 		return board[i][j].getAdj();
 	}
 
+	//calculates targets for current cell that are k steps away
 	public void calcTargets(int i, int j, int k) {
 		BoardCell cell = board[i][j];
 		visited.clear();
@@ -214,9 +250,9 @@ public class Board {
 		findAllTargets(cell, k);
 	}
 
+	//returns the targets for the cell
 	public Set<BoardCell> getTargets() {
 		// TODO Auto-generated method stub
 		return targets;
 	}
-
 }
