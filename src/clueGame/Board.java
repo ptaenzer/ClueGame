@@ -195,7 +195,7 @@ public class Board {
 	//recursive function to find all targets available numSteps away called by calcTargets
 	private void findAllTargets(BoardCell thisCell, int numSteps) {
 		visited.add(thisCell);
-		for(BoardCell n : thisCell.getAdj()) {
+		for(BoardCell n : adjMtx.get(thisCell)) {
 			if(visited.contains(n)){
 				continue;
 			}
@@ -238,8 +238,7 @@ public class Board {
 
 	//gets the adjacency list for current cell
 	public Set<BoardCell> getAdjList(int i, int j) {
-		calcAdjacencies(board[i][j]);
-		return board[i][j].getAdj();
+		return adjMtx.get(board[i][j]);
 	}
 
 	//calculates targets for current cell that are k steps away
