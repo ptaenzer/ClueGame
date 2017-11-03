@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.awt.Color;
 import java.util.Map;
 import java.util.Set;
+import java.lang.reflect.Field;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -32,7 +33,7 @@ public class GameSetupTests {
 	public static void setUp() {
 		board = Board.getInstance();
 		// set up file names
-		board.setConfigFiles("ClueLayout.csv", "ClueLayoutLegend.txt", "CluePlayers", "ClueWeapons");
+		board.setConfigFiles("ClueLayout.csv", "ClueLayoutLegend.txt", "CluePlayers.txt", "ClueWeapons.txt");
 		board.initialize();
 	}
 

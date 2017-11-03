@@ -13,10 +13,11 @@ public class Player {
 	private boolean human;
 	private Set<Card> cards = new HashSet<Card>(3);
 	
-	public Player(String playerName, Color color) {
+	public Player(String playerName, Color color, boolean human) {
 		super();
 		this.playerName = playerName;
 		this.color = color;
+		this.human = human;
 	}
 
 	public Card disproveSuggestion(Solution suggestion) {
@@ -24,7 +25,7 @@ public class Player {
 	}
 	
 	public boolean isHuman() {
-		return false;
+		return human;
 	}
 
 	public String getPlayerName() {

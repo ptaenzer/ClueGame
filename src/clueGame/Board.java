@@ -16,6 +16,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+import com.sun.org.apache.bcel.internal.classfile.Field;
+
 //Import BoardCell to use in this class
 import clueGame.BoardCell;
 
@@ -83,17 +85,23 @@ public class Board {
 	//throws FileNotFoundException if file name isn't correct
 	//throws BadConfigurationException if the configuration isn't correct
 	public void loadPlayerConfig() throws BadConfigException, FileNotFoundException{
-		/*FileReader input = new FileReader(roomConfigFile);
+		FileReader input = new FileReader(playerConfigFile);
 		Scanner in = new Scanner(input);
 		while(in.hasNext()) {
 			in.useDelimiter(", ");
 			String name = in.next();
-			String color = in.nextLine();
-			Color c = Color.getColor(color);
-			players.put(name, c);
+			String color = in.next();
+			Color c = convertColor(color);
+			boolean human = false;
+			in.skip(", ");
+			String h = in.nextLine();
+			if(h.trim().matches("Human")) {
+				human = true;
+			}
+			Player play = new Player(name, c, human);
+			players.put(name, play);
 		}
 		in.close();
-		*/
 	}
 
 	//loads the room configuration
@@ -325,5 +333,16 @@ public class Board {
 	public Map<CardType, Set<String>> getDeck() {
 		// TODO Auto-generated method stub
 		return deck;
+	}
+
+	public Color convertColor(String strColor) {
+		Color color; 
+		try {     // We can use reflection to convert the string to a color
+			java.lang.reflect.Field field = Class.forName("java.awt.Color").getField(strColor.trim());
+			color = (Color)field.get(null);
+			} 
+		catch (Exception e) {  color = null; // Not defined
+		}
+		return color;
 	}
 }

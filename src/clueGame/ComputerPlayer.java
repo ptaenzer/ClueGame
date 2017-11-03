@@ -5,8 +5,8 @@ import java.util.Set;
 
 public class ComputerPlayer extends Player{
 
-	public ComputerPlayer(String playerName, Color color) {
-		super(playerName, color);
+	public ComputerPlayer(String playerName, Color color, boolean human) {
+		super(playerName, color, human);
 		// TODO Auto-generated constructor stub
 	}
 
