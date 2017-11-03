@@ -8,6 +8,9 @@
  */
 package tests;
 
+//imports for color
+import java.awt.Color;
+
 //imports for data types
 import java.util.Map;
 import java.util.Set;
@@ -21,6 +24,7 @@ import org.junit.Test;
 //imports for clueGame package
 import clueGame.Board;
 import clueGame.BoardCell;
+import clueGame.CardType;
 import clueGame.DoorDirection;
 
 public class TestClueBoard {
@@ -38,7 +42,7 @@ public class TestClueBoard {
 	public static void setUp() {
 		board = Board.getInstance();
 		// set up file names
-		board.setConfigFiles("ClueLayout.csv", "ClueLayoutLegend.txt");		
+		board.setConfigFiles("ClueLayout.csv", "ClueLayoutLegend.txt");
 		board.initialize();
 	}
 	

@@ -6,6 +6,7 @@
 
 package clueGame;
 
+import java.awt.Color;
 //All imports needed for data types and files
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -20,14 +21,19 @@ import clueGame.BoardCell;
 
 public class Board {
 
-	
+
 	//all instance variables and constants that are needed for Board
 	public static final int MAX_BOARD_SIZE = 26;
 	private Map<Character, String> legend = new HashMap<Character, String>();
+	private Map<String, Player> players = new HashMap<String, Player>();
+	private Map<CardType, Set<String>> deck = new HashMap<CardType, Set<String>>();
 	private Map<BoardCell, Set<BoardCell>> adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
 	private String boardConfigFile;
 	private String roomConfigFile;
+	private String playerConfigFile;
+	private String weaponConfigFile;
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
+	private Set<String> weapons = new HashSet<String>();
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
 	private BoardCell[][] board;
 	private static Board theInstance = new Board();
@@ -51,10 +57,43 @@ public class Board {
 		try {
 			loadRoomConfig();
 			loadBoardConfig();
+			loadPlayerConfig();
+			loadWeaponConfig();
 		} catch (FileNotFoundException | BadConfigException e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	//loads the weapon configuration
+	//throws FileNotFoundException if file name isn't correct
+	//throws BadConfigurationException if the configuration isn't correct
+	public void loadWeaponConfig() throws BadConfigException, FileNotFoundException{
+		/*FileReader input = new FileReader(roomConfigFile);
+		Scanner in = new Scanner(input);
+		while(in.hasNext()) {
+			String name = in.nextLine();
+			weapons.add(name);
+		}
+		in.close();
+		*/
+	}
+
+	//loads the player configuration
+	//throws FileNotFoundException if file name isn't correct
+	//throws BadConfigurationException if the configuration isn't correct
+	public void loadPlayerConfig() throws BadConfigException, FileNotFoundException{
+		/*FileReader input = new FileReader(roomConfigFile);
+		Scanner in = new Scanner(input);
+		while(in.hasNext()) {
+			in.useDelimiter(", ");
+			String name = in.next();
+			String color = in.nextLine();
+			Color c = Color.getColor(color);
+			players.put(name, c);
+		}
+		in.close();
+		*/
 	}
 
 	//loads the room configuration
@@ -86,7 +125,7 @@ public class Board {
 			String[] line = hold.split(",");
 			for(int i = 0; i < line.length; i++) {
 				board[j][i].setInitial(line[i].charAt(0));
-				
+
 				//if room has 2 letters, sets door direction
 				if(line[i].length() == 2) {
 					if(line[i].charAt(1) == 'U') {
@@ -124,7 +163,7 @@ public class Board {
 			}
 		}
 	}
-	
+
 	//calcAdjacencies now returns a set, which is used to populate the map
 	//No longer clear adj, rather create new adjs every time for every board cell.
 
@@ -146,7 +185,7 @@ public class Board {
 				adjs.add(up);
 			}
 		}
-		
+
 		//checks cell below
 		if(row < MAX_BOARD_SIZE -1 ) {
 			if (currentCell.isDoorway()) {
@@ -160,7 +199,7 @@ public class Board {
 				adjs.add(down);
 			}
 		}
-		
+
 		//checks cell to left
 		if(column > 0) {
 			if (currentCell.isDoorway()) {
@@ -174,7 +213,7 @@ public class Board {
 				adjs.add(left);
 			}
 		}
-		
+
 		//checks cell to right
 		if(column < MAX_BOARD_SIZE-1) {
 			if (currentCell.isDoorway()) {
@@ -252,5 +291,39 @@ public class Board {
 	public Set<BoardCell> getTargets() {
 		// TODO Auto-generated method stub
 		return targets;
+	}
+
+	//Sets the correct configuration files
+	public void setConfigFiles(String string, String string2, String string3, String string4) {
+		boardConfigFile = string;
+		roomConfigFile = string2;
+		playerConfigFile = string3;
+		weaponConfigFile = string4;
+	}
+
+	//Returns a map of players
+	public Map<String, Player> getPlayers() {
+		// TODO Auto-generated method stub
+		return players;
+	}
+	
+	//Selects the killer, weapon, and room
+	public void selectAnswer() {
+		
+	}
+	
+	//Handles Suggestions??
+	public Card handleSuggestions() {
+		return null;
+	}
+	
+	//Checks if the accusation matches the answer
+	public boolean checkAccusation(Solution accusation) {
+		return false;
+	}
+
+	public Map<CardType, Set<String>> getDeck() {
+		// TODO Auto-generated method stub
+		return deck;
 	}
 }
