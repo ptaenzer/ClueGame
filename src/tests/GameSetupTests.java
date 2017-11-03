@@ -54,14 +54,14 @@ public class GameSetupTests {
 		assertEquals(false, players.get("Padme Amidala").isHuman());
 	}
 	
-	/*
+	
 	//tests Deck creation
 	@Test
 	public void testDeck() {
 		Map<CardType, Set<String>> deck = board.getDeck();
 		// Test for correct number of cards
 		assertEquals(DECK_SIZE, deck.size());
-		// Tests for corrct number of each type of card
+		// Tests for correct number of each type of card
 		assertEquals(LEGEND_SIZE, deck.get(CardType.ROOM).size());
 		assertEquals(PLAYER_SIZE, deck.get(CardType.PERSON).size());
 		assertEquals(WEAPON_SIZE, deck.get(CardType.WEAPON).size());
@@ -70,7 +70,7 @@ public class GameSetupTests {
 		assertTrue(deck.get(CardType.PERSON).contains("Greeny"));
 		assertTrue(deck.get(CardType.WEAPON).contains("Death Star"));
 	}
-
+/*
 	//tests dealing of cards
 	@Test
 	public void testDeal() {
