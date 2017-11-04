@@ -1,7 +1,6 @@
 package tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class GameSetupTests {
 	// Constants that will be used in multiple methods
 	public static final int LEGEND_SIZE = 9;
 	public static final int PLAYER_SIZE = 10;
-	public static final int WEAPON_SIZE = 9;
+	public static final int WEAPON_SIZE = 11;
 	public static final int DECK_SIZE = LEGEND_SIZE + PLAYER_SIZE + WEAPON_SIZE;
 	public static final int NUM_CARD = DECK_SIZE/PLAYER_SIZE;
 	public static final int NUM_ROWS = 26;
@@ -55,8 +54,8 @@ public class GameSetupTests {
 		assertEquals(true, players.get("Greeny").isHuman());
 		assertEquals(false, players.get("Padme Amidala").isHuman());
 	}
-	
-	
+
+
 	//tests Deck creation
 	@Test
 	public void testDeck() {
@@ -72,7 +71,7 @@ public class GameSetupTests {
 		assertEquals(deck.get(CardType.PERSON).get(0).getCardName(), "Jack the Ripper");
 		assertEquals(deck.get(CardType.WEAPON).get(0).getCardName(), "Holy Grail");
 	}
-/*
+
 	//tests dealing of cards
 	@Test
 	public void testDeal() {
@@ -82,7 +81,18 @@ public class GameSetupTests {
 		assertEquals(NUM_CARD, players.get("Mike Hawk").getCards().size());
 		assertEquals(NUM_CARD, players.get("Padme Amidala").getCards().size());
 		// Test for duplicate Cards
-		
+		for(String firstP : players.keySet()) {
+			for(String secondP : players.keySet()) {
+				if(firstP != secondP) {
+					for(int k = 0; k < NUM_CARD; k++) {
+						for(int l = 0; l < NUM_CARD; l++) {
+							assertNotSame(players.get(firstP).getCards().get(k), players.get(firstP).getCards().get(l));
+							
+						}
+					}
+				}
+			}
+		}
 	}
-	*/
+
 }
