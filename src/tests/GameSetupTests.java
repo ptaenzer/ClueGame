@@ -83,10 +83,10 @@ public class GameSetupTests {
 		// Test for duplicate Cards
 		for(String firstP : players.keySet()) {
 			for(String secondP : players.keySet()) {
-				if(firstP != secondP) {
+				if(!firstP.equalsIgnoreCase(secondP)) {
 					for(int k = 0; k < NUM_CARD; k++) {
 						for(int l = 0; l < NUM_CARD; l++) {
-							assertNotSame(players.get(firstP).getCards().get(k), players.get(firstP).getCards().get(l));
+							assertNotSame(players.get(firstP).getCards().get(k), players.get(secondP).getCards().get(l));
 							
 						}
 					}

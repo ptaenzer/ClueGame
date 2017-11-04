@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -66,11 +67,13 @@ public class Board {
 			e.printStackTrace();
 		}
 
+		deal();
 	}
-	
+
 	//loads the weapon configuration
 	//throws FileNotFoundException if file name isn't correct
 	//throws BadConfigurationException if the configuration isn't correct
+	//loads the weapon set of the deck map.
 	public void loadWeaponConfig() throws BadConfigException, FileNotFoundException{
 		ArrayList<Card> w = new ArrayList<Card>();
 		deck.put(CardType.WEAPON, w);
@@ -90,6 +93,7 @@ public class Board {
 	//loads the player configuration
 	//throws FileNotFoundException if file name isn't correct
 	//throws BadConfigurationException if the configuration isn't correct
+	//loads the player map into the deck map
 	public void loadPlayerConfig() throws BadConfigException, FileNotFoundException{
 		ArrayList<Card> p = new ArrayList<Card>();
 		deck.put(CardType.PERSON, p);
@@ -119,6 +123,7 @@ public class Board {
 	//loads the room configuration
 	//throws FileNotFoundException if file name isn't correct
 	//throws BadConfigurationException if the configuration isn't correct
+	//loads the Room map into the Deck map
 	public void loadRoomConfig() throws BadConfigException, FileNotFoundException{
 		ArrayList<Card> r = new ArrayList<Card>();
 		deck.put(CardType.ROOM, r);
@@ -188,6 +193,31 @@ public class Board {
 			for (int k = 0; k < MAX_BOARD_SIZE; k++) {
 				adjMtx.put(board[i][k], calcAdjacencies(board[i][k]));
 			}
+		}
+	}
+
+	//Deals deck to all players
+	private void deal() {
+		Card randomDeck[] = new Card[30];
+		Random rand = new Random();
+		for(CardType c : deck.keySet()) {
+			for(Card card : deck.get(c)) {
+				int r = rand.nextInt(30);
+				while(randomDeck[r] != null) {
+					r = rand.nextInt(30);
+				}
+				randomDeck[r] = card;
+			}
+		}
+		
+		int j = 0;
+		for(String name : players.keySet()) {
+			ArrayList<Card> cards = new ArrayList<Card>();
+			for(int i = 0; i < (randomDeck.length/(players.size())); i++) {
+				cards.add(randomDeck[j]);
+				j++;
+			}
+			players.get(name).setCards(cards);
 		}
 	}
 
@@ -295,12 +325,6 @@ public class Board {
 		return legend;
 	}
 
-	//sets the configuration files to user specified files
-	public void setConfigFiles(String string, String string2) {
-		boardConfigFile = string;
-		roomConfigFile = string2;
-	}
-
 	//gets the adjacency list for current cell
 	public Set<BoardCell> getAdjList(int i, int j) {
 		return adjMtx.get(board[i][j]);
@@ -333,17 +357,17 @@ public class Board {
 		// TODO Auto-generated method stub
 		return players;
 	}
-	
+
 	//Selects the killer, weapon, and room
 	public void selectAnswer() {
-		
+
 	}
-	
+
 	//Handles Suggestions??
 	public Card handleSuggestions() {
 		return null;
 	}
-	
+
 	//Checks if the accusation matches the answer
 	public boolean checkAccusation(Solution accusation) {
 		return false;
@@ -359,7 +383,7 @@ public class Board {
 		try {     // We can use reflection to convert the string to a color
 			java.lang.reflect.Field field = Class.forName("java.awt.Color").getField(strColor.trim());
 			color = (Color)field.get(null);
-			} 
+		} 
 		catch (Exception e) {  color = null; // Not defined
 		}
 		return color;

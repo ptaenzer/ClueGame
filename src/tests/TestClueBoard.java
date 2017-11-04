@@ -42,7 +42,7 @@ public class TestClueBoard {
 	public static void setUp() {
 		board = Board.getInstance();
 		// set up file names
-		board.setConfigFiles("ClueLayout.csv", "ClueLayoutLegend.txt");
+		board.setConfigFiles("ClueLayout.csv", "ClueLayoutLegend.txt", "CluePlayers.txt", "ClueWeapons.txt");
 		board.initialize();
 	}
 	
