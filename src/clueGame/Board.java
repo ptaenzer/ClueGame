@@ -198,7 +198,8 @@ public class Board {
 
 	//Deals deck to all players
 	private void deal() {
-		Card randomDeck[] = new Card[30];
+		int deckSize = deck.get(CardType.ROOM).size() + deck.get(CardType.PERSON).size() + deck.get(CardType.WEAPON).size();
+		Card randomDeck[] = new Card[deckSize];
 		Random rand = new Random();
 		for(CardType c : deck.keySet()) {
 			for(Card card : deck.get(c)) {
