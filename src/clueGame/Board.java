@@ -10,6 +10,7 @@ import java.awt.Color;
 //All imports needed for data types and files
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -28,7 +29,7 @@ public class Board {
 	public static final int MAX_BOARD_SIZE = 26;
 	private Map<Character, String> legend = new HashMap<Character, String>();
 	private Map<String, Player> players = new HashMap<String, Player>();
-	private Map<CardType, Set<String>> deck = new HashMap<CardType, Set<String>>();
+	private Map<CardType, ArrayList<Card>> deck = new HashMap<CardType, ArrayList<Card>>();
 	private Map<BoardCell, Set<BoardCell>> adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
 	private String boardConfigFile;
 	private String roomConfigFile;
@@ -66,25 +67,32 @@ public class Board {
 		}
 
 	}
-
+	
 	//loads the weapon configuration
 	//throws FileNotFoundException if file name isn't correct
 	//throws BadConfigurationException if the configuration isn't correct
 	public void loadWeaponConfig() throws BadConfigException, FileNotFoundException{
-		/*FileReader input = new FileReader(roomConfigFile);
+		ArrayList<Card> w = new ArrayList<Card>();
+		deck.put(CardType.WEAPON, w);
+		FileReader input = new FileReader(weaponConfigFile);
 		Scanner in = new Scanner(input);
 		while(in.hasNext()) {
 			String name = in.nextLine();
 			weapons.add(name);
 		}
 		in.close();
-		*/
+		for(String weapon : weapons) {
+			Card newWeapon = new Card(weapon);
+			deck.get(CardType.WEAPON).add(newWeapon);
+		}
 	}
 
 	//loads the player configuration
 	//throws FileNotFoundException if file name isn't correct
 	//throws BadConfigurationException if the configuration isn't correct
 	public void loadPlayerConfig() throws BadConfigException, FileNotFoundException{
+		ArrayList<Card> p = new ArrayList<Card>();
+		deck.put(CardType.PERSON, p);
 		FileReader input = new FileReader(playerConfigFile);
 		Scanner in = new Scanner(input);
 		while(in.hasNext()) {
@@ -102,12 +110,18 @@ public class Board {
 			players.put(name, play);
 		}
 		in.close();
+		for(Player player : players.values()) {
+			Card newPlayer = new Card(player.getPlayerName());
+			deck.get(CardType.PERSON).add(newPlayer);
+		}
 	}
 
 	//loads the room configuration
 	//throws FileNotFoundException if file name isn't correct
 	//throws BadConfigurationException if the configuration isn't correct
 	public void loadRoomConfig() throws BadConfigException, FileNotFoundException{
+		ArrayList<Card> r = new ArrayList<Card>();
+		deck.put(CardType.ROOM, r);
 		FileReader input = new FileReader(roomConfigFile);
 		Scanner in = new Scanner(input);
 		while(in.hasNext()) {
@@ -115,8 +129,13 @@ public class Board {
 			String hold = in.next();
 			char c = hold.charAt(0);
 			String room = in.next();
+			in.skip(", ");
 			String type = in.nextLine();
 			legend.put(c, room);
+			if(type.equalsIgnoreCase("Card")) {
+				Card newRoom = new Card(room);
+				deck.get(CardType.ROOM).add(newRoom);
+			}
 		}
 		in.close();
 	}
@@ -330,7 +349,7 @@ public class Board {
 		return false;
 	}
 
-	public Map<CardType, Set<String>> getDeck() {
+	public Map<CardType, ArrayList<Card>> getDeck() {
 		// TODO Auto-generated method stub
 		return deck;
 	}

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 import java.lang.reflect.Field;
@@ -12,12 +13,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import clueGame.Board;
+import clueGame.Card;
 import clueGame.CardType;
 import clueGame.Player;
 
 public class GameSetupTests {
 	// Constants that will be used in multiple methods
-	public static final int LEGEND_SIZE = 11;
+	public static final int LEGEND_SIZE = 9;
 	public static final int PLAYER_SIZE = 10;
 	public static final int WEAPON_SIZE = 9;
 	public static final int DECK_SIZE = LEGEND_SIZE + PLAYER_SIZE + WEAPON_SIZE;
@@ -58,17 +60,17 @@ public class GameSetupTests {
 	//tests Deck creation
 	@Test
 	public void testDeck() {
-		Map<CardType, Set<String>> deck = board.getDeck();
+		Map<CardType, ArrayList<Card>> deck = board.getDeck();
 		// Test for correct number of cards
-		assertEquals(DECK_SIZE, deck.size());
+		assertEquals(DECK_SIZE, deck.get(CardType.ROOM).size() + deck.get(CardType.PERSON).size() + deck.get(CardType.WEAPON).size());
 		// Tests for correct number of each type of card
 		assertEquals(LEGEND_SIZE, deck.get(CardType.ROOM).size());
 		assertEquals(PLAYER_SIZE, deck.get(CardType.PERSON).size());
 		assertEquals(WEAPON_SIZE, deck.get(CardType.WEAPON).size());
 		// Tests for one value in each type of card
-		assertTrue(deck.get(CardType.ROOM).contains('G'));
-		assertTrue(deck.get(CardType.PERSON).contains("Greeny"));
-		assertTrue(deck.get(CardType.WEAPON).contains("Death Star"));
+		assertEquals(deck.get(CardType.ROOM).get(0).getCardName(), "Gazibo");
+		assertEquals(deck.get(CardType.PERSON).get(0).getCardName(), "Jack the Ripper");
+		assertEquals(deck.get(CardType.WEAPON).get(0).getCardName(), "Holy Grail");
 	}
 /*
 	//tests dealing of cards
