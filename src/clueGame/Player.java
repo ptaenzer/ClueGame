@@ -12,6 +12,7 @@ public class Player {
 	private int column;
 	private Color color;
 	private boolean human;
+	private char justVisited;
 	private ArrayList<Card> cards = new ArrayList<Card>();
 	
 	public Player(String playerName, Color color, boolean human) {
@@ -67,6 +68,10 @@ public class Player {
 
 	public void setCards(ArrayList<Card> cards) {
 		this.cards = cards;
+	}
+
+	public void setJustVisited(char c) {
+		this.justVisited = c;
 	}
 	
 	

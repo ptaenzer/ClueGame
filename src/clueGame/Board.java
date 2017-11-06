@@ -341,7 +341,6 @@ public class Board {
 
 	//returns the targets for the cell
 	public Set<BoardCell> getTargets() {
-		// TODO Auto-generated method stub
 		return targets;
 	}
 
@@ -355,7 +354,6 @@ public class Board {
 
 	//Returns a map of players
 	public Map<String, Player> getPlayers() {
-		// TODO Auto-generated method stub
 		return players;
 	}
 
@@ -375,7 +373,6 @@ public class Board {
 	}
 
 	public Map<CardType, ArrayList<Card>> getDeck() {
-		// TODO Auto-generated method stub
 		return deck;
 	}
 
