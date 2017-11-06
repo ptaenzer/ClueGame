@@ -85,7 +85,7 @@ public class GameActionTests {
 		boolean loc_0_14 = false;
 		boolean loc_0_18 = false;
 		boolean loc_1_17 = false;
-		boolean loc_3_16 = false;
+		boolean loc_2_16 = false;
 		// Run the test a large number of times
 		for (int i=0; i<100; i++) {
 			BoardCell selected = player.pickLocation(board.getTargets());
@@ -98,8 +98,8 @@ public class GameActionTests {
 			else if (selected ==board.getCellAt(1, 17)) {
 				loc_1_17 = true;
 			}
-			else if (selected ==board.getCellAt(3, 16)) {
-				loc_3_16 = true;
+			else if (selected ==board.getCellAt(2, 16)) {
+				loc_2_16 = true;
 			}
 			else {
 				fail("Invalid target selected");
@@ -109,7 +109,7 @@ public class GameActionTests {
 		assertTrue(loc_0_14);
 		assertFalse(loc_0_18);
 		assertFalse(loc_1_17);
-		assertFalse(loc_3_16);
+		assertFalse(loc_2_16);
 	}
 
 	// Tests not selecting a room target location from list with a just visited
@@ -122,7 +122,7 @@ public class GameActionTests {
 		boolean loc_0_14 = false;
 		boolean loc_0_18 = false;
 		boolean loc_1_17 = false;
-		boolean loc_3_16 = false;
+		boolean loc_2_16 = false;
 		// Run the test a large number of times
 		for (int i=0; i<100; i++) {
 			BoardCell selected = player.pickLocation(board.getTargets());
@@ -135,8 +135,8 @@ public class GameActionTests {
 			else if (selected ==board.getCellAt(1, 17)) {
 				loc_1_17 = true;
 			}
-			else if (selected ==board.getCellAt(3, 16)) {
-				loc_3_16 = true;
+			else if (selected ==board.getCellAt(2, 16)) {
+				loc_2_16 = true;
 			}
 			else {
 				fail("Invalid target selected");
@@ -146,7 +146,7 @@ public class GameActionTests {
 		assertTrue(loc_0_14);
 		assertTrue(loc_0_18);
 		assertTrue(loc_1_17);
-		assertTrue(loc_3_16);
+		assertTrue(loc_2_16);
 	}
 
 
