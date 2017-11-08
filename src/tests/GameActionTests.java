@@ -17,6 +17,7 @@ import clueGame.Card;
 import clueGame.CardType;
 import clueGame.ComputerPlayer;
 import clueGame.Player;
+import clueGame.Solution;
 
 public class GameActionTests {
 	// Constants that will be used in multiple methods
@@ -147,6 +148,29 @@ public class GameActionTests {
 		assertTrue(loc_0_18);
 		assertTrue(loc_1_17);
 		assertTrue(loc_2_16);
+	}
+
+	// Tests correct and not correct accusations 
+	@Test
+	public void testAccusation() {
+		// correct accusation
+		Card killer = Solution.getPerson();
+		Card weapon = Solution.getWeapon();
+		Card room = Solution.getRoom();
+		assertTrue(Solution.testAccusation(killer,weapon,room));
+		// not correct accusation
+		killer = null;
+		weapon = Solution.getWeapon();
+		room = Solution.getRoom();
+		assertTrue(Solution.testAccusation(killer,weapon,room));
+		killer = Solution.getPerson();
+		weapon = null;
+		room = Solution.getRoom();
+		assertTrue(Solution.testAccusation(killer,weapon,room));
+		killer = Solution.getPerson();
+		weapon = Solution.getWeapon();
+		room = null;
+		assertTrue(Solution.testAccusation(killer,weapon,room));
 	}
 
 

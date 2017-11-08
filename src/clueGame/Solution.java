@@ -24,6 +24,8 @@ public class Solution {
 	public static void setWeapon(Card w) {
 		weapon = w;
 	}
-	
-	
+	public static boolean testAccusation(Card killer, Card weapon2, Card room2) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
