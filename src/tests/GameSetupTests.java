@@ -20,7 +20,7 @@ public class GameSetupTests {
 	// Constants that will be used in multiple methods
 	public static final int LEGEND_SIZE = 9;
 	public static final int PLAYER_SIZE = 10;
-	public static final int WEAPON_SIZE = 11;
+	public static final int WEAPON_SIZE = 14;
 	public static final int DECK_SIZE = LEGEND_SIZE + PLAYER_SIZE + WEAPON_SIZE;
 	public static final int NUM_CARD = DECK_SIZE/PLAYER_SIZE;
 	public static final int NUM_ROWS = 26;
@@ -69,7 +69,7 @@ public class GameSetupTests {
 		// Tests for one value in each type of card
 		assertEquals(deck.get(CardType.ROOM).get(0).getCardName(), "Gazibo");
 		assertEquals(deck.get(CardType.PERSON).get(0).getCardName(), "Jack the Ripper");
-		assertEquals(deck.get(CardType.WEAPON).get(0).getCardName(), "Holy Grail");
+		assertEquals(deck.get(CardType.WEAPON).get(0).getCardName(), "Freddy Kruger's Claws");
 	}
 
 	//tests dealing of cards

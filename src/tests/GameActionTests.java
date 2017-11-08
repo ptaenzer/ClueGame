@@ -22,9 +22,9 @@ public class GameActionTests {
 	// Constants that will be used in multiple methods
 	public static final int LEGEND_SIZE = 9;
 	public static final int PLAYER_SIZE = 10;
-	public static final int WEAPON_SIZE = 11;
+	public static final int WEAPON_SIZE = 14;
 	public static final int DECK_SIZE = LEGEND_SIZE + PLAYER_SIZE + WEAPON_SIZE;
-	public static final int NUM_CARD = DECK_SIZE/PLAYER_SIZE;
+	public static final int NUM_CARD = (DECK_SIZE-3)/PLAYER_SIZE;
 	public static final int NUM_ROWS = 26;
 	public static final int NUM_COLUMNS = 26;
 

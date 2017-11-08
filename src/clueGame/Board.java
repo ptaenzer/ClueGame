@@ -85,7 +85,7 @@ public class Board {
 		}
 		in.close();
 		for(String weapon : weapons) {
-			Card newWeapon = new Card(weapon);
+			Card newWeapon = new Card(weapon, CardType.WEAPON);
 			deck.get(CardType.WEAPON).add(newWeapon);
 		}
 	}
@@ -115,7 +115,7 @@ public class Board {
 		}
 		in.close();
 		for(Player player : players.values()) {
-			Card newPlayer = new Card(player.getPlayerName());
+			Card newPlayer = new Card(player.getPlayerName(), CardType.PERSON);
 			deck.get(CardType.PERSON).add(newPlayer);
 		}
 	}
@@ -138,7 +138,7 @@ public class Board {
 			String type = in.nextLine();
 			legend.put(c, room);
 			if(type.equalsIgnoreCase("Card")) {
-				Card newRoom = new Card(room);
+				Card newRoom = new Card(room, CardType.ROOM);
 				deck.get(CardType.ROOM).add(newRoom);
 			}
 		}
@@ -198,24 +198,59 @@ public class Board {
 
 	//Deals deck to all players
 	private void deal() {
+		// creates random deck
 		int deckSize = deck.get(CardType.ROOM).size() + deck.get(CardType.PERSON).size() + deck.get(CardType.WEAPON).size();
-		Card randomDeck[] = new Card[deckSize];
+		ArrayList<Card> randomDeck = new ArrayList<Card>();
+		for(int i = 0; i < deckSize; i++) {
+			randomDeck.add(null);
+		}
 		Random rand = new Random();
 		for(CardType c : deck.keySet()) {
 			for(Card card : deck.get(c)) {
-				int r = rand.nextInt(30);
-				while(randomDeck[r] != null) {
-					r = rand.nextInt(30);
+				int r = rand.nextInt(deckSize);
+				while(randomDeck.get(r) != null) {
+					r = rand.nextInt(deckSize);
 				}
-				randomDeck[r] = card;
+				randomDeck.set(r, card);
 			}
 		}
-		
+		// deals solution
+		boolean killer = false;
+		boolean weapon = false;
+		boolean room = false;	
+		int k = 0;
+		while(killer == false) {
+			if(randomDeck.get(k).getCardType() == CardType.PERSON) {
+				Solution.setPerson(randomDeck.get(k));
+				killer = true;
+				randomDeck.remove(k);
+			}
+			k++;
+		}
+		k = 0;
+		while(weapon == false) {
+			if(randomDeck.get(k).getCardType() == CardType.WEAPON) {
+				Solution.setWeapon(randomDeck.get(k));
+				weapon = true;
+				randomDeck.remove(k);
+			}
+			k++;
+		}
+		k = 0;
+		while(room == false) {
+			if(randomDeck.get(k).getCardType() == CardType.ROOM) {
+				Solution.setRoom(randomDeck.get(k));
+				room = true;
+				randomDeck.remove(k);
+			}
+			k++;
+		}
+		// deals to players
 		int j = 0;
 		for(String name : players.keySet()) {
 			ArrayList<Card> cards = new ArrayList<Card>();
-			for(int i = 0; i < (randomDeck.length/(players.size())); i++) {
-				cards.add(randomDeck[j]);
+			for(int i = 0; i < (randomDeck.size()/(players.size())); i++) {
+				cards.add(randomDeck.get(j));
 				j++;
 			}
 			players.get(name).setCards(cards);
