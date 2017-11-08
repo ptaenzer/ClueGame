@@ -162,15 +162,15 @@ public class GameActionTests {
 		killer = null;
 		weapon = Solution.getWeapon();
 		room = Solution.getRoom();
-		assertTrue(Solution.testAccusation(killer,weapon,room));
+		assertFalse(Solution.testAccusation(killer,weapon,room));
 		killer = Solution.getPerson();
 		weapon = null;
 		room = Solution.getRoom();
-		assertTrue(Solution.testAccusation(killer,weapon,room));
+		assertFalse(Solution.testAccusation(killer,weapon,room));
 		killer = Solution.getPerson();
 		weapon = Solution.getWeapon();
 		room = null;
-		assertTrue(Solution.testAccusation(killer,weapon,room));
+		assertFalse(Solution.testAccusation(killer,weapon,room));
 	}
 
 
