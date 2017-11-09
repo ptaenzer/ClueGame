@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.lang.reflect.Field;
 
@@ -179,31 +180,73 @@ public class GameActionTests {
 	public void testCreateSuggestion() {
 		ComputerPlayer player = new ComputerPlayer("Greeny", Color.GREEN, false);
 		player.setJustVisited('O');
+		player.addSeenCard(player.getJustVisitedCard());
+		player.addSeenCard(new Card("Greeny", CardType.PERSON));
+		player.addSeenCard(new Card("General Custard", CardType.PERSON));
+		player.addSeenCard(new Card("Napolean Dynamite", CardType.PERSON));
+		player.addSeenCard(new Card("Princess Peach", CardType.PERSON));
+		player.addSeenCard(new Card("Harpoon Gun", CardType.WEAPON));
+		player.addSeenCard(new Card("Noisy Cricket", CardType.WEAPON));
+		player.addSeenCard(new Card("Holy Grail", CardType.WEAPON));
+		player.addSeenCard(new Card("DL-44 Blaster Pistol", CardType.WEAPON));
+		player.addSeenCard(new Card("Exploding Bubble Gum", CardType.WEAPON));
+		player.addSeenCard(new Card("Freddy Kruger's Claws", CardType.WEAPON));
+		player.addSeenCard(new Card("Slap Bet", CardType.WEAPON));
 		// create booleans for tests and set solution
 		boolean array1 = false;
 		boolean array2 = false;
 		boolean array3 = false;
 		boolean array4 = false;
-		Solution.setPerson(new Card("Mike Hawk", CardType.PERSON));
-		Solution.setWeapon(new Card("Slap Bet", CardType.WEAPON));
-		Solution.setRoom(new Card("Gazibo", CardType.ROOM));
+		Random rand = new Random();
+		int r1 = rand.nextInt(Board.getDeck().get(CardType.PERSON).size());
+		while(player.getSeen().contains(Board.getDeck().get(CardType.PERSON).get(r1))) {
+			r1 = rand.nextInt(Board.getDeck().get(CardType.PERSON).size());
+		}
+		int r2 = rand.nextInt(Board.getDeck().get(CardType.PERSON).size());
+		while(player.getSeen().contains(Board.getDeck().get(CardType.PERSON).get(r2))) {
+			r2 = rand.nextInt(Board.getDeck().get(CardType.PERSON).size());
+		}
+		int r3 = rand.nextInt(Board.getDeck().get(CardType.PERSON).size());
+		while(player.getSeen().contains(Board.getDeck().get(CardType.PERSON).get(r3))) {
+			r3 = rand.nextInt(Board.getDeck().get(CardType.PERSON).size());
+		}
+		int r4 = rand.nextInt(Board.getDeck().get(CardType.PERSON).size());
+		while(player.getSeen().contains(Board.getDeck().get(CardType.PERSON).get(r4))) {
+			r4 = rand.nextInt(Board.getDeck().get(CardType.PERSON).size());
+		}
+		int r5 = rand.nextInt(Board.getDeck().get(CardType.WEAPON).size());
+		while(player.getSeen().contains(Board.getDeck().get(CardType.WEAPON).get(r5))) {
+			r5 = rand.nextInt(Board.getDeck().get(CardType.WEAPON).size());
+		}
+		int r6 = rand.nextInt(Board.getDeck().get(CardType.WEAPON).size());
+		while(player.getSeen().contains(Board.getDeck().get(CardType.WEAPON).get(r6))) {
+			r6 = rand.nextInt(Board.getDeck().get(CardType.WEAPON).size());
+		}
+		int r7 = rand.nextInt(Board.getDeck().get(CardType.WEAPON).size());
+		while(player.getSeen().contains(Board.getDeck().get(CardType.WEAPON).get(r7))) {
+			r7 = rand.nextInt(Board.getDeck().get(CardType.WEAPON).size());
+		}
+		int r8 = rand.nextInt(Board.getDeck().get(CardType.WEAPON).size());
+		while(player.getSeen().contains(Board.getDeck().get(CardType.WEAPON).get(r8))) {
+			r8 = rand.nextInt(Board.getDeck().get(CardType.WEAPON).size());
+		}
+		ArrayList<Card> sug1 = new ArrayList<>(Arrays.asList(Board.getDeck().get(CardType.PERSON).get(r1), Board.getDeck().get(CardType.WEAPON).get(r5), player.getJustVisitedCard()));
+		ArrayList<Card> sug2 = new ArrayList<>(Arrays.asList(Board.getDeck().get(CardType.PERSON).get(r2), Board.getDeck().get(CardType.WEAPON).get(r6), player.getJustVisitedCard()));
+		ArrayList<Card> sug3 = new ArrayList<>(Arrays.asList(Board.getDeck().get(CardType.PERSON).get(r3), Board.getDeck().get(CardType.WEAPON).get(r7), player.getJustVisitedCard()));
+		ArrayList<Card> sug4 = new ArrayList<>(Arrays.asList(Board.getDeck().get(CardType.PERSON).get(r4), Board.getDeck().get(CardType.WEAPON).get(r8), player.getJustVisitedCard()));
 		// Run the test a large number of times
-		for (int i=0; i<100; i++) {
+		for (int i=0; i<10000000; i++) {
 			ArrayList<Card> sug = player.createSuggestion(player.getJustVisitedCard());
-			ArrayList<Card> sug1 = new ArrayList<>(Arrays.asList(new Card("Jack the Ripper", CardType.PERSON), new Card("This Thumb",CardType.WEAPON), player.getJustVisitedCard()));
-			ArrayList<Card> sug2 = new ArrayList<>(Arrays.asList(new Card("Napolean Dynamite", CardType.PERSON), new Card("Indy’s Whip",CardType.WEAPON), player.getJustVisitedCard()));
-			ArrayList<Card> sug3 = new ArrayList<>(Arrays.asList(new Card("Hariette A. Ness", CardType.PERSON), new Card("Gandalfs Staff",CardType.WEAPON), player.getJustVisitedCard()));
-			ArrayList<Card> sug4 = new ArrayList<>(Arrays.asList(new Card("Padme Amidala", CardType.PERSON), new Card("Death Star",CardType.WEAPON), player.getJustVisitedCard()));
-			if (sug == sug1) {
+			if (sug.get(0).equals(sug1.get(0)) && sug.get(1).equals(sug1.get(1)) && sug.get(2).equals(sug1.get(2))) {
 				array1 = true;
 			}
-			else if (sug == sug2) {
+			if (sug.get(0).equals(sug2.get(0)) && sug.get(1).equals(sug2.get(1)) && sug.get(2).equals(sug2.get(2))) {
 				array2 = true;
 			}
-			else if (sug == sug3) {
+			if (sug.get(0).equals(sug3.get(0)) && sug.get(1).equals(sug3.get(1)) && sug.get(2).equals(sug3.get(2))) {
 				array3 = true;
 			}
-			else if (sug == sug4) {
+			if (sug.get(0).equals(sug4.get(0)) && sug.get(1).equals(sug4.get(1)) && sug.get(2).equals(sug4.get(2))) {
 				array4 = true;
 			}
 		}

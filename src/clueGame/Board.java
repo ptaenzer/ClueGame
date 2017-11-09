@@ -31,7 +31,7 @@ public class Board {
 	private static Map<Character, String> legend = new HashMap<Character, String>();
 	private Map<String, Player> players = new HashMap<String, Player>();
 	private static Map<CardType, ArrayList<Card>> deck = new HashMap<CardType, ArrayList<Card>>();
-	private Map<CardType, ArrayList<Card>> unSeenDeck = new HashMap<CardType, ArrayList<Card>>();
+	private static Map<CardType, ArrayList<Card>> unSeenDeck = new HashMap<CardType, ArrayList<Card>>();
 	private Map<BoardCell, Set<BoardCell>> adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
 	private String boardConfigFile;
 	private String roomConfigFile;
@@ -426,5 +426,10 @@ public class Board {
 		catch (Exception e) {  color = null; // Not defined
 		}
 		return color;
+	}
+
+	public static Map<CardType, ArrayList<Card>> getUnSeenDeck() {
+		// TODO Auto-generated method stub
+		return unSeenDeck;
 	}
 }

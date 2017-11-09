@@ -37,6 +37,31 @@ public class ComputerPlayer extends Player{
 	}
 
 	public ArrayList<Card> createSuggestion(Card room) {
+		suggestion.clear();
+		// add player
+		Card person = null;
+		ArrayList<Card> unSeenP = Board.getUnSeenDeck().get(CardType.PERSON);
+		while(person == null) {
+			Random rand = new Random();
+			int r = rand.nextInt(unSeenP.size());
+			if(!noteCard.contains(unSeenP.get(r))) {
+				person = unSeenP.get(r);
+			}
+		}
+		suggestion.add(person);
+		// add weapon
+		Card weapon = null;
+		ArrayList<Card> unSeenW = Board.getUnSeenDeck().get(CardType.WEAPON);
+		while(weapon == null) {
+			Random rand = new Random();
+			int r = rand.nextInt(unSeenW.size());
+			if(!noteCard.contains(unSeenW.get(r))) {
+				weapon = unSeenW.get(r);
+			}
+		}
+		suggestion.add(weapon);
+		// add room
+		suggestion.add(room);
 		return suggestion;
 	}
 
@@ -44,8 +69,10 @@ public class ComputerPlayer extends Player{
 		this.justVisited = c;
 		ArrayList<Card> cards = Board.getDeck().get(CardType.ROOM);
 		for(Card card : cards) {
-			if(Board.getLegend().get(c) == card.getCardName())
-			this.justVisitedCard = card;
+			if(Board.getLegend().get(c) == card.getCardName()) {
+				this.justVisitedCard = card;
+				break;
+			}
 		}
 	}
 

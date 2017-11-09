@@ -73,11 +73,16 @@ public class Player {
 		for(Card card : cards) {
 			noteCard.add(card);
 		}
+		noteCard.add(new Card(playerName, CardType.PERSON));
 		this.cards = cards;
 	}
 	
 	public void addSeenCard(Card card) {
 		noteCard.add(card);
+	}
+	
+	public ArrayList<Card> getSeen() {
+		return noteCard;
 	}
 	
 }

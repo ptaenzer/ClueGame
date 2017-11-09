@@ -5,7 +5,10 @@ public class Card {
 	private String cardName;
 	private CardType cardType;
 	
-	public boolean equals() {
+	public boolean equals(Card card) {
+		if(cardName == card.getCardName() && cardType == card.getCardType()) {
+			return true;
+		}
 		return false;
 	}
 
