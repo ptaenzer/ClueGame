@@ -6,8 +6,9 @@ import java.util.Random;
 import java.util.Set;
 
 public class ComputerPlayer extends Player{
-	
+
 	private char justVisited;
+	private Card justVisitedCard;
 
 	public ComputerPlayer(String playerName, Color color, boolean human) {
 		super(playerName, color, human);
@@ -30,17 +31,26 @@ public class ComputerPlayer extends Player{
 		}
 		return location;
 	}
-	
+
 	public void makeAccusation() {
 		
 	}
-	
-	public void createSuggestion(/*Will add parameters later*/) {
-		
+
+	public ArrayList<Card> createSuggestion(Card room) {
+		return suggestion;
 	}
 
 	public void setJustVisited(char c) {
 		this.justVisited = c;
+		ArrayList<Card> cards = Board.getDeck().get(CardType.ROOM);
+		for(Card card : cards) {
+			if(Board.getLegend().get(c) == card.getCardName())
+			this.justVisitedCard = card;
+		}
 	}
-	
+
+	public Card getJustVisitedCard() {
+		return justVisitedCard;
+	}
+
 }

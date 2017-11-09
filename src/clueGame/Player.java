@@ -2,7 +2,9 @@ package clueGame;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class Player {
@@ -13,6 +15,8 @@ public class Player {
 	private Color color;
 	private boolean human;
 	private ArrayList<Card> cards = new ArrayList<Card>();
+	protected ArrayList<Card> suggestion = new ArrayList<Card>();
+	protected ArrayList<Card> noteCard = new ArrayList<Card>();
 	
 	public Player(String playerName, Color color, boolean human) {
 		super();
@@ -66,8 +70,14 @@ public class Player {
 	}
 
 	public void setCards(ArrayList<Card> cards) {
+		for(Card card : cards) {
+			noteCard.add(card);
+		}
 		this.cards = cards;
 	}
 	
+	public void addSeenCard(Card card) {
+		noteCard.add(card);
+	}
 	
 }

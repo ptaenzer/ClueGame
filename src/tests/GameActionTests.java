@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 import java.lang.reflect.Field;
@@ -171,6 +172,46 @@ public class GameActionTests {
 		weapon = Solution.getWeapon();
 		room = null;
 		assertFalse(Solution.testAccusation(killer,weapon,room));
+	}
+
+	// Tests creation of a suggestion
+	@Test
+	public void testCreateSuggestion() {
+		ComputerPlayer player = new ComputerPlayer("Greeny", Color.GREEN, false);
+		player.setJustVisited('O');
+		// create booleans for tests and set solution
+		boolean array1 = false;
+		boolean array2 = false;
+		boolean array3 = false;
+		boolean array4 = false;
+		Solution.setPerson(new Card("Mike Hawk", CardType.PERSON));
+		Solution.setWeapon(new Card("Slap Bet", CardType.WEAPON));
+		Solution.setRoom(new Card("Gazibo", CardType.ROOM));
+		// Run the test a large number of times
+		for (int i=0; i<100; i++) {
+			ArrayList<Card> sug = player.createSuggestion(player.getJustVisitedCard());
+			ArrayList<Card> sug1 = new ArrayList<>(Arrays.asList(new Card("Jack the Ripper", CardType.PERSON), new Card("This Thumb",CardType.WEAPON), player.getJustVisitedCard()));
+			ArrayList<Card> sug2 = new ArrayList<>(Arrays.asList(new Card("Napolean Dynamite", CardType.PERSON), new Card("Indy’s Whip",CardType.WEAPON), player.getJustVisitedCard()));
+			ArrayList<Card> sug3 = new ArrayList<>(Arrays.asList(new Card("Hariette A. Ness", CardType.PERSON), new Card("Gandalfs Staff",CardType.WEAPON), player.getJustVisitedCard()));
+			ArrayList<Card> sug4 = new ArrayList<>(Arrays.asList(new Card("Padme Amidala", CardType.PERSON), new Card("Death Star",CardType.WEAPON), player.getJustVisitedCard()));
+			if (sug == sug1) {
+				array1 = true;
+			}
+			else if (sug == sug2) {
+				array2 = true;
+			}
+			else if (sug == sug3) {
+				array3 = true;
+			}
+			else if (sug == sug4) {
+				array4 = true;
+			}
+		}
+		// Ensure each target was selected at least once
+		assertTrue(array1);
+		assertTrue(array2);
+		assertTrue(array3);
+		assertTrue(array4);
 	}
 
 

@@ -28,9 +28,10 @@ public class Board {
 
 	//all instance variables and constants that are needed for Board
 	public static final int MAX_BOARD_SIZE = 26;
-	private Map<Character, String> legend = new HashMap<Character, String>();
+	private static Map<Character, String> legend = new HashMap<Character, String>();
 	private Map<String, Player> players = new HashMap<String, Player>();
-	private Map<CardType, ArrayList<Card>> deck = new HashMap<CardType, ArrayList<Card>>();
+	private static Map<CardType, ArrayList<Card>> deck = new HashMap<CardType, ArrayList<Card>>();
+	private Map<CardType, ArrayList<Card>> unSeenDeck = new HashMap<CardType, ArrayList<Card>>();
 	private Map<BoardCell, Set<BoardCell>> adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
 	private String boardConfigFile;
 	private String roomConfigFile;
@@ -198,6 +199,8 @@ public class Board {
 
 	//Deals deck to all players
 	private void deal() {
+		// sets un-seen deck
+		unSeenDeck = deck;
 		// creates random deck
 		int deckSize = deck.get(CardType.ROOM).size() + deck.get(CardType.PERSON).size() + deck.get(CardType.WEAPON).size();
 		ArrayList<Card> randomDeck = new ArrayList<Card>();
@@ -223,6 +226,7 @@ public class Board {
 			if(randomDeck.get(k).getCardType() == CardType.PERSON) {
 				Solution.setPerson(randomDeck.get(k));
 				killer = true;
+				deck.get(CardType.PERSON).remove(randomDeck.get(k));
 				randomDeck.remove(k);
 			}
 			k++;
@@ -232,6 +236,7 @@ public class Board {
 			if(randomDeck.get(k).getCardType() == CardType.WEAPON) {
 				Solution.setWeapon(randomDeck.get(k));
 				weapon = true;
+				deck.get(CardType.WEAPON).remove(randomDeck.get(k));
 				randomDeck.remove(k);
 			}
 			k++;
@@ -241,6 +246,7 @@ public class Board {
 			if(randomDeck.get(k).getCardType() == CardType.ROOM) {
 				Solution.setRoom(randomDeck.get(k));
 				room = true;
+				deck.get(CardType.ROOM).remove(randomDeck.get(k));
 				randomDeck.remove(k);
 			}
 			k++;
@@ -357,7 +363,7 @@ public class Board {
 	}
 
 	//returns the legend
-	public Map<Character, String> getLegend() {
+	public static Map<Character, String> getLegend() {
 		return legend;
 	}
 
@@ -407,7 +413,7 @@ public class Board {
 		return false;
 	}
 
-	public Map<CardType, ArrayList<Card>> getDeck() {
+	public static Map<CardType, ArrayList<Card>> getDeck() {
 		return deck;
 	}
 
