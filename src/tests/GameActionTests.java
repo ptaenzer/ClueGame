@@ -262,7 +262,7 @@ public class GameActionTests {
 	@Test
 	public void testDissproveSuggestion() {
 		// Set up player to make the suggestion and limit options for suggestion
-		ArrayList<Card> nullHand = new ArrayList<Card>();
+		ArrayList<Card> nullHand = new ArrayList<Card>(Arrays.asList(new Card("Greeny", CardType.PERSON), new Card("Greeny", CardType.PERSON), new Card("Greeny", CardType.PERSON)));
 		Map<String, Player> players = Board.getPlayers();
 		Set<String> people = players.keySet();
 		int i = 0;
@@ -299,63 +299,57 @@ public class GameActionTests {
 		person.addSeenCard(new Card("Candlestick", CardType.WEAPON));
 		person.addSeenCard(new Card("Gandalfs Staff", CardType.WEAPON));
 		person.addSeenCard(new Card("Holy Hand Grenade", CardType.WEAPON));
-		
+
 		ArrayList<Card> sug = person.createSuggestion(dung);
-		ArrayList<Card> hand = new ArrayList<>(Arrays.asList(sug.get(0), null, null));
-		players.get("Jack the Ripper").setCards(hand);
-		boolean jtr = false;
-		
+		ArrayList<Card> hand = new ArrayList<>(Arrays.asList(sug.get(0), new Card("Greeny", CardType.PERSON), new Card("Greeny", CardType.PERSON)));
+		players.get("Hariette A. Ness").setCards(hand);
+		boolean han = false;
+
 		for(String p : people) {
-			if(p.equals(person.getPlayerName())) {
-				continue;
-			}
-			Card card = players.get(p).disproveSuggestion(sug);
-			if(card != null) {
-				jtr = true;
-				break;
+			if(!p.equals(person.getPlayerName())) {
+				Card card = players.get(p).disproveSuggestion(sug);
+				if(card != null) {
+					han = true;
+					break;
+				}
 			}
 		}
-		ArrayList<Card> hand2 = new ArrayList<>(Arrays.asList(null, null, sug.get(1)));
-		players.get("Jack the Ripper").setCards(nullHand);
+		ArrayList<Card> hand2 = new ArrayList<>(Arrays.asList(new Card("Greeny", CardType.PERSON), new Card("Greeny", CardType.PERSON), sug.get(1)));
 		players.get("Napolean Dynamite").setCards(hand2);
+		players.get("Hariette A. Ness").setCards(nullHand);
 		boolean nd = false;
-		
+
 		for(String p : people) {
-			if(p.equals(person.getPlayerName())) {
-				continue;
-			}
-			Card card = players.get(p).disproveSuggestion(sug);
-			if(card != null) {
-				nd = true;
-				break;
+			if(!p.equals(person.getPlayerName())) {
+				Card card = players.get(p).disproveSuggestion(sug);
+				if(card != null) {
+					nd = true;
+					break;
+				}
 			}
 		}
-		
-		ArrayList<Card> hand3 = new ArrayList<>(Arrays.asList(null, sug.get(2), null));
+
+		ArrayList<Card> hand3 = new ArrayList<>(Arrays.asList(new Card("Greeny", CardType.PERSON), sug.get(2), new Card("Greeny", CardType.PERSON)));
+		players.get("Princess Peach").setCards(hand3);
 		players.get("Napolean Dynamite").setCards(nullHand);
-		players.get("Padme Amidala").setCards(hand3);
-		boolean pa = false;
-		
+		boolean pp = false;
+
 		for(String p : people) {
-			if(p.equals(person.getPlayerName())) {
-				continue;
-			}
-			Card card = players.get(p).disproveSuggestion(sug);
-			if(card != null) {
-				pa = true;
-				break;
+			if(!p.equals(person.getPlayerName())) {
+				Card card = players.get(p).disproveSuggestion(sug);
+				if(card != null) {
+					pp = true;
+					break;
+				}
 			}
 		}
-		
-		Card cantDissprove = players.get("Napolean Dynamite").disproveSuggestion(sug);
-		assertEquals(cantDissprove, null);
-		
+
 		ArrayList<Card> hand4 = new ArrayList<>(Arrays.asList(sug.get(1), sug.get(2), sug.get(0)));
 		players.get("Napolean Dynamite").setCards(hand4);
 		boolean sug0 = false;
 		boolean sug1 = false;
 		boolean sug2 = false;
-		for (int j=0; i<100; j++) {
+		for (int j=0; j<100; j++) {
 			Card c = players.get("Napolean Dynamite").disproveSuggestion(sug);
 			if(c.equals(sug.get(0))) {
 				sug0 = true;
@@ -367,16 +361,21 @@ public class GameActionTests {
 				sug2 = true;
 			}
 			else {
-				fail("Invalid target selected");
+				fail("Invalid card selected");
 			}
 		}
-		
-		assertTrue(jtr);
-		assertTrue(nd);
-		assertTrue(pa);
+
+		players.get("Napolean Dynamite").setCards(nullHand);
+		Card cantDissprove = players.get("Napolean Dynamite").disproveSuggestion(sug);
+
+		assertEquals(cantDissprove, null);
+
 		assertTrue(sug0);
 		assertTrue(sug1);
 		assertTrue(sug2);
+		assertTrue(han);
+		assertTrue(pp);
+		assertTrue(nd);
 	}
 
 }

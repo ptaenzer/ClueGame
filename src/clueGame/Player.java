@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 public class Player {
@@ -27,7 +28,18 @@ public class Player {
 	}
 
 	public Card disproveSuggestion(ArrayList<Card> suggestion) {
-		return suggestion.get(0);
+		ArrayList<Card> matching = new ArrayList<Card>();
+		for(int i = 0; i < suggestion.size(); i++) {
+			for(int j = 0; j < this.cards.size(); j++) {
+				if(suggestion.get(i).equals(this.cards.get(j))) {
+					matching.add(suggestion.get(i));
+				}
+			}
+		}
+		if(matching.size() == 0) return null;
+		Random rand = new Random();
+		int r = rand.nextInt(matching.size());
+		return matching.get(r);
 	}
 	
 	public boolean isHuman() {
