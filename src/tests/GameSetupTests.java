@@ -18,9 +18,9 @@ import clueGame.Player;
 
 public class GameSetupTests {
 	// Constants that will be used in multiple methods
-	public static final int LEGEND_SIZE = 9;
-	public static final int PLAYER_SIZE = 10;
-	public static final int WEAPON_SIZE = 14;
+	public static final int LEGEND_SIZE = 8;
+	public static final int PLAYER_SIZE = 9;
+	public static final int WEAPON_SIZE = 13;
 	public static final int DECK_SIZE = LEGEND_SIZE + PLAYER_SIZE + WEAPON_SIZE;
 	public static final int NUM_CARD = DECK_SIZE/PLAYER_SIZE;
 	public static final int NUM_ROWS = 26;
@@ -43,7 +43,7 @@ public class GameSetupTests {
 	public void testPlayers() {
 		Map<String, Player> players = board.getPlayers();
 		// Test for correct number of players
-		assertEquals(PLAYER_SIZE, players.size());
+		assertEquals(PLAYER_SIZE + 1, players.size());
 		// Test players to make sure the files were imported correctly
 		assertEquals(Color.GREEN, players.get("Greeny").getColor());
 		assertEquals(Color.YELLOW, players.get("General Custard").getColor());

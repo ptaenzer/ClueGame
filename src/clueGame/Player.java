@@ -17,6 +17,7 @@ public class Player {
 	private ArrayList<Card> cards = new ArrayList<Card>();
 	protected ArrayList<Card> suggestion = new ArrayList<Card>();
 	protected ArrayList<Card> noteCard = new ArrayList<Card>();
+	protected boolean makeAccusation = false;
 	
 	public Player(String playerName, Color color, boolean human) {
 		super();
@@ -25,8 +26,8 @@ public class Player {
 		this.human = human;
 	}
 
-	public Card disproveSuggestion(Solution suggestion) {
-		return null;
+	public Card disproveSuggestion(ArrayList<Card> suggestion) {
+		return suggestion.get(0);
 	}
 	
 	public boolean isHuman() {

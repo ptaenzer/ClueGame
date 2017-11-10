@@ -5,11 +5,13 @@ import static org.junit.Assert.*;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.lang.reflect.Field;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -257,5 +259,124 @@ public class GameActionTests {
 		assertTrue(array4);
 	}
 
+	@Test
+	public void testDissproveSuggestion() {
+		// Set up player to make the suggestion and limit options for suggestion
+		ArrayList<Card> nullHand = new ArrayList<Card>();
+		Map<String, Player> players = Board.getPlayers();
+		Set<String> people = players.keySet();
+		int i = 0;
+		String sugPerson = null;
+		for(String person : people) {
+			if(i == 0) {
+				sugPerson = person;
+				i++;
+			}
+			players.get(person).setCards(nullHand);
+		}
+		players.get(sugPerson).getSeen().clear();
+		Card dung = new Card("Dungeon", CardType.ROOM);
+		ComputerPlayer person = (ComputerPlayer) players.get(sugPerson);
+		person.addSeenCard(new Card("Greeny", CardType.PERSON));
+		person.addSeenCard(new Card("Jack The Ripper", CardType.PERSON));
+		person.addSeenCard(new Card("General Custard", CardType.PERSON));
+		person.addSeenCard(new Card("Mike Hawk", CardType.PERSON));
+		person.addSeenCard(new Card("Napolean Dynamite", CardType.PERSON));
+		person.addSeenCard(new Card("Princess Peach", CardType.PERSON));
+		person.addSeenCard(new Card("Hariette A. Ness", CardType.PERSON));
+		person.addSeenCard(new Card("Ellen Ripley", CardType.PERSON));
+		person.addSeenCard(new Card("Lara Croft", CardType.PERSON));
+		person.addSeenCard(new Card("Harpoon Gun", CardType.WEAPON));
+		person.addSeenCard(new Card("Noisy Cricket", CardType.WEAPON));
+		person.addSeenCard(new Card("Holy Grail", CardType.WEAPON));
+		person.addSeenCard(new Card("DL-44 Blaster Pistol", CardType.WEAPON));
+		person.addSeenCard(new Card("Exploding Bubble Gum", CardType.WEAPON));
+		person.addSeenCard(new Card("Freddy Kruger's Claws", CardType.WEAPON));
+		person.addSeenCard(new Card("Slap Bet", CardType.WEAPON));
+		person.addSeenCard(new Card("Death Star", CardType.WEAPON));
+		person.addSeenCard(new Card("Excaliber", CardType.WEAPON));
+		person.addSeenCard(new Card("This Thumb", CardType.WEAPON));
+		person.addSeenCard(new Card("Candlestick", CardType.WEAPON));
+		person.addSeenCard(new Card("Gandalfs Staff", CardType.WEAPON));
+		person.addSeenCard(new Card("Holy Hand Grenade", CardType.WEAPON));
+		
+		ArrayList<Card> sug = person.createSuggestion(dung);
+		ArrayList<Card> hand = new ArrayList<>(Arrays.asList(sug.get(0), null, null));
+		players.get("Jack the Ripper").setCards(hand);
+		boolean jtr = false;
+		
+		for(String p : people) {
+			if(p.equals(person.getPlayerName())) {
+				continue;
+			}
+			Card card = players.get(p).disproveSuggestion(sug);
+			if(card != null) {
+				jtr = true;
+				break;
+			}
+		}
+		ArrayList<Card> hand2 = new ArrayList<>(Arrays.asList(null, null, sug.get(1)));
+		players.get("Jack the Ripper").setCards(nullHand);
+		players.get("Napolean Dynamite").setCards(hand2);
+		boolean nd = false;
+		
+		for(String p : people) {
+			if(p.equals(person.getPlayerName())) {
+				continue;
+			}
+			Card card = players.get(p).disproveSuggestion(sug);
+			if(card != null) {
+				nd = true;
+				break;
+			}
+		}
+		
+		ArrayList<Card> hand3 = new ArrayList<>(Arrays.asList(null, sug.get(2), null));
+		players.get("Napolean Dynamite").setCards(nullHand);
+		players.get("Padme Amidala").setCards(hand3);
+		boolean pa = false;
+		
+		for(String p : people) {
+			if(p.equals(person.getPlayerName())) {
+				continue;
+			}
+			Card card = players.get(p).disproveSuggestion(sug);
+			if(card != null) {
+				pa = true;
+				break;
+			}
+		}
+		
+		Card cantDissprove = players.get("Napolean Dynamite").disproveSuggestion(sug);
+		assertEquals(cantDissprove, null);
+		
+		ArrayList<Card> hand4 = new ArrayList<>(Arrays.asList(sug.get(1), sug.get(2), sug.get(0)));
+		players.get("Napolean Dynamite").setCards(hand4);
+		boolean sug0 = false;
+		boolean sug1 = false;
+		boolean sug2 = false;
+		for (int j=0; i<100; j++) {
+			Card c = players.get("Napolean Dynamite").disproveSuggestion(sug);
+			if(c.equals(sug.get(0))) {
+				sug0 = true;
+			}
+			else if(c.equals(sug.get(1))) {
+				sug1 = true;
+			}
+			else if(c.equals(sug.get(2))) {
+				sug2 = true;
+			}
+			else {
+				fail("Invalid target selected");
+			}
+		}
+		
+		assertTrue(jtr);
+		assertTrue(nd);
+		assertTrue(pa);
+		assertTrue(sug0);
+		assertTrue(sug1);
+		assertTrue(sug2);
+	}
 
 }

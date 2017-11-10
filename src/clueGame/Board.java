@@ -29,7 +29,7 @@ public class Board {
 	//all instance variables and constants that are needed for Board
 	public static final int MAX_BOARD_SIZE = 26;
 	private static Map<Character, String> legend = new HashMap<Character, String>();
-	private Map<String, Player> players = new HashMap<String, Player>();
+	private static Map<String, Player> players = new HashMap<String, Player>();
 	private static Map<CardType, ArrayList<Card>> deck = new HashMap<CardType, ArrayList<Card>>();
 	private static Map<CardType, ArrayList<Card>> unSeenDeck = new HashMap<CardType, ArrayList<Card>>();
 	private Map<BoardCell, Set<BoardCell>> adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
@@ -111,8 +111,14 @@ public class Board {
 			if(h.trim().matches("Human")) {
 				human = true;
 			}
-			Player play = new Player(name, c, human);
-			players.put(name, play);
+			if(human == true) {
+				HumanPlayer play = new HumanPlayer(name, c, human);
+				players.put(name, play);
+			}
+			else {
+				ComputerPlayer play = new ComputerPlayer(name, c, human);
+				players.put(name, play);
+			}
 		}
 		in.close();
 		for(Player player : players.values()) {
@@ -394,7 +400,7 @@ public class Board {
 	}
 
 	//Returns a map of players
-	public Map<String, Player> getPlayers() {
+	public static Map<String, Player> getPlayers() {
 		return players;
 	}
 
