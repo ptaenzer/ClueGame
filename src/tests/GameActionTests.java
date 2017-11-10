@@ -199,6 +199,8 @@ public class GameActionTests {
 		boolean array2 = false;
 		boolean array3 = false;
 		boolean array4 = false;
+		
+		// creates random suggestions
 		Random rand = new Random();
 		int r1 = rand.nextInt(Board.getDeck().get(CardType.PERSON).size());
 		while(player.getSeen().contains(Board.getDeck().get(CardType.PERSON).get(r1))) {
@@ -236,6 +238,7 @@ public class GameActionTests {
 		ArrayList<Card> sug2 = new ArrayList<>(Arrays.asList(Board.getDeck().get(CardType.PERSON).get(r2), Board.getDeck().get(CardType.WEAPON).get(r6), player.getJustVisitedCard()));
 		ArrayList<Card> sug3 = new ArrayList<>(Arrays.asList(Board.getDeck().get(CardType.PERSON).get(r3), Board.getDeck().get(CardType.WEAPON).get(r7), player.getJustVisitedCard()));
 		ArrayList<Card> sug4 = new ArrayList<>(Arrays.asList(Board.getDeck().get(CardType.PERSON).get(r4), Board.getDeck().get(CardType.WEAPON).get(r8), player.getJustVisitedCard()));
+		
 		// Run the test a large number of times
 		for (int i=0; i<10000000; i++) {
 			ArrayList<Card> sug = player.createSuggestion(player.getJustVisitedCard());
@@ -252,6 +255,7 @@ public class GameActionTests {
 				array4 = true;
 			}
 		}
+		
 		// Ensure each target was selected at least once
 		assertTrue(array1);
 		assertTrue(array2);
@@ -259,7 +263,7 @@ public class GameActionTests {
 		assertTrue(array4);
 	}
 
-	//
+	// Test to make sure that dissproveSuggestion is working properly
 	@Test
 	public void testDissproveSuggestion() {
 		// Set up player to make the suggestion and limit options for suggestion
@@ -301,55 +305,67 @@ public class GameActionTests {
 		person.addSeenCard(new Card("Gandalfs Staff", CardType.WEAPON));
 		person.addSeenCard(new Card("Holy Hand Grenade", CardType.WEAPON));
 
+		// Make suggestion with created person
 		ArrayList<Card> sug = person.createSuggestion(dung);
+		
+		//creates hand with one card similar and gives it to first person in list
 		ArrayList<Card> hand = new ArrayList<>(Arrays.asList(sug.get(0), new Card("Greeny", CardType.PERSON), new Card("Greeny", CardType.PERSON)));
 		players.get("Hariette A. Ness").setCards(hand);
 		boolean han = false;
 
+		//ensures that correct person returns a card
 		for(String p : people) {
 			if(!p.equals(person.getPlayerName())) {
 				Card card = players.get(p).disproveSuggestion(sug);
-				if(card != null) {
+				if(card != null && p.equals("Hariette A. Ness")) {
 					han = true;
 					break;
 				}
 			}
 		}
+		
+		//creates hand with one card similar and gives it to person in middle of list
 		ArrayList<Card> hand2 = new ArrayList<>(Arrays.asList(new Card("Greeny", CardType.PERSON), new Card("Greeny", CardType.PERSON), sug.get(1)));
 		players.get("Napolean Dynamite").setCards(hand2);
 		players.get("Hariette A. Ness").setCards(nullHand);
 		boolean nd = false;
 
+		//ensures that correct person returns a card
 		for(String p : people) {
 			if(!p.equals(person.getPlayerName())) {
 				Card card = players.get(p).disproveSuggestion(sug);
-				if(card != null) {
+				if(card != null && p.equals("Napolean Dynamite")) {
 					nd = true;
 					break;
 				}
 			}
 		}
 
+		//creates hand with one card similar and gives it to last person in list
 		ArrayList<Card> hand3 = new ArrayList<>(Arrays.asList(new Card("Greeny", CardType.PERSON), sug.get(2), new Card("Greeny", CardType.PERSON)));
 		players.get("Princess Peach").setCards(hand3);
 		players.get("Napolean Dynamite").setCards(nullHand);
 		boolean pp = false;
 
+		//ensures that correct person returns a card
 		for(String p : people) {
 			if(!p.equals(person.getPlayerName())) {
 				Card card = players.get(p).disproveSuggestion(sug);
-				if(card != null) {
+				if(card != null && p.equals("Princess Peach")) {
 					pp = true;
 					break;
 				}
 			}
 		}
 
+		//Creates hand with all similar cards and gives it to a player
 		ArrayList<Card> hand4 = new ArrayList<>(Arrays.asList(sug.get(1), sug.get(2), sug.get(0)));
 		players.get("Napolean Dynamite").setCards(hand4);
 		boolean sug0 = false;
 		boolean sug1 = false;
 		boolean sug2 = false;
+		
+		//ensures random decision of which of the three similar cards to be shown
 		for (int j=0; j<100; j++) {
 			Card c = players.get("Napolean Dynamite").disproveSuggestion(sug);
 			if(c.equals(sug.get(0))) {
@@ -366,11 +382,12 @@ public class GameActionTests {
 			}
 		}
 
+		//Tests when no cards are similar
 		players.get("Napolean Dynamite").setCards(nullHand);
 		Card cantDissprove = players.get("Napolean Dynamite").disproveSuggestion(sug);
 
+		//Final assertions for each condition
 		assertEquals(cantDissprove, null);
-
 		assertTrue(sug0);
 		assertTrue(sug1);
 		assertTrue(sug2);
@@ -379,7 +396,7 @@ public class GameActionTests {
 		assertTrue(nd);
 	}
 	
-	//
+	// Tests the order that players dissprove suggestion
 	@Test
 	public void testOrderDissproveSuggestion() {
 		// Set up player to make the suggestion and limit options for suggestion
@@ -421,8 +438,10 @@ public class GameActionTests {
 		person.addSeenCard(new Card("Gandalfs Staff", CardType.WEAPON));
 		person.addSeenCard(new Card("Holy Hand Grenade", CardType.WEAPON));
 
+		//Creates Suggestion
 		ArrayList<Card> sug = person.createSuggestion(dung);
 		
+		// tests dissprove loop with first person in list
 		ArrayList<Card> hand0 = new ArrayList<>(Arrays.asList(sug.get(1), new Card("Greeny", CardType.PERSON), new Card("Greeny", CardType.PERSON)));
 		players.get("Hariette A. Ness").setCards(hand0);
 		
@@ -430,6 +449,7 @@ public class GameActionTests {
 		
 		assertEquals(card0, sug.get(1));
 		
+		// tests dissprove loop with  person in middle of list
 		ArrayList<Card> hand1 = new ArrayList<>(Arrays.asList(new Card("Greeny", CardType.PERSON), new Card("Greeny", CardType.PERSON), sug.get(0)));
 		players.get("Napolean Dynamite").setCards(hand1);
 		players.get("Hariette A. Ness").setCards(nullHand);
@@ -438,6 +458,7 @@ public class GameActionTests {
 		
 		assertEquals(card1, sug.get(0));
 		
+		// tests dissprove loop with last person in list
 		ArrayList<Card> hand2 = new ArrayList<>(Arrays.asList(new Card("Greeny", CardType.PERSON), sug.get(2), new Card("Greeny", CardType.PERSON)));
 		players.get("Princess Peach").setCards(hand2);
 		players.get("Napolean Dynamite").setCards(nullHand);
@@ -445,6 +466,14 @@ public class GameActionTests {
 		Card card2 = Board.dissproveLoop(sug,person);
 		
 		assertEquals(card2, sug.get(2));
+		
+		// ensures correct order of dissprove list
+		players.get("Princess Peach").setCards(hand1);
+		players.get("Napolean Dynamite").setCards(hand2);
+		
+		Card card3 = Board.dissproveLoop(sug,person);
+		
+		assertEquals(card3, sug.get(2));
 	}
 
 }

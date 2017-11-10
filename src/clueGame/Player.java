@@ -10,6 +10,7 @@ import java.util.Set;
 
 public class Player {
 
+	// member variables
 	private String playerName;
 	private int row;
 	private int column;
@@ -20,6 +21,7 @@ public class Player {
 	protected ArrayList<Card> noteCard = new ArrayList<Card>();
 	protected boolean makeAccusation = false;
 	
+	// constructor
 	public Player(String playerName, Color color, boolean human) {
 		super();
 		this.playerName = playerName;
@@ -27,7 +29,9 @@ public class Player {
 		this.human = human;
 	}
 
+	// disprove suggestion 
 	public Card disproveSuggestion(ArrayList<Card> suggestion) {
+		// finds all possible disproving cards
 		ArrayList<Card> matching = new ArrayList<Card>();
 		for(int i = 0; i < suggestion.size(); i++) {
 			for(int j = 0; j < this.cards.size(); j++) {
@@ -36,14 +40,17 @@ public class Player {
 				}
 			}
 		}
+		// if there are no disproving suggestions returns null
 		if(matching.size() == 0) {
 			return null;
 		}
+		// returns random card from disproving cards
 		Random rand = new Random();
 		int r = rand.nextInt(matching.size());
 		return matching.get(r);
 	}
 	
+	// getters and setters
 	public boolean isHuman() {
 		return human;
 	}

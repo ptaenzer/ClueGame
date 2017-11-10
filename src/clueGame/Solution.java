@@ -2,10 +2,12 @@ package clueGame;
 
 public class Solution {
 
+	// create member variables
 	private static Card person;
 	private static Card room;
 	private static Card weapon;
 
+	// getters and setters
 	public static Card getPerson() {
 		return person;
 	}
@@ -24,6 +26,8 @@ public class Solution {
 	public static void setWeapon(Card w) {
 		weapon = w;
 	}
+	
+	// tests accusations from players
 	public static boolean testAccusation(Card killer, Card weapon2, Card room2) {
 		if(person == killer && weapon == weapon2 && room == room2) {
 			return true;

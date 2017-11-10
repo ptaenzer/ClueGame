@@ -10,20 +10,23 @@ public class ComputerPlayer extends Player{
 	private char justVisited;
 	private Card justVisitedCard;
 
+	// constructor
 	public ComputerPlayer(String playerName, Color color, boolean human) {
 		super(playerName, color, human);
-		// TODO Auto-generated constructor stub
 	}
 
+	// picks location based on given targets
 	public BoardCell pickLocation(Set<BoardCell> targets) {
 		BoardCell location = null;
 		ArrayList<BoardCell> cells = new ArrayList<BoardCell>();
+		// picks doorway if not last visited
 		for(BoardCell test : targets) {
 			if(test.isDoorway() && test.getInitial() != justVisited) {
 				location = test;
 			}
 			cells.add(test);
 		}
+		// picks location randomly
 		if(location == null) {
 			Random rand = new Random();
 			int r = rand.nextInt(cells.size());
@@ -36,6 +39,7 @@ public class ComputerPlayer extends Player{
 		
 	}
 
+	// creates the suggestion 
 	public ArrayList<Card> createSuggestion(Card room) {
 		suggestion.clear();
 		// add player
@@ -62,9 +66,13 @@ public class ComputerPlayer extends Player{
 		suggestion.add(weapon);
 		// add room
 		suggestion.add(room);
+		// calls dissprove loop
+		Board.dissproveLoop(suggestion, this);
+		
 		return suggestion;
 	}
 
+	// sets the just visited room
 	public void setJustVisited(char c) {
 		this.justVisited = c;
 		ArrayList<Card> cards = Board.getDeck().get(CardType.ROOM);
@@ -76,6 +84,7 @@ public class ComputerPlayer extends Player{
 		}
 	}
 
+	// getter for just visited card
 	public Card getJustVisitedCard() {
 		return justVisitedCard;
 	}

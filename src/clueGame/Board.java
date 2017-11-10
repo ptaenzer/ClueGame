@@ -415,14 +415,16 @@ public class Board {
 	}
 
 	//Checks if the accusation matches the answer
-	public boolean checkAccusation(Solution accusation) {
-		return false;
+	public boolean checkAccusation(ArrayList<Card> accusation) {
+		return Solution.testAccusation(accusation.get(0), accusation.get(1), accusation.get(2));
 	}
 
+	// getter for deck
 	public static Map<CardType, ArrayList<Card>> getDeck() {
 		return deck;
 	}
 
+	// color converter
 	public Color convertColor(String strColor) {
 		Color color; 
 		try {     // We can use reflection to convert the string to a color
@@ -434,23 +436,26 @@ public class Board {
 		return color;
 	}
 
+	// getter for unseen deck
 	public static Map<CardType, ArrayList<Card>> getUnSeenDeck() {
 		// TODO Auto-generated method stub
 		return unSeenDeck;
 	}
 
+	// dissprove loop called after evry suggestion
 	public static Card dissproveLoop(ArrayList<Card> sug, Player person) {
 		Set<String> people = players.keySet();
 		ArrayList<String> order = new ArrayList<String>();
+		// finds the player that suggested
 		int i = 0;
-		String sugPerson = null;
 		for(String p : people) {
 			if(p.equals(person.getPlayerName())) {
-				sugPerson = p;
 				break;
 			}
 			i++;
 		}
+		
+		// adds everyone after suggestion person
 		int j = 0;
 		for(String p : people) {
 			if(j > i) {
@@ -458,6 +463,8 @@ public class Board {
 			}
 			j++;
 		}
+		
+		// adds everyone before suggestion person
 		int k = 0;
 		for(String p : people) {
 			if(k < i) {
@@ -465,6 +472,8 @@ public class Board {
 			}
 			k++;
 		}
+		
+		// finds if a player can disprove and gets disproving card
 		Card disprove = null;
 		for(String p : order) {
 			disprove = players.get(p).disproveSuggestion(sug);
@@ -472,9 +481,12 @@ public class Board {
 				break;
 			}
 		}
+		
+		// if no one can disprove then sets make Acusation of that player to true
 		if(disprove == null) {
 			person.makeAccusationTrue();
 		}
+		
 		return disprove;
 	}
 }
