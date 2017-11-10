@@ -439,8 +439,42 @@ public class Board {
 		return unSeenDeck;
 	}
 
-	public static Card dissproveLoop(ArrayList<Card> sug, ComputerPlayer person) {
-		
-		return sug.get(0);
+	public static Card dissproveLoop(ArrayList<Card> sug, Player person) {
+		Set<String> people = players.keySet();
+		ArrayList<String> order = new ArrayList<String>();
+		int i = 0;
+		String sugPerson = null;
+		for(String p : people) {
+			if(p.equals(person.getPlayerName())) {
+				sugPerson = p;
+				break;
+			}
+			i++;
+		}
+		int j = 0;
+		for(String p : people) {
+			if(j > i) {
+				order.add(p);
+			}
+			j++;
+		}
+		int k = 0;
+		for(String p : people) {
+			if(k < i) {
+				order.add(p);
+			}
+			k++;
+		}
+		Card disprove = null;
+		for(String p : order) {
+			disprove = players.get(p).disproveSuggestion(sug);
+			if(disprove != null) {
+				break;
+			}
+		}
+		if(disprove == null) {
+			person.makeAccusationTrue();
+		}
+		return disprove;
 	}
 }

@@ -99,5 +99,9 @@ public class Player {
 	public ArrayList<Card> getSeen() {
 		return noteCard;
 	}
+
+	public void makeAccusationTrue() {
+		this.makeAccusation = true;
+	}
 	
 }
