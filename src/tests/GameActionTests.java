@@ -259,6 +259,7 @@ public class GameActionTests {
 		assertTrue(array4);
 	}
 
+	//
 	@Test
 	public void testDissproveSuggestion() {
 		// Set up player to make the suggestion and limit options for suggestion
@@ -376,6 +377,74 @@ public class GameActionTests {
 		assertTrue(han);
 		assertTrue(pp);
 		assertTrue(nd);
+	}
+	
+	//
+	@Test
+	public void testOrderDissproveSuggestion() {
+		// Set up player to make the suggestion and limit options for suggestion
+		ArrayList<Card> nullHand = new ArrayList<Card>(Arrays.asList(new Card("Greeny", CardType.PERSON), new Card("Greeny", CardType.PERSON), new Card("Greeny", CardType.PERSON)));
+		Map<String, Player> players = Board.getPlayers();
+		Set<String> people = players.keySet();
+		int i = 0;
+		String sugPerson = null;
+		for(String person : people) {
+			if(i == 0) {
+				sugPerson = person;
+				i++;
+			}
+			players.get(person).setCards(nullHand);
+		}
+		players.get(sugPerson).getSeen().clear();
+		Card dung = new Card("Dungeon", CardType.ROOM);
+		ComputerPlayer person = (ComputerPlayer) players.get(sugPerson);
+		person.addSeenCard(new Card("Greeny", CardType.PERSON));
+		person.addSeenCard(new Card("Jack The Ripper", CardType.PERSON));
+		person.addSeenCard(new Card("General Custard", CardType.PERSON));
+		person.addSeenCard(new Card("Mike Hawk", CardType.PERSON));
+		person.addSeenCard(new Card("Napolean Dynamite", CardType.PERSON));
+		person.addSeenCard(new Card("Princess Peach", CardType.PERSON));
+		person.addSeenCard(new Card("Hariette A. Ness", CardType.PERSON));
+		person.addSeenCard(new Card("Ellen Ripley", CardType.PERSON));
+		person.addSeenCard(new Card("Lara Croft", CardType.PERSON));
+		person.addSeenCard(new Card("Harpoon Gun", CardType.WEAPON));
+		person.addSeenCard(new Card("Noisy Cricket", CardType.WEAPON));
+		person.addSeenCard(new Card("Holy Grail", CardType.WEAPON));
+		person.addSeenCard(new Card("DL-44 Blaster Pistol", CardType.WEAPON));
+		person.addSeenCard(new Card("Exploding Bubble Gum", CardType.WEAPON));
+		person.addSeenCard(new Card("Freddy Kruger's Claws", CardType.WEAPON));
+		person.addSeenCard(new Card("Slap Bet", CardType.WEAPON));
+		person.addSeenCard(new Card("Death Star", CardType.WEAPON));
+		person.addSeenCard(new Card("Excaliber", CardType.WEAPON));
+		person.addSeenCard(new Card("This Thumb", CardType.WEAPON));
+		person.addSeenCard(new Card("Candlestick", CardType.WEAPON));
+		person.addSeenCard(new Card("Gandalfs Staff", CardType.WEAPON));
+		person.addSeenCard(new Card("Holy Hand Grenade", CardType.WEAPON));
+
+		ArrayList<Card> sug = person.createSuggestion(dung);
+		
+		ArrayList<Card> hand0 = new ArrayList<>(Arrays.asList(sug.get(1), new Card("Greeny", CardType.PERSON), new Card("Greeny", CardType.PERSON)));
+		players.get("Hariette A. Ness").setCards(hand0);
+		
+		Card card0 = Board.dissproveLoop(sug,person);
+		
+		assertEquals(card0, sug.get(1));
+		
+		ArrayList<Card> hand1 = new ArrayList<>(Arrays.asList(new Card("Greeny", CardType.PERSON), new Card("Greeny", CardType.PERSON), sug.get(0)));
+		players.get("Napolean Dynamite").setCards(hand1);
+		players.get("Hariette A. Ness").setCards(nullHand);
+		
+		Card card1 = Board.dissproveLoop(sug,person);
+		
+		assertEquals(card1, sug.get(0));
+		
+		ArrayList<Card> hand2 = new ArrayList<>(Arrays.asList(new Card("Greeny", CardType.PERSON), sug.get(2), new Card("Greeny", CardType.PERSON)));
+		players.get("Princess Peach").setCards(hand2);
+		players.get("Napolean Dynamite").setCards(nullHand);
+		
+		Card card2 = Board.dissproveLoop(sug,person);
+		
+		assertEquals(card2, sug.get(2));
 	}
 
 }

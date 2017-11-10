@@ -438,4 +438,9 @@ public class Board {
 		// TODO Auto-generated method stub
 		return unSeenDeck;
 	}
+
+	public static Card dissproveLoop(ArrayList<Card> sug, ComputerPlayer person) {
+		
+		return sug.get(0);
+	}
 }

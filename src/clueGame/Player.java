@@ -36,7 +36,9 @@ public class Player {
 				}
 			}
 		}
-		if(matching.size() == 0) return null;
+		if(matching.size() == 0) {
+			return null;
+		}
 		Random rand = new Random();
 		int r = rand.nextInt(matching.size());
 		return matching.get(r);
