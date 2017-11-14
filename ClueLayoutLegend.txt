@@ -3,7 +3,7 @@ C, Closet, other
 G, Gazibo, Card
 E, Entertainment, Card
 F, Family, Card
-O, Obervitory, Card
+O, Observatory, Card
 M, Movie, Card
 K, Kitchen, Card
 B, Billiard, Card

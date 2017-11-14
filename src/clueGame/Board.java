@@ -7,6 +7,9 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.GridLayout;
 //All imports needed for data types and files
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -18,12 +21,16 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+
 import com.sun.org.apache.bcel.internal.classfile.Field;
 
 //Import BoardCell to use in this class
 import clueGame.BoardCell;
 
-public class Board {
+public class Board extends JPanel{
 
 
 	//all instance variables and constants that are needed for Board
@@ -38,10 +45,11 @@ public class Board {
 	private String playerConfigFile;
 	private String weaponConfigFile;
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
-	private Set<String> weapons = new HashSet<String>();
+	private static Set<String> weapons = new HashSet<String>();
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
-	private BoardCell[][] board;
+	private static BoardCell[][] board;
 	private static Board theInstance = new Board();
+	private static JPanel panel = new JPanel();
 
 	private Board() {}
 
@@ -69,6 +77,7 @@ public class Board {
 		}
 
 		deal();
+		createBoardPanel();
 	}
 
 	//loads the weapon configuration
@@ -454,7 +463,7 @@ public class Board {
 			}
 			i++;
 		}
-		
+
 		// adds everyone after suggestion person
 		int j = 0;
 		for(String p : people) {
@@ -463,7 +472,7 @@ public class Board {
 			}
 			j++;
 		}
-		
+
 		// adds everyone before suggestion person
 		int k = 0;
 		for(String p : people) {
@@ -472,7 +481,7 @@ public class Board {
 			}
 			k++;
 		}
-		
+
 		// finds if a player can disprove and gets disproving card
 		Card disprove = null;
 		for(String p : order) {
@@ -481,12 +490,40 @@ public class Board {
 				break;
 			}
 		}
-		
+
 		// if no one can disprove then sets make Acusation of that player to true
 		if(disprove == null) {
 			person.makeAccusationTrue();
 		}
-		
+
 		return disprove;
+	}
+
+	// getter for weapons list
+	public static Set<String> getWeapons() {
+		return weapons;
+	}
+
+	public static JPanel getPanel() {
+		return panel;
+	}
+	public void createBoardPanel() {
+		int width  = board.length*BoardCell.width + board.length*BoardCell.margin + 20;
+		int height  = board.length*BoardCell.height + board.length*BoardCell.margin + 20;
+		panel.setPreferredSize(new Dimension(width, height));
+		panel.setLayout(new GridLayout(MAX_BOARD_SIZE,MAX_BOARD_SIZE));
+		panel.setBackground(Color.BLACK);
+		repaint();
+	}
+
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		for(int i = 0; i < MAX_BOARD_SIZE; i++) {
+			for(int j = 0; j < MAX_BOARD_SIZE; j++) {
+				g = board[i][j].draw(g);
+				panel.add(board[i][j]);
+				System.out.println(i);
+			}
+		}
 	}
 }
