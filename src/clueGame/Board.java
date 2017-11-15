@@ -6,6 +6,7 @@
 
 package clueGame;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -499,8 +500,8 @@ public class Board extends JPanel{
 	
 	
 	public JPanel createBoardPanel() {
-		int width  = board.length*BoardCell.width + board.length*BoardCell.margin + 20;
-		int height  = board.length*BoardCell.height + board.length*BoardCell.margin + 20;
+		int width  = board.length*BoardCell.width + board.length*BoardCell.margin;
+		int height  = board.length*BoardCell.height + board.length*BoardCell.margin;
 		setPreferredSize(new Dimension(width, height));
 		setLayout(new GridLayout(MAX_BOARD_SIZE,MAX_BOARD_SIZE));
 		setBackground(Color.BLACK);
@@ -519,6 +520,9 @@ public class Board extends JPanel{
 			for(int j = 0; j < MAX_BOARD_SIZE; j++) {
 				board[i][j].draw(g);
 			}
+		}
+		for(String name: players.keySet()) {
+			players.get(name).draw(g);
 		}
 	}
 }

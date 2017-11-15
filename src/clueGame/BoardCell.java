@@ -127,10 +127,5 @@ public class BoardCell extends Component{
 	public void draw(Graphics g) {
 		g.setColor(color);
 		g.fillRect(rowP, columnP, width, height);
-		repaint();
 	}
-
-	//public Graphics getGraph() {
-	//	return box;
-	//}
 }

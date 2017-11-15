@@ -6,11 +6,13 @@ package clueGame;
 
 // imports
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,25 +27,25 @@ public class GUI_ClueGame extends JPanel {
 	// GUI constructor
 	public GUI_ClueGame() {
 		// Create a layout with 2 rows and 4 columns
-		setLayout(new GridLayout(2,4));
+		setLayout(new BorderLayout());
 		// add panels
 		JPanel panel = createBoardPanel();
-		add(panel);
+		add(panel, BorderLayout.WEST);
 		panel = createNamePanel();
-		add(panel);
+		add(panel, BorderLayout.CENTER);
 		panel = createWeaponPanel();
-		add(panel);
+		add(panel, BorderLayout.EAST);
 		panel = createCardPanel();
-		add(panel);
+		add(panel, BorderLayout.NORTH);
 		panel = createButtonPanel();
-		add(panel);
+		add(panel, BorderLayout.SOUTH);
 	}
 	
 	// creates user input panel
 	private JPanel createButtonPanel() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(1,2));
-		JButton makeSug = new JButton("Make suggestion");
+		JButton makeSug = new JButton("Detective Notes");
 		JTextField sug = new JTextField(20);
 		panel.add(makeSug);
 		panel.add(sug);
@@ -56,7 +58,7 @@ public class GUI_ClueGame extends JPanel {
 	private JPanel createCardPanel() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(1,1));
-		panel.setPreferredSize(new Dimension(200,566));
+		panel.setPreferredSize(new Dimension(1166,200));
 		panel.setBorder(new TitledBorder (new EtchedBorder(), "MyCards Panel"));
 		return panel;
 	}
@@ -64,7 +66,7 @@ public class GUI_ClueGame extends JPanel {
 	// create weapon list panel
 	private JPanel createWeaponPanel() {
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(14,1));
+		panel.setLayout(new GridLayout(Board.getWeapons().size(),1));
 		JLabel nameLabel;
 		for(String name : Board.getWeapons()) {
 			nameLabel = new JLabel(name);
@@ -78,13 +80,13 @@ public class GUI_ClueGame extends JPanel {
 	// create name list panel
 	private JPanel createNamePanel() {
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(10,1));
+		panel.setLayout(new GridLayout(Board.getPlayers().keySet().size(),1));
 		JLabel nameLabel;
 		for(String name : Board.getPlayers().keySet()) {
 			nameLabel = new JLabel(name);
 			panel.add(nameLabel);
 		}
-		panel.setPreferredSize(new Dimension(200,566));
+		//panel.setPreferredSize(new Dimension(200,566));
 		panel.setBorder(new TitledBorder (new EtchedBorder(), "Name List"));
 		return panel;
 	}
@@ -111,5 +113,6 @@ public class GUI_ClueGame extends JPanel {
 		frame.pack();
 		// Now let's view it
 		frame.setVisible(true);
+		DetectiveNotes note = new DetectiveNotes(new JDialog());
 	}
 }

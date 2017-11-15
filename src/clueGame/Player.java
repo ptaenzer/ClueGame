@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,6 +17,11 @@ public class Player {
 	private int column;
 	private Color color;
 	private boolean human;
+	public static int width = 20;
+	public static int height = 20;
+	public static int margin = 1;
+	private int rowP;
+	private int columnP;
 	private ArrayList<Card> cards = new ArrayList<Card>();
 	protected ArrayList<Card> suggestion = new ArrayList<Card>();
 	protected ArrayList<Card> noteCard = new ArrayList<Card>();
@@ -27,6 +33,11 @@ public class Player {
 		this.playerName = playerName;
 		this.color = color;
 		this.human = human;
+		Random r = new Random();
+		this.row = r.nextInt(Board.MAX_BOARD_SIZE);
+		this.rowP = row*width + margin*(row);
+		this.column = r.nextInt(Board.MAX_BOARD_SIZE);
+		this.columnP = column*width + margin*(column);
 	}
 
 	// disprove suggestion 
@@ -69,6 +80,7 @@ public class Player {
 
 	public void setRow(int row) {
 		this.row = row;
+		this.rowP = row*width + margin*(row);
 	}
 
 	public int getColumn() {
@@ -77,6 +89,7 @@ public class Player {
 
 	public void setColumn(int column) {
 		this.column = column;
+		this.columnP = column*width + margin*(column);
 	}
 
 	public Color getColor() {
@@ -109,6 +122,13 @@ public class Player {
 
 	public void makeAccusationTrue() {
 		this.makeAccusation = true;
+	}
+
+	public void draw(Graphics g) {
+		g.setColor(color);
+		g.fillOval(rowP, columnP, width, height);
+		g.setColor(Color.BLACK);
+		g.drawOval(rowP, columnP, width, height);
 	}
 	
 }
