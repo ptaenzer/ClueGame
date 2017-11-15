@@ -8,8 +8,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 
-public class BoardCell extends Component {
-
+public class BoardCell extends Component{
 	//declare all instance variables needed for each cell
 	private int row;
 	private int column;
@@ -22,6 +21,7 @@ public class BoardCell extends Component {
 	private Color color;
 	private DoorDirection direction;
 	boolean isDoor;
+	//private Graphics box;
 
 
 	//constructor for BoardCell
@@ -32,7 +32,7 @@ public class BoardCell extends Component {
 		this.initial = initial;
 		this.isDoor = false;
 		this.rowP = row*width + margin*(row);
-		this.rowP = column*width + margin*(column);
+		this.columnP = column*width + margin*(column);
 	}
 
 	//returns the row that the cell is in
@@ -60,41 +60,41 @@ public class BoardCell extends Component {
 	//sets the initial for this cell
 	public void setInitial(char i) {
 		switch (i) {
-		case 1:  i = 'W';
-		this.color = Color.WHITE;
-		break;
-		case 2:  i = 'C';
-		this.color = Color.BLACK;
-		break;
-		case 3:  i = 'G';
-		this.color = Color.GREEN;
-		break;
-		case 4:  i = 'E';
-		this.color = Color.ORANGE;
-		break;
-		case 5:  i = 'F';
-		this.color = Color.LIGHT_GRAY;
-		break;
-		case 6:  i = 'O';
-		this.color = Color.YELLOW;
-		break;
-		case 7:  i = 'M';
-		this.color = Color.MAGENTA;
-		break;
-		case 8:  i = 'K';
-		this.color = Color.CYAN;
-		break;
-		case 9:  i = 'B';
-		this.color = Color.RED;
-		break;
-		case 10:  i = 'L';
-		this.color = Color.GRAY;
-		break;
-		case 11:  i = 'D';
-		this.color = Color.PINK;
-		break;
+		case 'W':
+			this.color = Color.WHITE;
+			break;
+		case 'C':
+			this.color = Color.BLACK;
+			break;
+		case 'G':
+			this.color = Color.GREEN;
+			break;
+		case 'E':
+			this.color = Color.ORANGE;
+			break;
+		case 'F':
+			this.color = Color.LIGHT_GRAY;
+			break;
+		case 'O':
+			this.color = Color.YELLOW;
+			break;
+		case 'M':
+			this.color = Color.MAGENTA;
+			break;
+		case 'K':
+			this.color = Color.CYAN;
+			break;
+		case 'B':
+			this.color = Color.RED;
+			break;
+		case 'L':
+			this.color = Color.GRAY;
+			break;
+		case 'D':
+			this.color = Color.PINK;
+			break;
 		default:
-		break;
+			break;
 		}
 		this.initial = i;
 	}
@@ -124,10 +124,13 @@ public class BoardCell extends Component {
 		return direction;
 	}
 
-	public Graphics draw(Graphics g) {
+	public void draw(Graphics g) {
 		g.setColor(color);
 		g.fillRect(rowP, columnP, width, height);
-		g.drawRect(rowP, columnP, width, height);
-		return g;
+		repaint();
 	}
+
+	//public Graphics getGraph() {
+	//	return box;
+	//}
 }

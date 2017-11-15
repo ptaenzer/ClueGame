@@ -22,11 +22,6 @@ import java.util.Scanner;
 import java.util.Set;
 
 import javax.swing.JPanel;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
-
-import com.sun.org.apache.bcel.internal.classfile.Field;
-
 //Import BoardCell to use in this class
 import clueGame.BoardCell;
 
@@ -49,7 +44,6 @@ public class Board extends JPanel{
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
 	private static BoardCell[][] board;
 	private static Board theInstance = new Board();
-	private static JPanel panel = new JPanel();
 
 	private Board() {}
 
@@ -173,7 +167,6 @@ public class Board extends JPanel{
 			String[] line = hold.split(",");
 			for(int i = 0; i < line.length; i++) {
 				board[j][i].setInitial(line[i].charAt(0));
-
 				//if room has 2 letters, sets door direction
 				if(line[i].length() == 2) {
 					if(line[i].charAt(1) == 'U') {
@@ -503,26 +496,28 @@ public class Board extends JPanel{
 	public static Set<String> getWeapons() {
 		return weapons;
 	}
-
-	public static JPanel getPanel() {
-		return panel;
-	}
-	public void createBoardPanel() {
+	
+	
+	public JPanel createBoardPanel() {
 		int width  = board.length*BoardCell.width + board.length*BoardCell.margin + 20;
 		int height  = board.length*BoardCell.height + board.length*BoardCell.margin + 20;
-		panel.setPreferredSize(new Dimension(width, height));
-		panel.setLayout(new GridLayout(MAX_BOARD_SIZE,MAX_BOARD_SIZE));
-		panel.setBackground(Color.BLACK);
-		repaint();
+		setPreferredSize(new Dimension(width, height));
+		setLayout(new GridLayout(MAX_BOARD_SIZE,MAX_BOARD_SIZE));
+		setBackground(Color.BLACK);
+		for(int i = 0; i < MAX_BOARD_SIZE; i++) {
+			for(int j = 0; j < MAX_BOARD_SIZE; j++) {
+				add(board[i][j]);
+			}
+		}
+		return this;
 	}
 
+	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		for(int i = 0; i < MAX_BOARD_SIZE; i++) {
 			for(int j = 0; j < MAX_BOARD_SIZE; j++) {
-				g = board[i][j].draw(g);
-				panel.add(board[i][j]);
-				System.out.println(i);
+				board[i][j].draw(g);
 			}
 		}
 	}
