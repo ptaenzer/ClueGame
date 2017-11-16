@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
@@ -131,6 +132,8 @@ public class GUI_ClueGame extends JPanel {
 		frame.add(gui, BorderLayout.CENTER);
 		frame.setSize(1146, 646);
 		frame.pack();
+		// tell player who they are
+		JOptionPane.showMessageDialog(frame, "You are Greeny, press Next Player to begin play", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 		// Now let's view it
 		frame.setVisible(true);
 	}
