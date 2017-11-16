@@ -9,6 +9,10 @@ import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
@@ -128,20 +132,66 @@ public class DetectiveNotes extends JDialog {
 	}
 
 	// constructor for name panel
+	JCheckBox[] peopleBox = new JCheckBox[Board.getPlayers().keySet().size()];
+	Map<JCheckBox, String> peopleNotes = new HashMap<JCheckBox, String>();
 	private JPanel createNamePanel() {
 		JPanel panel = new JPanel();
+		CheckBoxListener clicker = new CheckBoxListener();
 		panel.setLayout(new GridLayout(Board.getPlayers().keySet().size(),1));
 		JLabel nameLabel;
-		JCheckBox box;
+		int i = 0;
 		for(String name : Board.getPlayers().keySet()) {
-			box = new JCheckBox();
-			panel.add(box);
+			Card nameCard = new Card(name, CardType.PERSON);
+			peopleBox[i] = new JCheckBox();
+			peopleBox[i].addActionListener(clicker);
+			peopleNotes.put(peopleBox[i], name);
+			if(Board.getPlayers().get(Board.getHumanName()).getSeen().contains(nameCard)) {
+				peopleBox[i].setEnabled(false);
+			}
+			panel.add(peopleBox[i]);
 			nameLabel = new JLabel(name);
 			panel.add(nameLabel);
+			i++;
 		}
 		panel.setPreferredSize(new Dimension(250,300));
 		panel.setBorder(new TitledBorder (new EtchedBorder(), "Person List"));
 		return panel;
 	}
 
+	// Action Listener for panel
+		private class CheckBoxListener implements ActionListener {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(peopleBox[0].isSelected()) {
+					Board.getPlayers().get(Board.getHumanName()).addSeenCard(new Card(peopleNotes.get(peopleBox[0]), CardType.PERSON)); 
+				}
+				if(peopleBox[1].isSelected()) {
+					Board.getPlayers().get(Board.getHumanName()).addSeenCard(new Card(peopleNotes.get(peopleBox[0]), CardType.PERSON)); 
+				}
+				if(peopleBox[2].isSelected()) {
+					Board.getPlayers().get(Board.getHumanName()).addSeenCard(new Card(peopleNotes.get(peopleBox[0]), CardType.PERSON)); 
+				}
+				if(peopleBox[3].isSelected()) {
+					Board.getPlayers().get(Board.getHumanName()).addSeenCard(new Card(peopleNotes.get(peopleBox[0]), CardType.PERSON)); 
+				}
+				if(peopleBox[4].isSelected()) {
+					Board.getPlayers().get(Board.getHumanName()).addSeenCard(new Card(peopleNotes.get(peopleBox[0]), CardType.PERSON)); 
+				}
+				if(peopleBox[5].isSelected()) {
+					Board.getPlayers().get(Board.getHumanName()).addSeenCard(new Card(peopleNotes.get(peopleBox[0]), CardType.PERSON)); 
+				}
+				if(peopleBox[6].isSelected()) {
+					Board.getPlayers().get(Board.getHumanName()).addSeenCard(new Card(peopleNotes.get(peopleBox[0]), CardType.PERSON)); 
+				}
+				if(peopleBox[7].isSelected()) {
+					Board.getPlayers().get(Board.getHumanName()).addSeenCard(new Card(peopleNotes.get(peopleBox[0]), CardType.PERSON)); 
+				}
+				if(peopleBox[8].isSelected()) {
+					Board.getPlayers().get(Board.getHumanName()).addSeenCard(new Card(peopleNotes.get(peopleBox[0]), CardType.PERSON)); 
+				}
+				if(peopleBox[9].isSelected()) {
+					Board.getPlayers().get(Board.getHumanName()).addSeenCard(new Card(peopleNotes.get(peopleBox[0]), CardType.PERSON)); 
+				}
+			}
+		}
 }
