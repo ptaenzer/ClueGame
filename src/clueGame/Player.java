@@ -77,6 +77,10 @@ public class Player {
 	public boolean isHuman() {
 		return human;
 	}
+	
+	public void setIsHuman(boolean h) {
+		this.human = h;
+	}
 
 	public String getPlayerName() {
 		return playerName;

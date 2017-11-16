@@ -133,7 +133,7 @@ public class GUI_ClueGame extends JPanel {
 		frame.setSize(1146, 646);
 		frame.pack();
 		// tell player who they are
-		JOptionPane.showMessageDialog(frame, "You are Greeny, press Next Player to begin play", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
+		// JOptionPane.showMessageDialog(frame, "You are Greeny, press Next Player to begin play", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 		// Now let's view it
 		frame.setVisible(true);
 	}

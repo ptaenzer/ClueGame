@@ -1,10 +1,10 @@
-Greeny, green, Human
-Jack the Ripper, red, Computer
-General Custard, yellow, Computer
-Mike Hawk, magenta, Computer
-Napolean Dynamite, orange, Computer
-Princess Peach, pink, Computer
-Hariette A. Ness, gray, Computer
-Ellen Ripley, blue, Computer
-Lara Croft, black, Computer
-Padme Amidala, cyan, Computer
+Greeny, green
+Jack the Ripper, red
+General Custard, yellow
+Mike Hawk, magenta
+Napolean Dynamite, orange
+Princess Peach, pink
+Hariette A. Ness, gray,
+Ellen Ripley, blue
+Lara Croft, black
+Padme Amidala, cyan
