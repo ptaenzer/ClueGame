@@ -1,0 +1,334 @@
+commit a5b0a220675643fd27aff78e824b5569ead1664b
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Wed Nov 15 19:57:13 2017 -0700
+
+    Prompt to start the game done
+
+commit fc8c4ef6a11dc3e6cb0a3ec4aee56633edef5d3d
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Wed Nov 15 19:45:28 2017 -0700
+
+    Board displays with ererything needed and many other buttons added. Detective notes button pulls up dialog.
+
+commit 6899f4177bc058bedfc471c5c8b00b59985a3fca
+Author: Jacob Gay <jacobbgay@mymail.mines.edu>
+Date:   Wed Nov 15 14:50:01 2017 -0700
+
+    Got questions answered and fixed the sizing. Working on detective tab
+
+commit 066dd65451d9fce6fd5f3f0849a6bad409d8a19c
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Wed Nov 15 10:01:34 2017 -0700
+
+    Attempted GUI for board but confused how to get gui to have different sized panels.
+
+commit c052319b3db14d60ee648bd3c18bd7d6b4c4bb80
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Tue Nov 14 20:55:58 2017 -0700
+
+    Attempted GUI for board but confused how to get gui to have different sized panels.
+
+commit f153bf1eba2bd20081376f11dc6862b4696efebc
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Tue Nov 14 10:27:08 2017 -0700
+
+    Attempted GUI for board but confused on when paint component is called.
+
+commit 1e150568b9ee54728e0f5f577a99a3ec3845c07b
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Thu Nov 9 21:22:45 2017 -0700
+
+    Fixed minor formatting and commented everything
+
+commit 60c6d4ea66289f348ecf3bfa4dfa71fcaf186c27
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Thu Nov 9 20:38:29 2017 -0700
+
+    Dissprove loop test written and working
+
+commit 68e0ebf2e45e31ee598799505f4621bbb986d88f
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Thu Nov 9 20:20:35 2017 -0700
+
+    Dissprove loop test now written and failing
+
+commit 4ea9482a96023511f1f9966aa1043c30fbaf4569
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Thu Nov 9 19:43:56 2017 -0700
+
+    Dissprove suggestion test now passing
+
+commit 05882295f30cbd1e30caeed8ca9b1489a82677ef
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Thu Nov 9 18:42:47 2017 -0700
+
+    Dissprove suggestion test written and failing
+
+commit ce9d0c930b11d8f95aae5d4670e9905eebe3d9c3
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Wed Nov 8 23:39:58 2017 -0700
+
+    Creating Suggestion test passing.
+
+commit bb5dcd72e6f6f8a21a7f8f9d84199c556a53740d
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Wed Nov 8 22:31:04 2017 -0700
+
+    Creating Suggestion test written and failing
+
+commit 64033b3073fbc51af681cd2750289b4bcff66934
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Wed Nov 8 11:11:08 2017 -0700
+
+    Accusation test is passing now moving on to creating a suggestion
+
+commit f4b25bc389474348243cc26f77020626e45c3fb4
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Wed Nov 8 11:07:52 2017 -0700
+
+    created accusition test
+
+commit dc18bd04480d6005f8587e4402f12cc4b16a19b8
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Wed Nov 8 10:45:16 2017 -0700
+
+    Fixed deal so it creates the solution also changed solution to have getters and setters instead of being public
+
+commit 446778662d886fdd73cf57eb418479af0c0f1e2d
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Sun Nov 5 20:47:13 2017 -0700
+
+    Target tests all pass. Moving on to Accusations next.
+
+commit 28b18cb4aa5bdaf49f8b9e64949e578fdafe7d83
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Sun Nov 5 20:24:26 2017 -0700
+
+    Forgot to add files related to previous commit.
+
+commit d78d48ea96faef17007880ef2a3a3d6bc9c217f6
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Sun Nov 5 20:23:16 2017 -0700
+
+    Finished tests regarding selecting targets, and they all fail. All other tests still pass.
+
+commit 9145878c66e3d49e78ef848fbd8d3840edbb2a51
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Fri Nov 3 20:57:15 2017 -0600
+
+    Corrected minor hard coding
+
+commit 02743c856ab829d6ba856a60b15069881b4bfebf
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Fri Nov 3 20:53:19 2017 -0600
+
+    Test 3 done and passing. all previous tests still pass.
+
+commit bd09469084c3a41d85283fcde76d8bfc2048dec2
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Fri Nov 3 20:09:59 2017 -0600
+
+    Test 3 done and failing. ready to start working getting it to pass.
+
+commit a9957537296139164d3f8e0c7db93d9045540df0
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Fri Nov 3 18:24:33 2017 -0600
+
+    Second test working, map is populated with the deck.
+
+commit 70afb2cc46acfa372b838e95505c0f6f95e5f149
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Fri Nov 3 17:15:00 2017 -0600
+
+    Second test written and failing. beginning to make it pass.
+
+commit 5cc33d36368ca5bdb14840f3e7c03e0cb6afccbd
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Fri Nov 3 17:11:08 2017 -0600
+
+    First test now working, beginning on second test.
+
+commit 616b6f5b68fdef2ebd25f1a1a3c64e658405707a
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Thu Nov 2 21:50:57 2017 -0600
+
+    Added functions and variables in all classes, testPLayers test written and failing.
+
+commit 8afff888210b691b932e5b0bb4073175483a2d4c
+Merge: 53849a5 60daccb
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Thu Nov 2 19:57:20 2017 -0600
+
+    Merge branch 'master' of https://github.com/ptaenzer/ClueGame
+
+commit 53849a549fba47544048e31ba1a7ee5d82026fe7
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Thu Nov 2 19:49:59 2017 -0600
+
+    Added necesary classes and txt files
+
+commit 60daccb9ee297b0fa0a8bb93b1932b9d1c92ddbf
+Author: Jacob Gay <jacobbgay@mymail.mines.edu>
+Date:   Tue Oct 31 14:17:06 2017 -0600
+
+    ALL CODE IS WORKING AND THE TESTS ALL PASSls
+
+commit e7339165c5326a9e1e344701265433ca12ae808c
+Author: jacobbgay <jacobbgay@mymail.mines.edu>
+Date:   Tue Oct 31 09:25:01 2017 -0600
+
+    Code works, no longer clearing adj, rather making new adjs for every cell
+
+commit b93ec226fc28a860f480f46b66e5a1feec15263a
+Merge: e5d6774 e7c07c2
+Author: jacobbgay <jacobbgay@mymail.mines.edu>
+Date:   Tue Oct 31 09:06:09 2017 -0600
+
+    Need to commit in order to pull
+
+commit e7c07c26a73a593f4bc75fb7e4878da5572719c7
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Mon Oct 30 21:09:06 2017 -0600
+
+    Changed BoardCell.java to no longer include an adj set
+
+commit 54a6451af38fb23785d1e465943c74c7279df034
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Mon Oct 30 21:06:20 2017 -0600
+
+    Changed Board.Java functions to use adjMtx instead of BoardCell adj list
+
+commit a1698f1850e2ca062a0f9763ec91196191d5c016
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Mon Oct 30 20:59:17 2017 -0600
+
+    Added comments to enumerated type 'DoorDirection.java'
+
+commit a3c25442273320b73fd1c25a691e8fb98c41a49f
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Mon Oct 30 20:55:49 2017 -0600
+
+    Added comments to custom exception 'BadConfigException.java'
+
+commit a7106689164b98567c871ecb3c9025cf574c57bc
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Mon Oct 30 20:51:03 2017 -0600
+
+    Finished comments in TestClueBoard.java
+
+commit 3e6acce9b13303cba6854d0bf3e165a653407e02
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Mon Oct 30 20:35:55 2017 -0600
+
+    Added comments in BoardCell.java
+
+commit e4870006a3c89eeb09f08a78b12f15820be66db5
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Mon Oct 30 20:15:14 2017 -0600
+
+    Added comments in Board.java
+
+commit 212fde288e736cffcbfede0f6a16d09c842196e4
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Mon Oct 30 19:33:45 2017 -0600
+
+    Deleted unused imports and variables in Board.java
+
+commit 7aee891ebb331102d20841346165ab87dae67fcf
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Mon Oct 30 17:53:51 2017 -0600
+
+    Fixing ability to pull for other users
+
+commit e5d6774f9c8f7f04a16c0f0e0f702ba1bf8e1176
+Merge: b20a141 6ad3360
+Author: jacobbgay <32373363+jacobbgay@users.noreply.github.com>
+Date:   Tue Oct 24 13:48:56 2017 -0600
+
+    Merge pull request #1 from ptaenzer/Master
+    
+    master
+
+commit 6ad33604ec3c4a30f7afcacf16493f978f308751
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Mon Oct 23 23:23:55 2017 -0600
+
+    Got most of the way through part 4, however adjacencies works for tests but nowhere else in code.
+
+commit 540fb3f655126edaebfc528ab2bc82fcd23b0343
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Mon Oct 23 22:05:29 2017 -0600
+
+    Failed map test for calcAdj, Still trying to get it to work
+
+commit 59d232c06537adf1c9f056f2ca0fdfbeefd897e5
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Mon Oct 23 19:40:23 2017 -0600
+
+    Finished Part 3, all tests fail. Few tests pass because passing null yields same result. ie: testing inside rooms.
+
+commit b20a1413333eb4da1c1dfbc8bdc413e59244aa7e
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Fri Oct 13 00:52:54 2017 -0600
+
+    Part 2 actually done
+
+commit 7dbc049e6552d3f8cecec5ecbcec13b6cb0a49ec
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Thu Oct 12 23:27:19 2017 -0600
+
+    Added our csv file.
+
+commit 55ef0c1031755be6c771d6282b71467bd23661f8
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Thu Oct 12 22:39:08 2017 -0600
+
+    Part 2 done, files updated and tests are failing.
+
+commit 21886be42c5449182fb21f72f3344258a429c179
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Thu Oct 12 22:28:51 2017 -0600
+
+    Forgot to add the new files in the last commit, added all the working files
+
+commit 360b3564a2be1991755fdc9b9ec8ebe2e01a0433
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Wed Oct 11 21:42:01 2017 -0600
+
+    Finished TestClueBoard file.
+
+commit ba3435ec583b05ee6b0025657afd71f191cebfb1
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Fri Oct 6 23:11:08 2017 -0600
+
+    Final Commit for week of October 6th. Could not figure out how to work around ConcurrentModificationException for get target calculations for testing 2-6 moves.
+
+commit b4a4f2eab2169d6be7d81b7be6c854b1d4f65b1d
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Fri Oct 6 17:35:59 2017 -0600
+
+    Got all adj tests working, and 1 step target testing
+
+commit e0644827784fa514e5921bbab00dbf54dbca5c02
+Author: Jacob Gay <jacobbgay@mymail.mines.edu>
+Date:   Thu Oct 5 15:26:46 2017 -0600
+
+    Started work on Part 2, Still working on calcTargets.
+
+commit a8d06bfe39d2a498a0a765516721ee0fc8e09520
+Author: Jacob Gay <jacobbgay@mymail.mines.edu>
+Date:   Thu Oct 5 14:46:51 2017 -0600
+
+    Part 1 done, all tests fail
+
+commit 150cdabf877c35aaf4ba9d3d4f927d243b41c52f
+Author: Peter Taenzer <Ptaenzer@mines.edu>
+Date:   Wed Oct 4 23:53:46 2017 -0600
+
+    Created classes and methods
+
+commit 63fa8f769da6b8bc6e21aba3238f1e66e9aa9500
+Author: ptaenzer <ptaenzer@mymail.mines.edu>
+Date:   Wed Oct 4 22:57:34 2017 -0600
+
+    Initial commit
