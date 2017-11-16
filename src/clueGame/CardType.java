@@ -1,3 +1,7 @@
+/*
+ * Authors: Peter Taenzer and Jacob Gay
+ * This is the card type enumerated type
+ */
 package clueGame;
 
 public enum CardType {

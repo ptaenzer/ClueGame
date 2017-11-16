@@ -5,10 +5,14 @@
 package clueGame;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
+import javax.swing.*;
 
-public class BoardCell extends Component{
+import com.sun.prism.BasicStroke;
+
+public class BoardCell {
 	//declare all instance variables needed for each cell
 	private int row;
 	private int column;
@@ -21,7 +25,6 @@ public class BoardCell extends Component{
 	private Color color;
 	private DoorDirection direction;
 	boolean isDoor;
-	//private Graphics box;
 
 
 	//constructor for BoardCell
@@ -61,39 +64,17 @@ public class BoardCell extends Component{
 	public void setInitial(char i) {
 		switch (i) {
 		case 'W':
-			this.color = Color.WHITE;
+			float[] c = Color.RGBtoHSB(0, 153, 0, null);
+			Color walkway = Color.getHSBColor(c[0], c[1], c[2]);
+			this.color = walkway;
 			break;
 		case 'C':
 			this.color = Color.BLACK;
 			break;
-		case 'G':
-			this.color = Color.GREEN;
-			break;
-		case 'E':
-			this.color = Color.ORANGE;
-			break;
-		case 'F':
-			this.color = Color.LIGHT_GRAY;
-			break;
-		case 'O':
-			this.color = Color.YELLOW;
-			break;
-		case 'M':
-			this.color = Color.MAGENTA;
-			break;
-		case 'K':
-			this.color = Color.CYAN;
-			break;
-		case 'B':
-			this.color = Color.RED;
-			break;
-		case 'L':
-			this.color = Color.GRAY;
-			break;
-		case 'D':
-			this.color = Color.PINK;
-			break;
 		default:
+			float[] c2 = Color.RGBtoHSB(76, 0, 153, null);
+			Color rooms = Color.getHSBColor(c2[0], c2[1], c2[2]);
+			this.color = rooms;
 			break;
 		}
 		this.initial = i;
@@ -124,8 +105,31 @@ public class BoardCell extends Component{
 		return direction;
 	}
 
+	// draw function called by paint component
 	public void draw(Graphics g) {
+		// draw rectangle
 		g.setColor(color);
 		g.fillRect(rowP, columnP, width, height);
+		// draw door
+		g.setColor(Color.WHITE);
+		switch(direction) {
+		case UP:
+			g.drawLine(rowP, columnP, (rowP+width), columnP);
+			break;
+		case DOWN:
+			g.drawLine(rowP, (columnP+height), (rowP+width), (columnP+height));
+			break;
+		case LEFT:
+			g.drawLine(rowP, columnP, rowP, (columnP+height));
+			break;
+		case RIGHT:
+			g.drawLine((rowP+width), columnP, (rowP+width), (columnP+height));
+			break;
+		case NONE:
+			break;
+		default:
+			break;
+		}
+
 	}
 }

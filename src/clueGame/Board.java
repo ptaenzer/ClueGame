@@ -9,6 +9,7 @@ package clueGame;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 //All imports needed for data types and files
@@ -23,6 +24,9 @@ import java.util.Scanner;
 import java.util.Set;
 
 import javax.swing.JPanel;
+
+import com.sun.javafx.charts.Legend;
+
 //Import BoardCell to use in this class
 import clueGame.BoardCell;
 
@@ -123,6 +127,7 @@ public class Board extends JPanel{
 				ComputerPlayer play = new ComputerPlayer(name, c, human);
 				players.put(name, play);
 			}
+			players.get(name).setPlayerColor(color);
 		}
 		in.close();
 		for(Player player : players.values()) {
@@ -167,32 +172,32 @@ public class Board extends JPanel{
 			String hold = in.nextLine();
 			String[] line = hold.split(",");
 			for(int i = 0; i < line.length; i++) {
-				board[j][i].setInitial(line[i].charAt(0));
+				board[i][j].setInitial(line[i].charAt(0));
 				//if room has 2 letters, sets door direction
 				if(line[i].length() == 2) {
 					if(line[i].charAt(1) == 'U') {
-						board[j][i].setDoorDirection(DoorDirection.UP);
-						board[j][i].setIsDoor();
+						board[i][j].setDoorDirection(DoorDirection.UP);
+						board[i][j].setIsDoor();
 					}
 					else if(line[i].charAt(1) == 'D') {
-						board[j][i].setDoorDirection(DoorDirection.DOWN);
-						board[j][i].setIsDoor();
+						board[i][j].setDoorDirection(DoorDirection.DOWN);
+						board[i][j].setIsDoor();
 					}
 					else if(line[i].charAt(1) == 'L') {
-						board[j][i].setDoorDirection(DoorDirection.LEFT);
-						board[j][i].setIsDoor();
+						board[i][j].setDoorDirection(DoorDirection.LEFT);
+						board[i][j].setIsDoor();
 					}
 					else if(line[i].charAt(1) == 'R') {
-						board[j][i].setDoorDirection(DoorDirection.RIGHT);
-						board[j][i].setIsDoor();
+						board[i][j].setDoorDirection(DoorDirection.RIGHT);
+						board[i][j].setIsDoor();
 					}
 					else if(line[i].charAt(1) == 'C') {
-						board[j][i].setDoorDirection(DoorDirection.CORNER);
-						board[j][i].setIsDoor();
+						board[i][j].setDoorDirection(DoorDirection.CORNER);
+						board[i][j].setIsDoor();
 					}
 				}
 				else {
-					board[j][i].setDoorDirection(DoorDirection.NONE);
+					board[i][j].setDoorDirection(DoorDirection.NONE);
 				}
 			}
 			j++;
@@ -281,57 +286,57 @@ public class Board extends JPanel{
 		int column = currentCell.getColumn();
 		Set<BoardCell> adjs = new HashSet<BoardCell>();
 		//checks cell above
-		if(row > 0) {
+		if(column > 0) {
 			if (currentCell.isDoorway()) {
 				if(currentCell.getDoorDirection() == DoorDirection.UP) {
-					BoardCell up = board[row - 1][column];
+					BoardCell up = board[row][column - 1];
 					adjs.add(up);
 				}
 			}
-			else if ((board[row - 1][column].getInitial() == 'W' && board[row - 1][column].getInitial() == board[row][column].getInitial()) || board[row - 1][column].getDoorDirection() == DoorDirection.DOWN) {
-				BoardCell up = board[row - 1][column];
+			else if ((board[row][column - 1].getInitial() == 'W' && board[row][column - 1].getInitial() == board[row][column].getInitial()) || board[row][column - 1].getDoorDirection() == DoorDirection.DOWN) {
+				BoardCell up = board[row][column - 1];
 				adjs.add(up);
 			}
 		}
 
 		//checks cell below
-		if(row < MAX_BOARD_SIZE -1 ) {
+		if(column < MAX_BOARD_SIZE -1 ) {
 			if (currentCell.isDoorway()) {
 				if(currentCell.getDoorDirection() == DoorDirection.DOWN) {
-					BoardCell down = board[row + 1][column];
+					BoardCell down = board[row][column + 1];
 					adjs.add(down);
 				}
 			}
-			else if ((board[row + 1][column].getInitial() == 'W' && board[row + 1][column].getInitial() == board[row][column].getInitial())|| board[row + 1][column].getDoorDirection() == DoorDirection.UP) {
-				BoardCell down = board[row + 1][column];
+			else if ((board[row][column + 1].getInitial() == 'W' && board[row][column + 1].getInitial() == board[row][column].getInitial())|| board[row][column + 1].getDoorDirection() == DoorDirection.UP) {
+				BoardCell down = board[row][column + 1];
 				adjs.add(down);
 			}
 		}
 
 		//checks cell to left
-		if(column > 0) {
+		if(row > 0) {
 			if (currentCell.isDoorway()) {
 				if(currentCell.getDoorDirection() == DoorDirection.LEFT) {
-					BoardCell left = board[row][column - 1];
+					BoardCell left = board[row - 1][column];
 					adjs.add(left);
 				}
 			}
-			else if ((board[row][column - 1].getInitial() == 'W' && board[row][column - 1].getInitial() == board[row][column].getInitial()) || board[row][column - 1].getDoorDirection() == DoorDirection.RIGHT) {
-				BoardCell left = board[row][column - 1];
+			else if ((board[row - 1][column].getInitial() == 'W' && board[row - 1][column].getInitial() == board[row][column].getInitial()) || board[row - 1][column].getDoorDirection() == DoorDirection.RIGHT) {
+				BoardCell left = board[row - 1][column];
 				adjs.add(left);
 			}
 		}
 
 		//checks cell to right
-		if(column < MAX_BOARD_SIZE-1) {
+		if(row < MAX_BOARD_SIZE-1) {
 			if (currentCell.isDoorway()) {
 				if(currentCell.getDoorDirection() == DoorDirection.RIGHT) {
-					BoardCell right = board[row][column + 1];
+					BoardCell right = board[row + 1][column];
 					adjs.add(right);
 				}
 			}
-			else if ((board[row][column + 1].getInitial() == 'W' && board[row][column + 1].getInitial() == board[row][column].getInitial()) || board[row][column + 1].getDoorDirection() == DoorDirection.LEFT) {
-				BoardCell right = board[row][column + 1];
+			else if ((board[row + 1][column].getInitial() == 'W' && board[row + 1][column].getInitial() == board[row][column].getInitial()) || board[row + 1][column].getDoorDirection() == DoorDirection.LEFT) {
+				BoardCell right = board[row + 1][column];
 				adjs.add(right);
 			}
 		}
@@ -498,31 +503,43 @@ public class Board extends JPanel{
 		return weapons;
 	}
 	
+	//getter for board
+	public static BoardCell[][] getBoard() {
+		return board;
+	}
 	
+	// panel creator called in gui and initialize
 	public JPanel createBoardPanel() {
 		int width  = board.length*BoardCell.width + board.length*BoardCell.margin;
 		int height  = board.length*BoardCell.height + board.length*BoardCell.margin;
 		setPreferredSize(new Dimension(width, height));
-		setLayout(new GridLayout(MAX_BOARD_SIZE,MAX_BOARD_SIZE));
 		setBackground(Color.BLACK);
-		for(int i = 0; i < MAX_BOARD_SIZE; i++) {
-			for(int j = 0; j < MAX_BOARD_SIZE; j++) {
-				add(board[i][j]);
-			}
-		}
 		return this;
 	}
 
-	
+	// pain component for board panel
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
+		// draw board cells
 		for(int i = 0; i < MAX_BOARD_SIZE; i++) {
 			for(int j = 0; j < MAX_BOARD_SIZE; j++) {
 				board[i][j].draw(g);
 			}
 		}
+		// draw players
 		for(String name: players.keySet()) {
 			players.get(name).draw(g);
+		}
+		// draw names
+		Font f = new Font("Comic Sans MS", Font.BOLD, 18);
+        g.setFont(f);
+        g.setColor(Color.WHITE);
+		for(int i = 0; i < MAX_BOARD_SIZE; i++) {
+			for(int j = 0; j < MAX_BOARD_SIZE; j++) {
+				if(board[i][j] == board[1][2] ||board[i][j] == board[10][3] || board[i][j] == board[20][5] || board[i][j] == board[1][12] || board[i][j] == board[9][17] || board[i][j] == board[20][18] || board[i][j] == board[1][22] || board[i][j] == board[9][24] || board[i][j] == board[18][25]) {
+					g.drawString(legend.get(board[i][j].getInitial()), (i*20+ i), (j*20 + j));
+				}
+			}
 		}
 	}
 }

@@ -1,6 +1,6 @@
 /*
  * Authors: Peter Taenzer and Jacob Gay
- * This is the GUI class so far very basic
+ * This is the GUI class 
  */
 package clueGame;
 
@@ -10,6 +10,10 @@ import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -42,14 +46,14 @@ public class GUI_ClueGame extends JPanel {
 	}
 	
 	// creates user input panel
+	JButton openNotes = new JButton("Detective Notes");
 	private JPanel createButtonPanel() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(1,2));
-		JButton makeSug = new JButton("Detective Notes");
-		JTextField sug = new JTextField(20);
-		panel.add(makeSug);
-		panel.add(sug);
-		panel.setPreferredSize(new Dimension(1166,200));
+		panel.add(openNotes);
+		ButtonListener note = new ButtonListener();
+		openNotes.addActionListener(note);
+		panel.setPreferredSize(new Dimension(746,200));
 		panel.setBorder(new TitledBorder (new EtchedBorder(), "User input"));
 		return panel;
 	}
@@ -57,8 +61,13 @@ public class GUI_ClueGame extends JPanel {
 	// create myCards panel for user character
 	private JPanel createCardPanel() {
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(1,1));
-		panel.setPreferredSize(new Dimension(1166,200));
+		panel.setLayout(new GridLayout(1,3));
+		JButton box;
+		for(Card c : Board.getPlayers().get("Greeny").getCards()) {
+			box = new JButton(c.getCardName());
+			panel.add(box);
+		}
+		panel.setPreferredSize(new Dimension(746,100));
 		panel.setBorder(new TitledBorder (new EtchedBorder(), "MyCards Panel"));
 		return panel;
 	}
@@ -72,7 +81,7 @@ public class GUI_ClueGame extends JPanel {
 			nameLabel = new JLabel(name);
 			panel.add(nameLabel);
 		}
-		panel.setPreferredSize(new Dimension(200,566));
+		panel.setPreferredSize(new Dimension(200,546));
 		panel.setBorder(new TitledBorder (new EtchedBorder(), "Weapon List"));
 		return panel;
 	}
@@ -83,10 +92,10 @@ public class GUI_ClueGame extends JPanel {
 		panel.setLayout(new GridLayout(Board.getPlayers().keySet().size(),1));
 		JLabel nameLabel;
 		for(String name : Board.getPlayers().keySet()) {
-			nameLabel = new JLabel(name);
+			nameLabel = new JLabel(name + ": " + Board.getPlayers().get(name).getPlayerColor());
 			panel.add(nameLabel);
 		}
-		//panel.setPreferredSize(new Dimension(200,566));
+		panel.setPreferredSize(new Dimension(200,546));
 		panel.setBorder(new TitledBorder (new EtchedBorder(), "Name List"));
 		return panel;
 	}
@@ -98,21 +107,31 @@ public class GUI_ClueGame extends JPanel {
 		return panel;
 	}
 
+	// Action Listener for button panel
+	private class ButtonListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if(openNotes.isEnabled()) {
+				DetectiveNotes note = new DetectiveNotes(new JDialog());
+			}
+		}
+	}
+	
 	// main for GUI
 	public static void main(String[] args) {
 		// Create a JFrame with all the normal functionality
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("GUI ClueGame");
+		frame.setTitle("Peter Taenzer and Jacob Gay's Clue Game");
 		// Create the JPanels and add them to the JFrame
 		board = Board.getInstance();
 		board.setConfigFiles("ClueLayout.csv", "ClueLayoutLegend.txt", "CluePlayers.txt", "ClueWeapons.txt");
 		board.initialize();
 		GUI_ClueGame gui = new GUI_ClueGame();
 		frame.add(gui, BorderLayout.CENTER);
+		frame.setSize(1146, 646);
 		frame.pack();
 		// Now let's view it
 		frame.setVisible(true);
-		DetectiveNotes note = new DetectiveNotes(new JDialog());
 	}
 }

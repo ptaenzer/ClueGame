@@ -1,3 +1,7 @@
+/*
+ * Authors: Peter Taenzer and Jacob Gay
+ * This is the human player class used for all users
+ */
 package clueGame;
 
 import java.awt.Color;

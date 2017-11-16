@@ -1,3 +1,7 @@
+/*
+ * Authors: Peter Taenzer and Jacob Gay
+ * This is the solution class that checks accusations
+ */
 package clueGame;
 
 public class Solution {

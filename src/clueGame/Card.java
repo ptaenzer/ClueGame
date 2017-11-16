@@ -1,3 +1,7 @@
+/*
+ * Authors: Peter Taenzer and Jacob Gay
+ * This is card class used for all objects in game 
+ */
 package clueGame;
 
 public class Card {

@@ -1,4 +1,4 @@
-Greeny, GREEN, Human
+Greeny, green, Human
 Jack the Ripper, red, Computer
 General Custard, yellow, Computer
 Mike Hawk, magenta, Computer

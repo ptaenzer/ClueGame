@@ -50,7 +50,7 @@ public class GameActionTests {
 	public void testSelectRandomTarget() {
 		ComputerPlayer player = new ComputerPlayer("Greeny", Color.GREEN, false);
 		// Pick a location with no rooms in target, just three targets
-		board.calcTargets(7, 12, 2);
+		board.calcTargets(12, 7, 2);
 		boolean loc_7_10 = false;
 		boolean loc_7_14 = false;
 		boolean loc_8_11 = false;
@@ -58,16 +58,16 @@ public class GameActionTests {
 		// Run the test a large number of times
 		for (int i=0; i<100; i++) {
 			BoardCell selected = player.pickLocation(board.getTargets());
-			if (selected == board.getCellAt(7, 10)) {
+			if (selected == board.getCellAt(10, 7)) {
 				loc_7_10 = true;
 			}
-			else if (selected == board.getCellAt(7, 14)) {
+			else if (selected == board.getCellAt(14, 7)) {
 				loc_7_14 = true;
 			}
-			else if (selected ==board.getCellAt(8, 11)) {
+			else if (selected ==board.getCellAt(11, 8)) {
 				loc_8_11 = true;
 			}
-			else if (selected ==board.getCellAt(8, 13)) {
+			else if (selected ==board.getCellAt(13, 8)) {
 				loc_8_13 = true;
 			}
 			else {
@@ -86,7 +86,7 @@ public class GameActionTests {
 	public void testSelectTarget() {
 		ComputerPlayer player = new ComputerPlayer("Greeny", Color.GREEN, false);
 		// Pick a location with no rooms in target, just three targets
-		board.calcTargets(0, 16, 2);
+		board.calcTargets(16, 0, 2);
 		boolean loc_0_14 = false;
 		boolean loc_0_18 = false;
 		boolean loc_1_17 = false;
@@ -94,16 +94,16 @@ public class GameActionTests {
 		// Run the test a large number of times
 		for (int i=0; i<100; i++) {
 			BoardCell selected = player.pickLocation(board.getTargets());
-			if (selected == board.getCellAt(0, 14)) {
+			if (selected == board.getCellAt(14, 0)) {
 				loc_0_14 = true;
 			}
-			else if (selected == board.getCellAt(0, 18)) {
+			else if (selected == board.getCellAt(18, 0)) {
 				loc_0_18 = true;
 			}
-			else if (selected ==board.getCellAt(1, 17)) {
+			else if (selected ==board.getCellAt(17, 1)) {
 				loc_1_17 = true;
 			}
-			else if (selected ==board.getCellAt(2, 16)) {
+			else if (selected ==board.getCellAt(16, 2)) {
 				loc_2_16 = true;
 			}
 			else {
@@ -123,7 +123,7 @@ public class GameActionTests {
 		ComputerPlayer player = new ComputerPlayer("Greeny", Color.GREEN, false);
 		player.setJustVisited('O');
 		// Pick a location with no rooms in target, just three targets
-		board.calcTargets(0, 16, 2);
+		board.calcTargets(16, 0, 2);
 		boolean loc_0_14 = false;
 		boolean loc_0_18 = false;
 		boolean loc_1_17 = false;
@@ -131,16 +131,16 @@ public class GameActionTests {
 		// Run the test a large number of times
 		for (int i=0; i<100; i++) {
 			BoardCell selected = player.pickLocation(board.getTargets());
-			if (selected == board.getCellAt(0, 14)) {
+			if (selected == board.getCellAt(14, 0)) {
 				loc_0_14 = true;
 			}
-			else if (selected == board.getCellAt(0, 18)) {
+			else if (selected == board.getCellAt(18, 0)) {
 				loc_0_18 = true;
 			}
-			else if (selected ==board.getCellAt(1, 17)) {
+			else if (selected ==board.getCellAt(17, 1)) {
 				loc_1_17 = true;
 			}
-			else if (selected ==board.getCellAt(2, 16)) {
+			else if (selected ==board.getCellAt(16, 2)) {
 				loc_2_16 = true;
 			}
 			else {

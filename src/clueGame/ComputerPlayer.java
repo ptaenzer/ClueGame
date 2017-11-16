@@ -1,3 +1,7 @@
+/*
+ * Authors: Peter Taenzer and Jacob Gay
+ * This is the computer player class used for all ai 
+ */
 package clueGame;
 
 import java.awt.Color;

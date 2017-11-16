@@ -1,3 +1,7 @@
+/*
+ * Authors: Peter Taenzer and Jacob Gay
+ * This is the player class used for human and computer players 
+ */
 package clueGame;
 
 import java.awt.Color;
@@ -13,6 +17,7 @@ public class Player {
 
 	// member variables
 	private String playerName;
+	private String playerColor;
 	private int row;
 	private int column;
 	private Color color;
@@ -33,10 +38,17 @@ public class Player {
 		this.playerName = playerName;
 		this.color = color;
 		this.human = human;
-		Random r = new Random();
-		this.row = r.nextInt(Board.MAX_BOARD_SIZE);
+		Random rand = new Random();
+		int x = rand.nextInt(Board.MAX_BOARD_SIZE);
+		int y = rand.nextInt(Board.MAX_BOARD_SIZE);
+		BoardCell[][] b = Board.getBoard();
+		while(b[x][y].getInitial() != 'W') {
+			x = rand.nextInt(Board.MAX_BOARD_SIZE);
+			y = rand.nextInt(Board.MAX_BOARD_SIZE);
+		}
+		this.row = x;
 		this.rowP = row*width + margin*(row);
-		this.column = r.nextInt(Board.MAX_BOARD_SIZE);
+		this.column = y;
 		this.columnP = column*width + margin*(column);
 	}
 
@@ -100,6 +112,14 @@ public class Player {
 		this.color = color;
 	}
 
+	public String getPlayerColor() {
+		return playerColor;
+	}
+
+	public void setPlayerColor(String playerColor) {
+		this.playerColor = playerColor;
+	}
+
 	public ArrayList<Card> getCards() {
 		return cards;
 	}
@@ -124,6 +144,7 @@ public class Player {
 		this.makeAccusation = true;
 	}
 
+	// draw function called by paint component
 	public void draw(Graphics g) {
 		g.setColor(color);
 		g.fillOval(rowP, columnP, width, height);
