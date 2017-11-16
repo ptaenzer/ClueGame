@@ -52,7 +52,6 @@ public class Board extends JPanel{
 	private static BoardCell[][] board;
 	private static Board theInstance = new Board();
 	private static String[] peopleNames;
-	private static boolean setHuman = false;
 
 	private Board() {}
 
@@ -109,55 +108,26 @@ public class Board extends JPanel{
 	//loads the player map into the deck map
 	public void loadPlayerConfig() throws BadConfigException, FileNotFoundException{
 		ArrayList<Card> p = new ArrayList<Card>();
-		Map<String, Color> peop = new HashMap<String, Color>();
-		Map<String, String> peop2 = new HashMap<String, String>();
-		
 		deck.put(CardType.PERSON, p);
 		FileReader input = new FileReader(playerConfigFile);
 		Scanner in = new Scanner(input);
+		int i = 0;
 		while(in.hasNext()) {
 			in.useDelimiter(", ");
 			String name = in.next();
-			String color = in.nextLine();
-			Color c = convertColor(color);
-			peop.put(name, c);
-			peop2.put(name, color);
-			/*
-			boolean human = false;
 			in.skip(", ");
-			String h = in.nextLine();
-			if(h.trim().matches("Human")) {
-				human = true;
-			}
-			*/
-			//players.get(name).setPlayerColor(color);
-		}
-		peopleNames = new String[peop.keySet().size()];
-		int i = 0;
-		for(String name : peop.keySet()) {
-			peopleNames[i] = name;
+			String color = in.nextLine();
+			Color c = convertColor(color.trim());
+			ComputerPlayer play = new ComputerPlayer(name, c, false);
+			players.put(name, play);
+			players.get(name).setPlayerColor(color);
 			i++;
 		}
-		while(!setHuman) {
-			GameInit game = new GameInit(new JDialog());
-			try {
-				Thread.sleep(10000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		System.out.println("working");
-		for(String name : peop.keySet()) {
-			if(name == humanName) {
-				HumanPlayer play = new HumanPlayer(name, peop.get(name), true);
-				players.put(name, play);
-			}
-			else {
-				ComputerPlayer play = new ComputerPlayer(name, peop.get(name), false);
-				players.put(name, play);
-			}
-			players.get(name).setPlayerColor(peop2.get(name));
+		peopleNames = new String[i];
+		i = 0;
+		for(String name : players.keySet()) {
+			peopleNames[i] = name;
+			i++;
 		}
 		in.close();
 		for(Player player : players.values()) {
@@ -576,15 +546,23 @@ public class Board extends JPanel{
 	// setter for human name
 	public static void setHumanName(String name) {
 		humanName = name;
+		Color color = players.get(name).getColor();
+		String c = players.get(name).getPlayerColor();
+		ArrayList<Card> cards = players.get(name).getCards();
+		players.remove(name);
+		Player human = new HumanPlayer(name, color, true);
+		human.setCards(cards);
+		human.setPlayerColor(c);
+		players.put(name, human);
 	}
 
 	// getter for peoples names
+		public static String getHumanName() {
+			return humanName;
+		}
+		
+	// getter for peoples names
 	public static String[] getPeopleNames() {
 		return peopleNames;
-	}
-
-	//
-	public static void setSetHuman(boolean setHuman) {
-		Board.setHuman = setHuman;
 	}
 }

@@ -38,6 +38,7 @@ public class Player {
 		this.playerName = playerName;
 		this.color = color;
 		this.human = human;
+		noteCard.add(new Card(playerName, CardType.PERSON));
 		Random rand = new Random();
 		int x = rand.nextInt(Board.MAX_BOARD_SIZE);
 		int y = rand.nextInt(Board.MAX_BOARD_SIZE);

@@ -28,7 +28,8 @@ import javax.swing.border.TitledBorder;
 public class GUI_ClueGame extends JPanel {
 
 	static Board board;
-	
+	static boolean picked = false;
+
 	// GUI constructor
 	public GUI_ClueGame() {
 		// Create a layout with 2 rows and 4 columns
@@ -45,7 +46,7 @@ public class GUI_ClueGame extends JPanel {
 		panel = createButtonPanel();
 		add(panel, BorderLayout.SOUTH);
 	}
-	
+
 	// creates user input panel
 	JButton openNotes = new JButton("Detective Notes");
 	private JPanel createButtonPanel() {
@@ -64,7 +65,7 @@ public class GUI_ClueGame extends JPanel {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(1,3));
 		JButton box;
-		for(Card c : Board.getPlayers().get("Greeny").getCards()) {
+		for(Card c : Board.getPlayers().get(Board.getHumanName()).getCards()) {
 			box = new JButton(c.getCardName());
 			panel.add(box);
 		}
@@ -117,7 +118,7 @@ public class GUI_ClueGame extends JPanel {
 			}
 		}
 	}
-	
+
 	// main for GUI
 	public static void main(String[] args) {
 		// Create a JFrame with all the normal functionality
@@ -128,6 +129,15 @@ public class GUI_ClueGame extends JPanel {
 		board = Board.getInstance();
 		board.setConfigFiles("ClueLayout.csv", "ClueLayoutLegend.txt", "CluePlayers.txt", "ClueWeapons.txt");
 		board.initialize();
+		while(!picked) {
+			GameInit game = new GameInit(new JDialog());
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		GUI_ClueGame gui = new GUI_ClueGame();
 		frame.add(gui, BorderLayout.CENTER);
 		frame.setSize(1146, 646);

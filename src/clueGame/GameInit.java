@@ -40,12 +40,6 @@ public class GameInit extends JDialog {
 		JPanel panel = createNamePanel();
 		add(panel, BorderLayout.CENTER);
 		setVisible(true);
-		try {
-			System.in.read();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	// constructor for name panel
@@ -75,7 +69,7 @@ public class GameInit extends JDialog {
 		public void actionPerformed(ActionEvent arg0) {
 			if(ok.isEnabled()) {
 				Board.setHumanName(people.getSelectedItem().toString());
-				Board.setSetHuman(true);
+				GUI_ClueGame.picked = true;
 				dispose(); 
 			}
 		}
