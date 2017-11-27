@@ -29,7 +29,7 @@ public class Player {
 	private int columnP;
 	private ArrayList<Card> cards = new ArrayList<Card>();
 	protected ArrayList<Card> suggestion = new ArrayList<Card>();
-	protected ArrayList<Card> noteCard = new ArrayList<Card>();
+	protected Set<Card> noteCard = new HashSet<Card>();
 	protected boolean makeAccusation = false;
 	
 	// constructor
@@ -141,7 +141,7 @@ public class Player {
 		noteCard.add(card);
 	}
 	
-	public ArrayList<Card> getSeen() {
+	public Set<Card> getSeen() {
 		return noteCard;
 	}
 

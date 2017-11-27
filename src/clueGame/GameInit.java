@@ -69,7 +69,7 @@ public class GameInit extends JDialog {
 		public void actionPerformed(ActionEvent arg0) {
 			if(ok.isEnabled()) {
 				Board.setHumanName(people.getSelectedItem().toString());
-				GUI_ClueGame.picked = true;
+				GUI_ClueGame.setPickTrue();
 				dispose(); 
 			}
 		}

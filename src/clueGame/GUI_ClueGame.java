@@ -132,7 +132,7 @@ public class GUI_ClueGame extends JPanel {
 		while(!picked) {
 			GameInit game = new GameInit(new JDialog());
 			try {
-				Thread.sleep(5000);
+				Thread.sleep(10000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -146,5 +146,9 @@ public class GUI_ClueGame extends JPanel {
 		// JOptionPane.showMessageDialog(frame, "You are Greeny, press Next Player to begin play", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 		// Now let's view it
 		frame.setVisible(true);
+	}
+
+	public static void setPickTrue() {
+		picked = true;
 	}
 }
