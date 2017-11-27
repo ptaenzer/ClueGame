@@ -94,7 +94,10 @@ public class ComputerPlayer extends Player{
 	}
 
 	@Override
-	public void move() {
-		
+	public void move(int roll) {
+		Set<BoardCell> targets = Board.calcTargets(column, row, roll);
+		BoardCell newLocation = pickLocation(targets);
+		column = newLocation.getColumn();
+		row = newLocation.getRow();
 	}
 }
