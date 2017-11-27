@@ -46,12 +46,14 @@ public class Board extends JPanel{
 	private String playerConfigFile;
 	private String weaponConfigFile;
 	private static String humanName;
+	private static String currentName;
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private static Set<String> weapons = new HashSet<String>();
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
 	private static BoardCell[][] board;
 	private static Board theInstance = new Board();
 	private static String[] peopleNames;
+	private static boolean humanSug = true;
 
 	private Board() {}
 
@@ -502,12 +504,12 @@ public class Board extends JPanel{
 	public static Set<String> getWeapons() {
 		return weapons;
 	}
-	
+
 	//getter for board
 	public static BoardCell[][] getBoard() {
 		return board;
 	}
-	
+
 	// panel creator called in gui and initialize
 	public JPanel createBoardPanel() {
 		int width  = board.length*BoardCell.width + board.length*BoardCell.margin;
@@ -532,8 +534,8 @@ public class Board extends JPanel{
 		}
 		// draw names
 		Font f = new Font("Comic Sans MS", Font.BOLD, 18);
-        g.setFont(f);
-        g.setColor(Color.WHITE);
+		g.setFont(f);
+		g.setColor(Color.WHITE);
 		for(int i = 0; i < MAX_BOARD_SIZE; i++) {
 			for(int j = 0; j < MAX_BOARD_SIZE; j++) {
 				if(board[i][j] == board[1][2] ||board[i][j] == board[10][3] || board[i][j] == board[20][5] || board[i][j] == board[1][12] || board[i][j] == board[9][17] || board[i][j] == board[20][18] || board[i][j] == board[1][22] || board[i][j] == board[9][24] || board[i][j] == board[18][25]) {
@@ -546,6 +548,7 @@ public class Board extends JPanel{
 	// setter for human name
 	public static void setHumanName(String name) {
 		humanName = name;
+		currentName = name;
 		Color color = players.get(name).getColor();
 		String c = players.get(name).getPlayerColor();
 		ArrayList<Card> cards = players.get(name).getCards();
@@ -557,12 +560,37 @@ public class Board extends JPanel{
 	}
 
 	// getter for peoples names
-		public static String getHumanName() {
-			return humanName;
-		}
-		
+	public static String getHumanName() {
+		return humanName;
+	}
+
 	// getter for peoples names
 	public static String[] getPeopleNames() {
 		return peopleNames;
+	}
+
+	public static void setHumanSug(boolean sug) {
+		humanSug = sug;
+	}
+	
+	public static boolean getHumanSug() {
+		return humanSug;
+	}
+
+	public static void nextPlayer() {
+		Random rand = new Random();
+		int roll = rand.nextInt(6)+1;
+		GUI_ClueGame.updateButtonPanel(roll, currentName);
+		players.get(currentName).move();
+		// set for next turn
+		int i = 0;
+		for(String name : players.keySet()) {
+			if(currentName == name) {
+				i++;
+			}
+			if(i>0) {
+				break;
+			}
+		}
 	}
 }

@@ -13,4 +13,8 @@ public class HumanPlayer extends Player {
 		super(playerName, color, human);
 	}
 
+	@Override
+	public void move() {
+
+	}
 }

@@ -49,15 +49,23 @@ public class GUI_ClueGame extends JPanel {
 
 	// creates user input panel
 	JButton openNotes = new JButton("Detective Notes");
+	JButton nextPlayer = new JButton("Next Player");
 	private JPanel createButtonPanel() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(1,2));
 		panel.add(openNotes);
+		panel.add(nextPlayer);
 		ButtonListener note = new ButtonListener();
 		openNotes.addActionListener(note);
+		nextPlayer.addActionListener(note);
 		panel.setPreferredSize(new Dimension(746,200));
 		panel.setBorder(new TitledBorder (new EtchedBorder(), "User input"));
 		return panel;
+	}
+	
+	// updates input panel
+	public static void updateButtonPanel(int roll, String currentName) {
+		
 	}
 
 	// create myCards panel for user character
@@ -113,16 +121,24 @@ public class GUI_ClueGame extends JPanel {
 	private class ButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			if(openNotes.isEnabled()) {
+			if(arg0.getSource() == openNotes) {
 				DetectiveNotes note = new DetectiveNotes(new JDialog());
+			}
+			if(arg0.getSource() == nextPlayer) {
+				if(Board.getHumanSug()) {
+					Board.nextPlayer();
+				}
+				else {
+					JOptionPane.showMessageDialog(frame, "You must make a suggestion!", "ERROR", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		}
 	}
 
 	// main for GUI
+	private static JFrame frame = new JFrame();
 	public static void main(String[] args) {
 		// Create a JFrame with all the normal functionality
-		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Peter Taenzer and Jacob Gay's Clue Game");
 		// Create the JPanels and add them to the JFrame

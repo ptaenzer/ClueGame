@@ -156,5 +156,9 @@ public class Player {
 		g.setColor(Color.BLACK);
 		g.drawOval(rowP, columnP, width, height);
 	}
+
+	protected void move() {
+		
+	}
 	
 }

@@ -93,4 +93,8 @@ public class ComputerPlayer extends Player{
 		return justVisitedCard;
 	}
 
+	@Override
+	public void move() {
+		
+	}
 }
