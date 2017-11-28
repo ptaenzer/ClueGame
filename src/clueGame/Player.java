@@ -18,8 +18,8 @@ public class Player {
 	// member variables
 	private String playerName;
 	private String playerColor;
-	private int row;
-	private int column;
+	protected int row;
+	protected int column;
 	private Color color;
 	private boolean human;
 	public static int width = 20;
@@ -157,7 +157,7 @@ public class Player {
 		g.drawOval(rowP, columnP, width, height);
 	}
 
-	protected void move() {
+	protected void move(int roll) {
 		
 	}
 	

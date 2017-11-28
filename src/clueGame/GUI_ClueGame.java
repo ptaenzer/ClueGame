@@ -127,6 +127,7 @@ public class GUI_ClueGame extends JPanel {
 			if(arg0.getSource() == nextPlayer) {
 				if(Board.getHumanSug()) {
 					Board.nextPlayer();
+					repaint();
 				}
 				else {
 					JOptionPane.showMessageDialog(frame, "You must make a suggestion!", "ERROR", JOptionPane.ERROR_MESSAGE);

@@ -40,16 +40,16 @@ public class Board extends JPanel{
 	private static Map<String, Player> players = new HashMap<String, Player>();
 	private static Map<CardType, ArrayList<Card>> deck = new HashMap<CardType, ArrayList<Card>>();
 	private static Map<CardType, ArrayList<Card>> unSeenDeck = new HashMap<CardType, ArrayList<Card>>();
-	private Map<BoardCell, Set<BoardCell>> adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
+	private static Map<BoardCell, Set<BoardCell>> adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
 	private String boardConfigFile;
 	private String roomConfigFile;
 	private String playerConfigFile;
 	private String weaponConfigFile;
 	private static String humanName;
 	private static String currentName;
-	private Set<BoardCell> visited = new HashSet<BoardCell>();
+	private static Set<BoardCell> visited = new HashSet<BoardCell>();
 	private static Set<String> weapons = new HashSet<String>();
-	private Set<BoardCell> targets = new HashSet<BoardCell>();
+	private static Set<BoardCell> targets = new HashSet<BoardCell>();
 	private static BoardCell[][] board;
 	private static Board theInstance = new Board();
 	private static String[] peopleNames;
@@ -346,7 +346,7 @@ public class Board extends JPanel{
 	}
 
 	//recursive function to find all targets available numSteps away called by calcTargets
-	private void findAllTargets(BoardCell thisCell, int numSteps) {
+	private static void findAllTargets(BoardCell thisCell, int numSteps) {
 		visited.add(thisCell);
 		for(BoardCell n : adjMtx.get(thisCell)) {
 			if(visited.contains(n)){
@@ -389,11 +389,12 @@ public class Board extends JPanel{
 	}
 
 	//calculates targets for current cell that are k steps away
-	public void calcTargets(int i, int j, int k) {
+	public static Set<BoardCell> calcTargets(int i, int j, int k) {
 		BoardCell cell = board[i][j];
 		visited.clear();
 		targets.clear();
 		findAllTargets(cell, k);
+		return targets;
 	}
 
 	//returns the targets for the cell
@@ -569,10 +570,12 @@ public class Board extends JPanel{
 		return peopleNames;
 	}
 
+	// setter for the Human Player's suggestion
 	public static void setHumanSug(boolean sug) {
 		humanSug = sug;
 	}
 	
+	// getter for the Human Player's suggestion
 	public static boolean getHumanSug() {
 		return humanSug;
 	}
@@ -581,14 +584,14 @@ public class Board extends JPanel{
 		Random rand = new Random();
 		int roll = rand.nextInt(6)+1;
 		GUI_ClueGame.updateButtonPanel(roll, currentName);
-		players.get(currentName).move();
+		players.get(currentName).move(roll);
 		// set for next turn
 		int i = 0;
 		for(String name : players.keySet()) {
 			if(currentName == name) {
 				i++;
 			}
-			if(i>0) {
+			else if(i>0) {
 				break;
 			}
 		}
