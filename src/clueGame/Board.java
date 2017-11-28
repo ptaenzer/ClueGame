@@ -389,16 +389,15 @@ public class Board extends JPanel{
 	}
 
 	//calculates targets for current cell that are k steps away
-	public static Set<BoardCell> calcTargets(int i, int j, int k) {
+	public static void calcTargets(int i, int j, int k) {
 		BoardCell cell = board[i][j];
 		visited.clear();
 		targets.clear();
 		findAllTargets(cell, k);
-		return targets;
 	}
 
 	//returns the targets for the cell
-	public Set<BoardCell> getTargets() {
+	public static Set<BoardCell> getTargets() {
 		return targets;
 	}
 
@@ -584,14 +583,20 @@ public class Board extends JPanel{
 		Random rand = new Random();
 		int roll = rand.nextInt(6)+1;
 		GUI_ClueGame.updateButtonPanel(roll, currentName);
+		calcTargets(players.get(currentName).getRow(),players.get(currentName).getColumn(), roll);
 		players.get(currentName).move(roll);
 		// set for next turn
 		int i = 0;
 		for(String name : players.keySet()) {
-			if(currentName == name) {
+			if(currentName.equals("Princess Peach")) {
+				currentName = "Jack the Ripper";
+				break;
+			}
+			else if(currentName.equals(name)) {
 				i++;
 			}
 			else if(i>0) {
+				currentName = name;
 				break;
 			}
 		}

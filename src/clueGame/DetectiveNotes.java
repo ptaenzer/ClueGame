@@ -76,7 +76,7 @@ public class DetectiveNotes extends JDialog {
 			roomNotes.put(roomBox[i], Board.getLegend().get(name));
 			panel.add(roomBox[i]);
 			for(Card card : Board.getPlayers().get(Board.getHumanName()).getSeen()) {
-				if(card.equals(nameCard) || name == 'C') {
+				if(card.equals(nameCard) || name == 'C' || name == 'W') {
 					roomBox[i].setSelected(true);
 					break;
 				}	

@@ -5,6 +5,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.util.Set;
 
 public class HumanPlayer extends Player {
 
@@ -15,6 +16,7 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public void move(int roll) {
-
+		Set<BoardCell> targets = Board.getTargets();
+		
 	}
 } 

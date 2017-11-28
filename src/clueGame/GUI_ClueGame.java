@@ -50,11 +50,25 @@ public class GUI_ClueGame extends JPanel {
 	// creates user input panel
 	JButton openNotes = new JButton("Detective Notes");
 	JButton nextPlayer = new JButton("Next Player");
+	JButton accusation = new JButton("Make an Accusation!");
+	static JTextField turn = new JTextField();
+	static JTextField roll = new JTextField();
+	static JTextField guess = new JTextField();
+	static JTextField guessR = new JTextField();
 	private JPanel createButtonPanel() {
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(1,2));
-		panel.add(openNotes);
+		panel.setLayout(new GridLayout(2,4));
+		turn.setBorder(new TitledBorder (new EtchedBorder(), "Whose turn?"));
+		roll.setBorder(new TitledBorder (new EtchedBorder(), "Die Roll"));
+		guess.setBorder(new TitledBorder (new EtchedBorder(), "Guess"));
+		guessR.setBorder(new TitledBorder (new EtchedBorder(), "Guess Response"));
+		panel.add(turn);
+		panel.add(roll);
+		panel.add(guess);
+		panel.add(guessR);
 		panel.add(nextPlayer);
+		panel.add(openNotes);
+		panel.add(accusation);
 		ButtonListener note = new ButtonListener();
 		openNotes.addActionListener(note);
 		nextPlayer.addActionListener(note);
@@ -64,8 +78,16 @@ public class GUI_ClueGame extends JPanel {
 	}
 	
 	// updates input panel
-	public static void updateButtonPanel(int roll, String currentName) {
-		
+	public static void updateButtonPanel(int r, String currentName) {
+		roll.removeAll();
+		roll.setText(Integer.toString(r));
+		turn.removeAll();
+		turn.setText(currentName);
+		guess.removeAll();
+		if(Board.getPlayers().get(currentName).getSuggestion().size() != 0) {
+			guess.setText(Board.getPlayers().get(currentName).getSuggestionString());
+		}
+		guessR.removeAll();
 	}
 
 	// create myCards panel for user character

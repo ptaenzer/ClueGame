@@ -5,6 +5,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +14,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-public class Player {
+public abstract class Player {
 
 	// member variables
 	private String playerName;
@@ -157,8 +158,15 @@ public class Player {
 		g.drawOval(rowP, columnP, width, height);
 	}
 
-	protected void move(int roll) {
-		
+	protected abstract void move(int roll);
+
+	public String getSuggestionString() {
+		String sug = suggestion.get(0).getCardName() + " with the " + suggestion.get(1).getCardName() + " in the " + suggestion.get(2).getCardName() + " room!";
+		return sug;
+	}
+
+	public ArrayList<Card> getSuggestion() {
+		return suggestion;
 	}
 	
 }
