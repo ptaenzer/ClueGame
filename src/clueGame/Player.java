@@ -158,7 +158,7 @@ public abstract class Player {
 		g.drawOval(rowP, columnP, width, height);
 	}
 
-	protected abstract void move(int roll);
+	protected abstract void move(int roll, String currentName);
 
 	public String getSuggestionString() {
 		String sug = suggestion.get(0).getCardName() + " with the " + suggestion.get(1).getCardName() + " in the " + suggestion.get(2).getCardName() + " room!";

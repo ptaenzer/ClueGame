@@ -584,7 +584,7 @@ public class Board extends JPanel{
 		int roll = rand.nextInt(6)+1;
 		GUI_ClueGame.updateButtonPanel(roll, currentName);
 		calcTargets(players.get(currentName).getRow(),players.get(currentName).getColumn(), roll);
-		players.get(currentName).move(roll);
+		players.get(currentName).move(roll, currentName);
 		// set for next turn
 		int i = 0;
 		for(String name : players.keySet()) {
@@ -599,6 +599,20 @@ public class Board extends JPanel{
 				currentName = name;
 				break;
 			}
+		}
+	}
+
+	// used for changing the human targets to cyan
+	public static void changeColorTargets() {
+		for(BoardCell cell: targets) {
+			board[cell.getRow()][cell.getColumn()].setColor(Color.CYAN);
+		}
+	}
+	
+	// changes tiles back to norm
+	public static void changeColorNorm() {
+		for(BoardCell cell: targets) {
+			board[cell.getRow()][cell.getColumn()].setInitial(cell.getInitial());
 		}
 	}
 }

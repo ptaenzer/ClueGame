@@ -15,8 +15,8 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	public void move(int roll) {
+	public void move(int roll, String currentName) {
 		Set<BoardCell> targets = Board.getTargets();
-		
+		Board.changeColorTargets();
 	}
 } 

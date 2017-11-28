@@ -132,4 +132,8 @@ public class BoardCell {
 		}
 
 	}
+
+	public void setColor(Color cyan) {
+		this.color = cyan;
+	}
 }
