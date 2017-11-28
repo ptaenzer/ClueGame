@@ -17,4 +17,4 @@ public class HumanPlayer extends Player {
 	public void move() {
 
 	}
-}
+} 
