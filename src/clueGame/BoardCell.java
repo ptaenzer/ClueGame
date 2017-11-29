@@ -7,6 +7,8 @@ package clueGame;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.geom.Line2D;
 import javax.swing.*;
 
@@ -135,5 +137,13 @@ public class BoardCell {
 
 	public void setColor(Color cyan) {
 		this.color = cyan;
+	}
+	
+	public boolean containsClick(int mouseX, int mouseY) {
+		Rectangle rect = new Rectangle(rowP, columnP, width, height);
+		if(rect.contains(new Point(mouseX, mouseY))) {
+			return true;
+		}
+		return false;
 	}
 }

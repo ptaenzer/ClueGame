@@ -12,6 +12,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 //All imports needed for data types and files
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -31,7 +33,7 @@ import com.sun.javafx.charts.Legend;
 //Import BoardCell to use in this class
 import clueGame.BoardCell;
 
-public class Board extends JPanel{
+public class Board extends JPanel implements MouseListener {
 
 
 	//all instance variables and constants that are needed for Board
@@ -54,6 +56,7 @@ public class Board extends JPanel{
 	private static Board theInstance = new Board();
 	private static String[] peopleNames;
 	private static boolean humanSug = true;
+	private static boolean humanMove = true;
 
 	private Board() {}
 
@@ -516,6 +519,7 @@ public class Board extends JPanel{
 		int height  = board.length*BoardCell.height + board.length*BoardCell.margin;
 		setPreferredSize(new Dimension(width, height));
 		setBackground(Color.BLACK);
+		addMouseListener(this);
 		return this;
 	}
 
@@ -614,5 +618,39 @@ public class Board extends JPanel{
 		for(BoardCell cell: targets) {
 			board[cell.getRow()][cell.getColumn()].setInitial(cell.getInitial());
 		}
+	}
+	
+	// mouse listeners
+	public void mouseClicked(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {}
+	public void mousePressed(MouseEvent e) {
+		BoardCell clicked = null;
+		for(BoardCell cell : targets) {
+			if(cell.containsClick(e.getX(), e.getY())) {
+				clicked = cell;
+				break;
+			}
+		}
+		if(clicked != null) {
+			Board.changeColorNorm();
+			players.get(humanName).setRow(clicked.getRow());
+			players.get(humanName).setColumn(clicked.getColumn());
+			repaint();
+			humanMove = true;
+		}
+		else {
+			GUI_ClueGame.errorClicked();
+		}
+	}
+
+	// setter and getter for making sure the player has moved before moving on
+	public static void setHumanMove(boolean b) {
+		humanMove = b;
+	}
+
+	public static boolean getHumanMove() {
+		return humanMove;
 	}
 }

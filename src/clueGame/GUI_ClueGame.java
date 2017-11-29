@@ -147,13 +147,19 @@ public class GUI_ClueGame extends JPanel {
 				DetectiveNotes note = new DetectiveNotes(new JDialog());
 			}
 			if(arg0.getSource() == nextPlayer) {
-				if(Board.getHumanSug()) {
+				if(Board.getHumanSug() && Board.getHumanMove()) {
 					Board.nextPlayer();
 					repaint();
 				}
-				else {
+				else if(!Board.getHumanSug()) {
 					JOptionPane.showMessageDialog(frame, "You must make a suggestion!", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}
+				else if(!Board.getHumanMove()) {
+					JOptionPane.showMessageDialog(frame, "You must make a move!", "ERROR", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			if(arg0.getSource() == accusation) {
+				
 			}
 		}
 	}
@@ -189,5 +195,9 @@ public class GUI_ClueGame extends JPanel {
 
 	public static void setPickTrue() {
 		picked = true;
+	}
+
+	public static void errorClicked() {
+		JOptionPane.showMessageDialog(frame, "That is not a target!", "", JOptionPane.INFORMATION_MESSAGE);
 	}
 }
