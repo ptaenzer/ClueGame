@@ -39,11 +39,43 @@ public class ComputerPlayer extends Player{
 		return location;
 	}
 
+	// Method for computer players to make an accusation
+	@Override
 	public void makeAccusation() {
-		
+		// get room
+		Card room = null;
+		ArrayList<Card> unSeenR = Board.getUnSeenDeck().get(CardType.ROOM);
+		for(Card r : unSeenR) {
+			if(!noteCard.contains(r)) {
+				room = r;
+			}
+		}
+		// get player
+		Card person = null;
+		ArrayList<Card> unSeenP = Board.getUnSeenDeck().get(CardType.PERSON);
+		for(Card p : unSeenP) {
+			if(!noteCard.contains(p)) {
+				person = p;
+			}
+		}
+		// get weapon
+		Card weapon = null;
+		ArrayList<Card> unSeenW = Board.getUnSeenDeck().get(CardType.WEAPON);
+		for(Card w : unSeenW) {
+			if(!noteCard.contains(w)) {
+				weapon = w;
+			}
+		}
+		if(Solution.testAccusation(person, weapon, room)) {
+			GUI_ClueGame.compWin(this.getPlayerName());
+		}
+		else {
+			GUI_ClueGame.compLose(this.getPlayerName());
+		}
 	}
 
 	// creates the suggestion 
+	@Override
 	public ArrayList<Card> createSuggestion(Card room) {
 		suggestion.clear();
 		// add player
@@ -72,7 +104,7 @@ public class ComputerPlayer extends Player{
 		suggestion.add(room);
 		// calls dissprove loop
 		Board.dissproveLoop(suggestion, this);
-		
+
 		return suggestion;
 	}
 
@@ -93,6 +125,7 @@ public class ComputerPlayer extends Player{
 		return justVisitedCard;
 	}
 
+	// function for the computer player to move
 	@Override
 	public void move(int roll, String currentName) {
 		Set<BoardCell> targets = Board.getTargets();

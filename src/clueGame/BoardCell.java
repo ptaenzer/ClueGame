@@ -135,10 +135,12 @@ public class BoardCell {
 
 	}
 
+	// Sets the GUI color for boardcell when it is a potential target
 	public void setColor(Color cyan) {
 		this.color = cyan;
 	}
 	
+	// returns whether boardecll was clicked or not
 	public boolean containsClick(int mouseX, int mouseY) {
 		Rectangle rect = new Rectangle(rowP, columnP, width, height);
 		if(rect.contains(new Point(mouseX, mouseY))) {

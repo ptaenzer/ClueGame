@@ -150,16 +150,6 @@ public abstract class Player {
 		this.makeAccusation = true;
 	}
 
-	// draw function called by paint component
-	public void draw(Graphics g) {
-		g.setColor(color);
-		g.fillOval(rowP, columnP, width, height);
-		g.setColor(Color.BLACK);
-		g.drawOval(rowP, columnP, width, height);
-	}
-
-	protected abstract void move(int roll, String currentName);
-
 	public String getSuggestionString() {
 		String sug = suggestion.get(0).getCardName() + " with the " + suggestion.get(1).getCardName() + " in the " + suggestion.get(2).getCardName() + " room!";
 		return sug;
@@ -168,5 +158,22 @@ public abstract class Player {
 	public ArrayList<Card> getSuggestion() {
 		return suggestion;
 	}
+
+	public void setSuggestion(ArrayList<Card> sug) {
+		this.suggestion = sug;
+	}
+	
+	// draw function called by paint component
+	public void draw(Graphics g) {
+		g.setColor(color);
+		g.fillOval(rowP, columnP, width, height);
+		g.setColor(Color.BLACK);
+		g.drawOval(rowP, columnP, width, height);
+	}
+
+	// abstract functions used in computer player and human player
+	protected abstract void move(int roll, String currentName);
+	protected abstract ArrayList<Card> createSuggestion(Card card);
+	protected abstract void makeAccusation();
 	
 }

@@ -1,5 +1,5 @@
 /*
- * Authors: Peter Taenzer and Jacob Gay
+  * Authors: Peter Taenzer and Jacob Gay
  * This is the board class. It contains all instance variables needed to make the
  * Board as well as methods to create the board and calculate adjacencies and targets.
  */
@@ -32,6 +32,7 @@ import com.sun.javafx.charts.Legend;
 
 //Import BoardCell to use in this class
 import clueGame.BoardCell;
+import javafx.scene.control.Cell;
 
 public class Board extends JPanel implements MouseListener {
 
@@ -57,6 +58,7 @@ public class Board extends JPanel implements MouseListener {
 	private static String[] peopleNames;
 	private static boolean humanSug = true;
 	private static boolean humanMove = true;
+	private static boolean humanAcc = false;
 
 	private Board() {}
 
@@ -489,7 +491,12 @@ public class Board extends JPanel implements MouseListener {
 		// finds if a player can disprove and gets disproving card
 		Card disprove = null;
 		for(String p : order) {
-			disprove = players.get(p).disproveSuggestion(sug);
+			if(players.get(p).isHuman()) {
+				disprove = GUI_ClueGame.getHumanDissprove();
+			}
+			else {
+				disprove = players.get(p).disproveSuggestion(sug);
+			}
 			if(disprove != null) {
 				break;
 			}
@@ -577,18 +584,45 @@ public class Board extends JPanel implements MouseListener {
 	public static void setHumanSug(boolean sug) {
 		humanSug = sug;
 	}
-	
+
 	// getter for the Human Player's suggestion
 	public static boolean getHumanSug() {
 		return humanSug;
 	}
 
+	// function to do the next players turn
 	public static void nextPlayer() {
+		humanAcc = false;
+		//roll
 		Random rand = new Random();
 		int roll = rand.nextInt(6)+1;
 		GUI_ClueGame.updateButtonPanel(roll, currentName);
+		// make accusation for human player
+		if(!players.get(currentName).isHuman()) {
+			if(players.get(currentName).makeAccusation) {
+				players.get(currentName).makeAccusation();
+			}
+		}
+		else {
+			humanAcc = true;
+		}
+		// move 
 		calcTargets(players.get(currentName).getRow(),players.get(currentName).getColumn(), roll);
 		players.get(currentName).move(roll, currentName);
+		// makes suggestion if in room
+		Card dissprove;
+		if(board[players.get(currentName).getRow()][players.get(currentName).getColumn()].isDoor) {
+			if(!players.get(currentName).isHuman()) {
+				String room = legend.get(board[players.get(currentName).getRow()][players.get(currentName).getColumn()].getInitial());
+				players.get(currentName).createSuggestion(new Card(room, CardType.ROOM));
+				dissprove = dissproveLoop(players.get(currentName).getSuggestion(), players.get(currentName));
+				if(dissprove != null) {
+					players.get(currentName).addSeenCard(dissprove);
+				}
+				GUI_ClueGame.updateButtonPanelSug(players.get(currentName).getSuggestion(), dissprove.getCardName());
+			}
+		}
+
 		// set for next turn
 		int i = 0;
 		for(String name : players.keySet()) {
@@ -612,14 +646,14 @@ public class Board extends JPanel implements MouseListener {
 			board[cell.getRow()][cell.getColumn()].setColor(Color.CYAN);
 		}
 	}
-	
+
 	// changes tiles back to norm
 	public static void changeColorNorm() {
 		for(BoardCell cell: targets) {
 			board[cell.getRow()][cell.getColumn()].setInitial(cell.getInitial());
 		}
 	}
-	
+
 	// mouse listeners
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
@@ -639,6 +673,10 @@ public class Board extends JPanel implements MouseListener {
 			players.get(humanName).setColumn(clicked.getColumn());
 			repaint();
 			humanMove = true;
+			if(clicked.isDoor) {
+				humanSug = false;
+			}
+			humanAcc = false;
 		}
 		else {
 			GUI_ClueGame.errorClicked();
@@ -652,5 +690,19 @@ public class Board extends JPanel implements MouseListener {
 
 	public static boolean getHumanMove() {
 		return humanMove;
+	}
+
+	// getter for the current player's name
+	public static String getCurrentName() {
+		return currentName;
+	}
+	
+	//setter and getter for making sure the human can make an accusation
+	public static void setHumanAcc(boolean b) {
+		humanAcc = b;
+	}
+
+	public static boolean getHumanAcc() {
+		return humanAcc;
 	}
 }

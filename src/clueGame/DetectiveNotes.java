@@ -11,8 +11,11 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
@@ -21,6 +24,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
@@ -51,10 +55,12 @@ public class DetectiveNotes extends JDialog {
 	}
 
 	// constructor for button panel
+	JButton makeSug = new JButton("Make Suggestion");
 	private JPanel createButtonPanel() {
 		JPanel panel = new JPanel();
+		ButtonListener button = new ButtonListener();
 		panel.setLayout(new GridLayout(1,1));
-		JButton makeSug = new JButton("Make Suggestion");
+		makeSug.addActionListener(button);
 		panel.add(makeSug);
 		return panel;
 	}
@@ -91,27 +97,27 @@ public class DetectiveNotes extends JDialog {
 	}
 
 	// constructor for guess panel
+	JComboBox people;
+	JComboBox weapons;
 	private JPanel createGuessPanel() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(1,3));
 		// adds room guess
-		String[] names = new String[Board.getLegend().keySet().size()];
-		int i = 0;
-		for(char c : Board.getLegend().keySet()) {
-			names[i] = Board.getLegend().get(c);
-			i++;
-		}
-		JComboBox rooms = new JComboBox<String>(names);
-		panel.add(rooms);
-
+		BoardCell[][] grid = Board.getBoard();
+		char room = grid[Board.getPlayers().get(Board.getHumanName()).getRow()][Board.getPlayers().get(Board.getHumanName()).getColumn()].getInitial();
+		JLabel nameLabel = new JLabel(Board.getLegend().get(room));
+		nameLabel.setBorder(new TitledBorder (new EtchedBorder(), "Room Guess"));
+		panel.add(nameLabel);
+		
 		// adds people guess
-		names = new String[Board.getPlayers().keySet().size()];
-		i = 0;
-		for(String p : Board.getPlayers().keySet()) {
-			names[i] = p;
+		String[] names = new String[Board.getPlayers().keySet().size()];
+		int i = 0;
+		for(String w : Board.getPlayers().keySet()) {
+			names[i] = w;
 			i++;
 		}
-		JComboBox people = new JComboBox<String>(names);
+		people = new JComboBox<String>(names);
+		people.setBorder(new TitledBorder (new EtchedBorder(), "Person Guess"));
 		panel.add(people);
 
 		// adds weapon guess
@@ -121,7 +127,8 @@ public class DetectiveNotes extends JDialog {
 			names[i] = w;
 			i++;
 		}
-		JComboBox weapons = new JComboBox<String>(names);
+		weapons = new JComboBox<String>(names);
+		weapons.setBorder(new TitledBorder (new EtchedBorder(), "Room Guess"));
 		panel.add(weapons);
 
 		panel.setBorder(new TitledBorder (new EtchedBorder(), "Suggestion Panel"));
@@ -190,7 +197,36 @@ public class DetectiveNotes extends JDialog {
 		return panel;
 	}
 
-	// Action Listener for panel
+	// Action Listener for making a suggestion
+	private class ButtonListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if(arg0.getSource() == makeSug) {
+				if(Board.getHumanSug()) {
+					GUI_ClueGame.errorMakeSug();
+				}
+				else {
+					ArrayList<Card> sug = new ArrayList<Card>();
+					BoardCell[][] grid = Board.getBoard();
+					char room = grid[Board.getPlayers().get(Board.getHumanName()).getRow()][Board.getPlayers().get(Board.getHumanName()).getColumn()].getInitial();
+					sug.add(new Card(Board.getLegend().get(room), CardType.ROOM));
+					sug.add(new Card(people.getSelectedItem().toString(), CardType.ROOM));
+					sug.add(new Card(weapons.getSelectedItem().toString(), CardType.ROOM));
+					Board.getPlayers().get(Board.getHumanName()).setSuggestion(sug);
+					Card card = Board.dissproveLoop(sug, Board.getPlayers().get(Board.getHumanName()));
+					if(card != null) {
+						GUI_ClueGame.updateButtonPanelSug(sug, card.getCardName());
+					}
+					else {
+						GUI_ClueGame.updateButtonPanelSug(sug, "No one could dissprove...");
+					}
+					Board.setHumanSug(true);
+				}
+			}
+		}
+	}
+
+	// Action Listener for the check box panels
 	private class CheckBoxListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {

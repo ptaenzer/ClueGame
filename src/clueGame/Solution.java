@@ -33,7 +33,7 @@ public class Solution {
 	
 	// tests accusations from players
 	public static boolean testAccusation(Card killer, Card weapon2, Card room2) {
-		if(person == killer && weapon == weapon2 && room == room2) {
+		if(person.equals(killer) && weapon.equals(weapon2) && room.equals(room2)) {
 			return true;
 		}
 		else {
